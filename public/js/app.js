@@ -40211,7 +40211,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Hello  I'm Dashboard")])])
+    return _c("div", [_c("h1", [_vm._v("Hello  I'm Dashboard 321 223 lodi")])])
   }
 ]
 render._withStripped = true
@@ -98807,8 +98807,8 @@ var opts = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\projects_laravel\laravue-template\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\projects_laravel\laravue-template\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! G:\XAMPP\htdocs\Laravue-spa-template\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! G:\XAMPP\htdocs\Laravue-spa-template\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
