@@ -37,6 +37,6 @@ class Subject extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('subject');
     }
 }

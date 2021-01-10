@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Department extends Migration
+class Questionaire extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class Department extends Migration
      */
     public function up()
     {
-        Schema::create('department', function (Blueprint $table) {
+        Schema::create('questionaire', function (Blueprint $table) {
             $table->id();
-            $table->string('deptDescription');
-            $table->string('deptAcronym');
+            $table->string('questionDescription');
+            $table->unsignedBigInteger('userTypeId');
+            $table->foreign('userTypeId')->references('id')->on('user_type');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class Department extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department');
+        Schema::dropIfExists('questionaire');
     }
 }

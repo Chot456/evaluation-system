@@ -15,23 +15,12 @@ class Evaluation extends Migration
     {
         Schema::create('evaluation', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('studId');
-            $table->foreign('studId')->references('id')->on('student');
+            $table->integer('evaluatorId');
             $table->unsignedBigInteger('profId');
             $table->foreign('profId')->references('id')->on('prof');
-            $table->unsignedBigInteger('subjectId');
-            $table->foreign('subjectId')->references('id')->on('prof');
-            $table->string('evalPassion');
-            $table->string('evalInteraction');
-            $table->string('evalOrganization');
-            $table->string('evalSpeech');
-            $table->string('evalPacing');
-            $table->string('evalDisclosure');
-            $table->string('evalRapport');
-            $table->string('evalClassMgt');
-            $table->string('evalPersonality');
-            $table->string('comment');
-            $table->string('evalDate');
+            $table->unsignedBigInteger('questionaireId');
+            $table->foreign('questionaireId')->references('id')->on('questionaire');
+            $table->integer('rating');
             $table->timestamps();
         });
     }

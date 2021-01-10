@@ -35,7 +35,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $department = department::create($request->all());
+        // $department = department::create($request->all());
+
+        $request->validate([
+            'deptDescription'=>'required',
+            'deptAcronym'=>'required'
+        ]);
+        $department = new department([
+            'deptDescription' => $request->get('deptDescription'),
+            'deptAcronym' => $request->get('deptAcronym'),
+        ]);
+        $department->save();
 
         return response()->json($department, 201);
     }
@@ -46,9 +56,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(department $department)
+    public function show($id)
     {
-        return Article::find($department);
+        return department::findOrFail($id);
     }
 
     /**
@@ -69,9 +79,15 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, department $department)
+    public function update(Request $request, $id)
     {
-       //
+        $department = department::findOrFail($id);
+        $department->deptDescription = $request->deptDescription;
+        $department->deptAcronym = $request->deptAcronym;
+
+        if($department->save()) {
+            return response()->json($department, 201);
+        }
     }
 
     /**
@@ -80,10 +96,12 @@ class DepartmentController extends Controller
      * @param  \App\Models\department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(department $department)
+    public function destroy($id)
     {
-        $department->delete();
+        $department = department::findOrFail($id);
 
-        return response()->json(null, 204);
+        if ($department->delete()) {
+            return response()->json(null, 204);
+        }
     }
 }
