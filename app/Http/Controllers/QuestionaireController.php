@@ -35,7 +35,17 @@ class QuestionaireController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'questionDescription'=>'required',
+            'userTypeId'=>'required'
+        ]);
+        $questionaire = new questionaire([
+            'questionDescription' => $request->get('questionDescription'),
+            'userTypeId' => $request->get('userTypeId'),
+        ]);
+        $questionaire->save();
+
+        return response()->json($questionaire, 201);
     }
 
     /**
@@ -67,9 +77,15 @@ class QuestionaireController extends Controller
      * @param  \App\Models\questionaire  $questionaire
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, questionaire $questionaire)
+    public function update(Request $request, $id)
     {
-        //
+        $questionaire = questionaire::findOrFail($id);
+        $questionaire->questionDescription = $request->questionDescription;
+        $questionaire->userTypeId = $request->userTypeId;
+
+        if($questionaire->save()) {
+            return response()->json($questionaire, 201);
+        }
     }
 
     /**
@@ -81,5 +97,10 @@ class QuestionaireController extends Controller
     public function destroy(questionaire $questionaire)
     {
         //
+    }
+
+    public function getQuestionaireByUserType($userTypeId) {
+
+        return questionaire::where('userTypeId', $userTypeId)->get();
     }
 }

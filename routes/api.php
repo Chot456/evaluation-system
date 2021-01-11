@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
+Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
+
+Route::apiResource('student', 'App\Http\Controllers\StudentController');
+Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');

@@ -101,7 +101,7 @@ class DepartmentController extends Controller
         $department = department::findOrFail($id);
 
         if ($department->delete()) {
-            return response()->json(null, 204);
+            return response()->json("one record has been deleted!", 204);
         }
     }
 }
