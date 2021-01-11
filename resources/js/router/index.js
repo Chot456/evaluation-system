@@ -5,6 +5,8 @@ Vue.use(VueRouter)
 
 import Dashboard from "../components/dashboard/container"
 import Contact from "../components/contact/container"
+import EvaluatorMain from "../components/Evaluator/EvaluatorMain"
+import EvaluateProf from "../components/Evaluator/EvaluateProf"
 
 const routes = [
     {
@@ -16,6 +18,14 @@ const routes = [
         component: Contact,
         name: "contact",
         path: "/contact"
+    },{
+        component: EvaluatorMain,
+        name: "EvaluatorMain",
+        path: "/EvaluatorMain"
+    },{
+        component: EvaluateProf,
+        name: "EvaluateProf",
+        path: "/EvaluateProf"
     }
 
 ];
