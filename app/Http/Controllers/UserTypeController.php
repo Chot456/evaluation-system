@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\userType;
 
 use Illuminate\Http\Request;
 
-class userType extends Controller
+class UserTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
