@@ -13,7 +13,7 @@ class student extends Model
         'studId',
         'firstName', 
         'lastName', 
-        'yearId'
+        'yearDescription'
     ];
 
     protected $table = 'student';

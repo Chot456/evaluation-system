@@ -18,8 +18,8 @@ class Student extends Migration
             $table->string('studId')->unique();
             $table->string('firstName');
             $table->string('lastName');
-            $table->unsignedBigInteger('yearId');
-            $table->foreign('yearId')->references('id')->on('year');
+            $table->string('yearDescription');
+            $table->foreign('yearDescription')->references('yearDescription')->on('year')->onDelete('cascade');
             $table->timestamps();
         });
     }

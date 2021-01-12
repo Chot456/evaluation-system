@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -43,10 +44,7 @@ class StudentController extends Controller
             'studId' => $request->get('studId'),
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
-            'courseId' => $request->get('courseId'),
-            'yearId' => $request->get('yearId'),
-            'semesterId' => $request->get('semesterId'),
-            'password' => $request->get('password'),
+            'yearDescription' => $request->get('yearDescription'),
         ]);
         $student->save();
 
@@ -61,7 +59,14 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        return student::findOrFail($id);
+        // return student::findOrFail($id);
+        
+        return DB::table('student')
+    ->select('*')
+    ->join('section', 'student.studId', '=', 'section.studId')
+    ->where('student.studId', $id)
+    ->get();
+
     }
 
     /**
@@ -93,7 +98,7 @@ class StudentController extends Controller
         $student->studId = $request->studId;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
-        $student->yearId = $request->yearId;
+        $student->yearDescription = $request->yearDescription;
     
         $student->save();
 
