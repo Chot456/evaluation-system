@@ -32,6 +32,7 @@ class SectionController extends Controller
             'section_code' => $request->get('section'),
             'subject_code' => $request->get('subject_code'),
             'studId' => $request->get('studId'),
+            'profId' => $request->get('profId'),
             'semester' => $request->get('semester'),
             'year' => $request->get('year')
         ]);
@@ -87,7 +88,7 @@ class SectionController extends Controller
         $section->section_code = $request->section_code;
         $section->subject_code = $request->subject_code;
         $section->studId = $request->studId;
-        $section->employee_id = $request->employee_id;
+        $section->profId = $request->profId;
         $section->semester = $request->semester;
         $section->year = $request->year;
 

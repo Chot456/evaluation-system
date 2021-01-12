@@ -12,7 +12,7 @@ class section extends Model
         'section_code', 
         'subject_code',
         'studId',
-        'employee_id',
+        'profId',
         'semester',
         'year',
     ];
