@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use App\Models\department;
+
+use App\Models\course;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-       // return Auth::id();
-         return department::all();
+        return course::all();
     }
 
     /**
@@ -36,39 +35,37 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        // $department = department::create($request->all());
-
         $request->validate([
-            'deptDescription'=>'required',
-            'deptAcronym'=>'required'
+            'courseDescription'=>'required',
+            'courseAcronym'=>'required'
         ]);
-        $department = new department([
-            'deptDescription' => $request->get('deptDescription'),
-            'deptAcronym' => $request->get('deptAcronym'),
+        $course = new course([
+            'courseDescription' => $request->get('courseDescription'),
+            'courseAcronym' => $request->get('courseAcronym'),
         ]);
-        $department->save();
+        $course->save();
 
-        return response()->json($department, 201);
+        return response()->json($course, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\department  $department
+     * @param  \App\Models\course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( $id)
     {
-        return department::findOrFail($id);
+        return course::findOrFail($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\department  $department
+     * @param  \App\Models\course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit(department $department)
+    public function edit(course $course)
     {
         //
     }
@@ -77,31 +74,31 @@ class DepartmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\department  $department
+     * @param  \App\Models\course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  $id)
     {
-        $department = department::findOrFail($id);
-        $department->deptDescription = $request->deptDescription;
-        $department->deptAcronym = $request->deptAcronym;
+        $course = course::findOrFail($id);
+        $course->courseDescription = $request->courseDescription;
+        $course->courseAcronym = $request->courseAcronym;
 
-        if($department->save()) {
-            return response()->json($department, 201);
+        if($course->save()) {
+            return response()->json($course, 201);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\department  $department
+     * @param  \App\Models\course  $course
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $department = department::findOrFail($id);
+        $course = course::findOrFail($id);
 
-        if ($department->delete()) {
+        if ($course->delete()) {
             return response()->json("one record has been deleted!", 204);
         }
     }

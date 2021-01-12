@@ -43,9 +43,9 @@ class StudentController extends Controller
             'studId' => $request->get('studId'),
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
-            'course' => $request->get('course'),
-            'yearLevel' => $request->get('yearLevel'),
-            'semester' => $request->get('semester'),
+            'courseId' => $request->get('courseId'),
+            'yearId' => $request->get('yearId'),
+            'semesterId' => $request->get('semesterId'),
             'password' => $request->get('password'),
         ]);
         $student->save();
@@ -93,8 +93,9 @@ class StudentController extends Controller
         $student->studId = $request->studId;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
-        $student->course = $request->course;
-        $student->yearLevel = $request->yearLevel;
+        $student->courseId = $request->course;
+        $student->yearId = $request->yearId;
+        $student->semesterId = $request->semesterId;
         $student->password = $request->password;
 
         $student->save();

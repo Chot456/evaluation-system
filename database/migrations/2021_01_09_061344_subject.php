@@ -15,19 +15,13 @@ class Subject extends Migration
     {
         Schema::create('subject', function (Blueprint $table) {
             $table->id();
-            $table->string('subjCode');
+            $table->string('subjCode')->unique();
             $table->string('subjDesc');
-            $table->string('schedTime');
-            $table->string('schedDay');
-            $table->string('semester');
-            $table->unsignedBigInteger('profId');
-            $table->foreign('profId')->references('id')->on('prof');
+            $table->unsignedBigInteger('semesterId');
+            $table->foreign('semesterId')->references('id')->on('semester');
             $table->string('unit');
-            $table->unsignedBigInteger('studId');
-            $table->foreign('studId')->references('id')->on('student');
-            $table->string('rmCod');
             $table->timestamps();
-        });   
+        });
     }
 
     /**

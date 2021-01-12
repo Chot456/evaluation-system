@@ -100075,8 +100075,8 @@ var opts = {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xammp\htdocs\evaluation-system\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xammp\htdocs\evaluation-system\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! G:\XAMPP\htdocs\Laravue-spa-template\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! G:\XAMPP\htdocs\Laravue-spa-template\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

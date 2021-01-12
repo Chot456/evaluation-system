@@ -18,6 +18,15 @@ class Semester extends Migration
             $table->string('semesterDescription');
             $table->timestamps();
         });
+
+        $now = new DateTime();
+
+        DB::table('semester')->insert([
+            'semesterDescription' => '1st semester',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
+        
     }
 
     /**

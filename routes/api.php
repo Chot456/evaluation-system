@@ -24,3 +24,20 @@ Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireContr
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');
+Route::apiResource('subject', 'App\Http\Controllers\SubjectController');
+Route::apiResource('course', 'App\Http\Controllers\CourseController');
+Route::apiResource('question-category', 'App\Http\Controllers\questionaireCategoryController');
+Route::apiResource('evaluation', 'App\Http\Controllers\EvaluationController');
+Route::apiResource('evaluation-summary', 'App\Http\Controllers\EvaluationSummaryController');
+Route::apiResource('year', 'App\Http\Controllers\YearController');
+
+Route::get('session', function() {
+    
+    // Get the currently authenticated user's ID...
+    $id = Auth::id();
+
+    // Get the currently authenticated user...
+    return Auth::user();
+
+
+});

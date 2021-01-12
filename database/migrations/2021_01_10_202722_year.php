@@ -18,6 +18,23 @@ class Year extends Migration
             $table->string('yearDescription');
             $table->timestamps();
         });
+
+        $year_desc = [
+            '1st Year',
+            '2nd Year',
+            '3rd Year',
+            '4th Year'
+        ];
+        
+        $now = new DateTime();
+
+        foreach($year_desc as $year) {
+            DB::table('year')->insert([
+                'yearDescription' => $year,
+                'created_at' => $now,
+                'updated_at' => $now
+            ]);
+        }
     }
 
     /**
