@@ -16,5 +16,6 @@ class subject extends Model
         'unit'
     ];
     protected $table = 'subject';
-    
+
+
 }

@@ -17,8 +17,10 @@ class Prof extends Migration
             $table->id();
             $table->string('profId')->unique();
             $table->string('profName');
-            $table->unsignedBigInteger('deptId');
-            $table->foreign('deptId')->references('id')->on('department');
+            $table->string('deptDescription');
+            $table->foreign('deptDescription')->references('deptDescription')->on('department');
+            $table->string('profDescription');
+            $table->foreign('profDescription')->references('profDescription')->on('prof_type');
             $table->timestamps();
         });
     }

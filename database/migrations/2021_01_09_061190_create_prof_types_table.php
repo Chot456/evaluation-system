@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Subject extends Migration
+class CreateProfTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Subject extends Migration
      */
     public function up()
     {
-        Schema::create('subject', function (Blueprint $table) {
+        Schema::create('prof_type', function (Blueprint $table) {
             $table->id();
-            $table->string('subjCode')->unique();
-            $table->string('subjDesc');
-            $table->string('courseId');
+            $table->string('profDescription')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class Subject extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject');
+        Schema::dropIfExists('prof_type');
     }
 }

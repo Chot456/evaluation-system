@@ -58,15 +58,23 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
         // return student::findOrFail($id);
-        
         return DB::table('student')
-    ->select('*')
-    ->join('section', 'student.studId', '=', 'section.studId')
-    ->where('student.studId', $id)
-    ->get();
+            ->select('*')
+            ->join('section', 'student.studId', '=', 'section.studId')
+            ->where('student.studId', $id)
+            ->get();
+    }
 
+    public function getRecordsToEvaluate($id)
+    {
+        return DB::table('section')
+            ->select('*')
+            ->join('student', 'student.studId', '=', 'section.studId')
+            ->join('prof', 'prof.profId', '=', 'prof.profId')
+            ->where('student.studId', $id)
+            ->get();
     }
 
     /**

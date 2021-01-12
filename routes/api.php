@@ -22,6 +22,8 @@ Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
 
+Route::get('getRecordsToEvaluate/{id}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');
 Route::apiResource('subject', 'App\Http\Controllers\SubjectController');

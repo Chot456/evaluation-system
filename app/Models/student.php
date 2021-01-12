@@ -18,5 +18,7 @@ class student extends Model
 
     protected $table = 'student';
 
-
+    function section() {
+        return $this->belongsTo(section::class);
+    }
 }

@@ -15,7 +15,7 @@ class Department extends Migration
     {
         Schema::create('department', function (Blueprint $table) {
             $table->id();
-            $table->string('deptDescription');
+            $table->string('deptDescription')->unique();
             $table->string('deptAcronym');
             $table->timestamps();
         });

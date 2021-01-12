@@ -17,4 +17,8 @@ class section extends Model
         'year',
     ];
     protected $table = 'section';
+
+    function student() {
+        return $this->hasMany(student::class);
+    }
 }

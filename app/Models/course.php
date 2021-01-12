@@ -15,4 +15,8 @@ class course extends Model
         'studId'
     ];
     protected $table = 'course';
+
+    function student() {
+        return $this->hasMany('App\Student')
+    }
 }

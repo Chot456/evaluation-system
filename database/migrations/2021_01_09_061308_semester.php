@@ -15,7 +15,7 @@ class Semester extends Migration
     {
         Schema::create('semester', function (Blueprint $table) {
             $table->id();
-            $table->string('semesterDescription');
+            $table->string('semesterDescription')->unique();
             $table->timestamps();
         });
 
