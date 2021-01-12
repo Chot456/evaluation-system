@@ -201,13 +201,13 @@
       initialize () {
         this.questiondata = [
           {
-            category: 'CSC312',
-            queestionval: 'Operation System',
+            category: 'Commitment',
+            queestionval: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
             dateadded: '09/09/20',
           },
                 {
-            category: 'CSC313',
-            queestionval: 'Methods of research in computing',
+            category: 'Commitment',
+            queestionval: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
             dateadded: '09/09/20',
           }
         ]

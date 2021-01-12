@@ -201,13 +201,13 @@
       initialize () {
         this.Departmentdata = [
           {
-            deptcode: 'CSC312',
-            coursename: 'Operation System',
+            deptcode: 'DIT',
+            coursename: 'Department of information Technology',
             dateadded: '09/09/20',
           },
                 {
-            deptcode: 'CSC313',
-            coursename: 'Methods of research in computing',
+            deptcode: 'MIT',
+            coursename: 'Department of language and mas communication',
             dateadded: '09/09/20',
           }
         ]

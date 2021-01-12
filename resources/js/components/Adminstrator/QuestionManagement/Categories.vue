@@ -198,13 +198,20 @@
       initialize () {
         this.categoriesdate = [
           {
-            categoryname: 'CSC312',
-            Categoriesname: 'Operation System',
+            categoryname: 'Commitment',
+
             dateadded: '09/09/20',
           },
                 {
-            categoryname: 'CSC313',
-            Categoriesname: 'Methods of research in computing',
+            categoryname: 'Knowledge of Subject',
+            dateadded: '09/09/20',
+          },
+                {
+            categoryname: 'Management Learning',
+            dateadded: '09/09/20',
+          },
+                {
+            categoryname: 'Teaching for independent Learning',
             dateadded: '09/09/20',
           }
         ]

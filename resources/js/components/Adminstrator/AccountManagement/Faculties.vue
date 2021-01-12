@@ -215,13 +215,13 @@
       initialize () {
         this.Facultiesdata = [
           {
-            instrucid: 'CSC312',
-            instrucname: 'Operation System',
+            instrucid: '11111',
+            instrucname: 'Cruz, Rod John',
             dateadded: '09/09/20',
           },
                 {
-            instrucid: 'CSC313',
-            instrucname: 'Methods of research in computing',
+            instrucid: '22222',
+            instrucname: 'Cruz, Rodrigo ',
             dateadded: '09/09/20',
           }
         ]

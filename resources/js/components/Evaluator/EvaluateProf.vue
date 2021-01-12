@@ -8,6 +8,28 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-container fluid>
+                    <v-row class="fill-height">
+            <v-col>
+              <div>Student Number: PM-12-1235</div>
+              <div>Student Name: Carl William Laguindino</div>
+              
+              <div>Course/ Year. Section: BSIT/ 4 - 404</div>
+              <div>Instructor: Limotan</div>
+              <div>Subject:</div>
+            </v-col>
+            <v-col>
+                
+            </v-col>
+          </v-row>
+          <v-divider></v-divider>
+                     <v-row class="fill-height">
+            <v-col>
+              <h4 class="font-weight-bold ">Evaluation</h4>
+              <div class="ml-5"> <span class="text-decoration-underline">Instruction:</span> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+            </v-col>
+
+          </v-row>
+          <!--
             <v-row>
               <v-col cols="4" >
                 <v-text-field
@@ -61,6 +83,7 @@
                 
               </v-col>
             </v-row>
+            -->
                 <v-data-table
       :headers="headers"
       :items="questiondata"
@@ -115,7 +138,7 @@ export default {
           sortable: false,
           value: "id",
         },
-        { text: "Question", value: "question" },
+        { text: "Question", value: "questionDescription" },
         { text: "Answer", value: "Answer" },
      
       ],
@@ -148,21 +171,25 @@ export default {
   },
 
 
+       created(){
+         this.getquestion();
+       },
 
           methods : {
       getquestion: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-        
+        debugger;
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost:8080/evaluation-system/public/api/questionaire" , config).then(data => {
+        axios.get("http://localhost:8080/evaluation-system/public/api/questionaire/userType/2" , config).then(data => {
           console.log(data.data);
           this.questiondata = data.data;
         }).catch(err => {
           alert("Error :" + err)
         });
-      }
+      },
+      
     },
 };
 </script>

@@ -5,18 +5,13 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>Student Number:</div>
-              <div>Student Name:</div>
-              <div>Number of Instructor to evaluate:</div>
-              <div>Course/ Year. Section:</div>
+              <div>Student Number: PM-123-156</div>
+              <div>Student Name: Carl William</div>
+              <div>Number of Instructor to evaluate: 5</div>
+              <div>Course/ Year. Section: BSIT/ 4 - 404</div>
             </v-col>
             <v-col>
-              <img
-                src="../../../../public/images/sansebastioncollege.png"
-                
-                height="150"
-                width="150"
-              />
+
             </v-col>
           </v-row>
           <v-divider></v-divider>
@@ -51,6 +46,7 @@
           </v-card>
         </v-container>
       </v-card>
+      
     </v-content>
   </v-app>
 </template>
@@ -64,20 +60,15 @@ export default {
     dialog: false,
     items: [
       {
-        section: "#1F7087",
-        instructortype: "semipremium.jpg",
-        instrucname: "Semi Premium Room",
+        section: "REL301",
+        instructortype: "Instructor",
+        instrucname: "Limotan, Belan",
       },
       {
-        section: "#1F7087",
-        instructortype: "semipremium.asd",
-        instrucname: "Semi Premium Room",
-      },
-      {
-        section: "#1F7087",
-        instructortype: "semipremiumasd",
-        instrucname: "Semi Premium Room",
-      },
+        section: "SSC101",
+        instructortype: "Instructor",
+        instrucname: "Cruz,",
+      }
     ],
   }),
 };
