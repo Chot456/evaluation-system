@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\questionaire;
 use App\Models\userType;
+use App\Models\questionaireCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class questionaireFactory extends Factory
@@ -23,10 +24,12 @@ class questionaireFactory extends Factory
     public function definition()
     {
         $userTypeId = userType::all()->pluck('id')->toArray();
+        $questionCatId = questionaireCategory::all()->pluck('id')->toArray();
         
         return [
             'questionDescription' => $this->faker->text(50),
-            'userTypeId' => $this->faker->randomElement($userTypeId)
+            'userTypeId' => $this->faker->randomElement($userTypeId),
+            'questionCategoryId' => $this->faker->randomElement($questionCatId)
         ];
     }
 }

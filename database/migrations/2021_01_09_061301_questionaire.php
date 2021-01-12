@@ -18,6 +18,8 @@ class Questionaire extends Migration
             $table->string('questionDescription');
             $table->unsignedBigInteger('userTypeId');
             $table->foreign('userTypeId')->references('id')->on('user_type');
+            $table->unsignedBigInteger('questionCategoryId');
+            $table->foreign('questionCategoryId')->references('id')->on('questionaire_category');
             $table->timestamps();
         });
     }

@@ -20,8 +20,8 @@ class EvaluationSummary extends Migration
             $table->date('evaluationDate');
             $table->unsignedBigInteger('userTypeId');
             $table->foreign('userTypeId')->references('id')->on('user_type');
-            $table->unsignedBigInteger('collegeId');
-            $table->foreign('collegeId')->references('id')->on('college');
+            $table->unsignedBigInteger('courseId');
+            $table->foreign('courseId')->references('id')->on('course');
             $table->timestamps();
         });
     }

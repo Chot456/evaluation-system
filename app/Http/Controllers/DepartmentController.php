@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\department;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return department::all();
+       // return Auth::id();
+         return department::all();
     }
 
     /**

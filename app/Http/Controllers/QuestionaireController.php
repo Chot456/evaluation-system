@@ -54,9 +54,9 @@ class QuestionaireController extends Controller
      * @param  \App\Models\questionaire  $questionaire
      * @return \Illuminate\Http\Response
      */
-    public function show(questionaire $questionaire)
+    public function show($id)
     {
-        //
+        return questionaire::findOrFail($id);
     }
 
     /**
