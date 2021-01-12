@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Rooms extends Migration
+class CreateActivityLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class Rooms extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('activity_log', function (Blueprint $table) {
             $table->id();
-            $table->string('roomBldg');
-            $table->string('roomCod');
-            $table->string('roomFir');
-            $table->string('roomLab');
-            $table->string('roomNam');
-            $table->string('roomNum');
+            $table->string('comments');
+            $table->unsignedBigInteger('employee_id');
+            $table->foreign('employee_id')->references('id')->on('employee');
             $table->timestamps();
-         });
+        });
     }
 
     /**
@@ -32,6 +29,6 @@ class Rooms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('activity_log');
     }
 }

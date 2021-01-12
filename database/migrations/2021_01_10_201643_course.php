@@ -17,10 +17,17 @@ class Course extends Migration
             $table->id();
             $table->string('courseDescription')->unique();
             $table->string('courseAcronym');
-            $table->string('studId');
-            $table->foreign('studId')->references('studId')->on('student')->onDelete('cascade');
             $table->timestamps();
         });
+        
+        $now = new DateTime();
+        
+        DB::table('course')->insert([
+            'courseDescription' => 'Bachelor of Computer Science',
+            'courseAcronym' => 'BSC',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
     }
 
     /**

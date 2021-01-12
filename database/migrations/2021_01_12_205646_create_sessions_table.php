@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfTypesTable extends Migration
+class CreateSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateProfTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('prof_type', function (Blueprint $table) {
+        Schema::create('session', function (Blueprint $table) {
             $table->id();
-            $table->string('profDescription')->unique();
+            $table->string('session');
+            $table->unsignedBigInteger('employee_id');
+            $table->foreign('employee_id')->references('id')->on('employee');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateProfTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prof_type');
+        Schema::dropIfExists('session');
     }
 }

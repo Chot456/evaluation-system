@@ -9,6 +9,8 @@ class evaluation extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $fillable = [
         'evaluatorId',
         'profId',
@@ -17,4 +19,12 @@ class evaluation extends Model
     ];
 
     protected $table = 'evaluation';
+
+    public function employees() {
+        return $this.hasMany(employee::class);
+    }
+
+    public function questionaires() {
+        return $this.hasMany(questionaire::class);
+    }
 }

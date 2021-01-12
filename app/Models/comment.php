@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class course extends Model
+class comment extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
     protected $fillable = [
-        'courseDescription',
-        'courseAcronym',
-        'studId'
+        'comment',
+        'employee_id',
     ];
-    protected $table = 'course';
+    protected $table = 'comment';
 
-    function student() {
-        return $this->hasMany(student::class);
+    public function Users()
+    {
+        return $this.belongsTo(employee::class);
     }
 }

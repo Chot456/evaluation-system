@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class year extends Model
+class activity_log extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    protected $fillable = ['yearDescription'];
-    protected $table = 'year';
+    protected $fillable = [
+        'comment',
+        'employee_id',
+    ];
+    protected $table = 'comment';
 }

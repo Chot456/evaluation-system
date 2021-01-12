@@ -15,10 +15,19 @@ class Department extends Migration
     {
         Schema::create('department', function (Blueprint $table) {
             $table->id();
-            $table->string('deptDescription')->unique();
+            $table->string('dept_description')->unique();
             $table->string('deptAcronym');
             $table->timestamps();
         });
+
+        $now = new DateTime();
+        
+        DB::table('department')->insert([
+            'dept_description' => 'IT Department',
+            'deptAcronym' => 'ITDEPT',
+            'created_at' => $now,
+            'updated_at' => $now
+        ]);
     }
 
     /**

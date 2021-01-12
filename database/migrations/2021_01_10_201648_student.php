@@ -20,6 +20,10 @@ class Student extends Migration
             $table->string('lastName');
             $table->string('yearDescription');
             $table->foreign('yearDescription')->references('yearDescription')->on('year')->onDelete('cascade');
+            $table->string('courseDescription');
+            $table->foreign('courseDescription')->references('courseDescription')->on('course')->onDelete('cascade');
+            $table->string('semesterDescription');
+            $table->foreign('semesterDescription')->references('semesterDescription')->on('semester')->onDelete('cascade');
             $table->timestamps();
         });
     }

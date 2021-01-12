@@ -45,6 +45,7 @@ class StudentController extends Controller
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
             'yearDescription' => $request->get('yearDescription'),
+            'courseDescription' => $request->get('courseDescription')
         ]);
         $student->save();
 
@@ -72,7 +73,7 @@ class StudentController extends Controller
         return DB::table('section')
             ->select('*')
             ->join('student', 'student.studId', '=', 'section.studId')
-            ->join('prof', 'prof.profId', '=', 'prof.profId')
+            ->join('employee', 'employee.employee_id', '=', 'employee.employee_id')
             ->where('student.studId', $id)
             ->get();
     }
@@ -107,6 +108,7 @@ class StudentController extends Controller
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->yearDescription = $request->yearDescription;
+        $student->courseDescription = $request->courseDescription;
     
         $student->save();
 
