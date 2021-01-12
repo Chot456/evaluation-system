@@ -18,13 +18,8 @@ class Student extends Migration
             $table->string('studId')->unique();
             $table->string('firstName');
             $table->string('lastName');
-            $table->unsignedBigInteger('courseId');
-            $table->foreign('courseId')->references('id')->on('course');
             $table->unsignedBigInteger('yearId');
             $table->foreign('yearId')->references('id')->on('year');
-            $table->unsignedBigInteger('semesterId');
-            $table->foreign('semesterId')->references('id')->on('semester');
-            $table->string('password');
             $table->timestamps();
         });
     }

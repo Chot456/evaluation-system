@@ -93,11 +93,8 @@ class StudentController extends Controller
         $student->studId = $request->studId;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
-        $student->courseId = $request->course;
         $student->yearId = $request->yearId;
-        $student->semesterId = $request->semesterId;
-        $student->password = $request->password;
-
+    
         $student->save();
 
         if ($student->save()) {

@@ -17,9 +17,7 @@ class Subject extends Migration
             $table->id();
             $table->string('subjCode')->unique();
             $table->string('subjDesc');
-            $table->unsignedBigInteger('semesterId');
-            $table->foreign('semesterId')->references('id')->on('semester');
-            $table->string('unit');
+            $table->string('courseId');
             $table->timestamps();
         });
     }

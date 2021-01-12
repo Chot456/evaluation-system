@@ -11,7 +11,8 @@ class course extends Model
 
     protected $fillable = [
         'courseDescription',
-        'courseAcronym'
+        'courseAcronym',
+        'studId'
     ];
     protected $table = 'course';
 }

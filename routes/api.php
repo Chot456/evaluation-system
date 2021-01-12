@@ -30,6 +30,7 @@ Route::apiResource('question-category', 'App\Http\Controllers\questionaireCatego
 Route::apiResource('evaluation', 'App\Http\Controllers\EvaluationController');
 Route::apiResource('evaluation-summary', 'App\Http\Controllers\EvaluationSummaryController');
 Route::apiResource('year', 'App\Http\Controllers\YearController');
+Route::apiResource('section', 'App\Http\Controllers\SectionController');
 
 Route::get('session', function() {
     

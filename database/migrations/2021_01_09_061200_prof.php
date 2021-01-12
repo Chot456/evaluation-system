@@ -15,6 +15,7 @@ class Prof extends Migration
     {
         Schema::create('prof', function (Blueprint $table) {
             $table->id();
+            $table->string('profId')->unique();
             $table->string('profName');
             $table->unsignedBigInteger('deptId');
             $table->foreign('deptId')->references('id')->on('department');

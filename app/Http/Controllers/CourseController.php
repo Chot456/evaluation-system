@@ -42,6 +42,7 @@ class CourseController extends Controller
         $course = new course([
             'courseDescription' => $request->get('courseDescription'),
             'courseAcronym' => $request->get('courseAcronym'),
+            'studId' => $request->get('studId'),
         ]);
         $course->save();
 
@@ -82,6 +83,7 @@ class CourseController extends Controller
         $course = course::findOrFail($id);
         $course->courseDescription = $request->courseDescription;
         $course->courseAcronym = $request->courseAcronym;
+        $course->studId = $request->studId;
 
         if($course->save()) {
             return response()->json($course, 201);

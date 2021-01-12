@@ -22,6 +22,8 @@ class EvaluationSummary extends Migration
             $table->foreign('userTypeId')->references('id')->on('user_type');
             $table->unsignedBigInteger('courseId');
             $table->foreign('courseId')->references('id')->on('course');
+            $table->string('report');
+            $table->string('publish');
             $table->timestamps();
         });
     }
