@@ -14,7 +14,7 @@ class subject extends Model
     protected $fillable = [
         'subjCode',
         'subjDesc',
-        'semesterId',
+        'courseDescription',
         'unit'
     ];
     protected $table = 'subject';
