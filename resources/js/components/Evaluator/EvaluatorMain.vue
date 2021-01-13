@@ -11,7 +11,7 @@
               <div>Course/ Year. Section: BSIT/ 4 - 404</div>
             </v-col>
             <v-col>
-
+               <img  src="../../../../storage/app/public/img/sansebastiancollege.png">
             </v-col>
           </v-row>
           <v-divider></v-divider>
@@ -52,9 +52,34 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "MainPortal",
   components: {},
+
+
+
+    created(){
+      this.getstudrecordbyid();
+    },
+
+           methods : {
+      getstudrecordbyid: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+        debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/student/PM100" , config).then(data => {
+          console.log(data.data);
+          this.questiondata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
+      
+    },
 
   data: () => ({  
     dialog: false,
