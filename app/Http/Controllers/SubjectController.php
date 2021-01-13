@@ -43,7 +43,7 @@ class SubjectController extends Controller
         $subject = new subject([
             'subjCode' => $request->get('subjCode'),
             'subjDesc' => $request->get('subjDesc'),
-            'semesterId' => $request->get('semesterId'),
+            'courseDescription' => $request->get('courseDescription'),
             'unit' => $request->get('unit')
         ]);
 
@@ -87,7 +87,7 @@ class SubjectController extends Controller
         
         $subject->subjCode = $request->subjCode;
         $subject->subjDesc = $request->subjDesc;
-        $subject->semesterId = $request->semesterId;
+        $subject->courseDescription = $request->courseDescription;
         $subject->unit = $request->unit;
 
         if($subject->save()) {

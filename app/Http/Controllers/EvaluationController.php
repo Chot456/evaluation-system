@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\evaluation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationController extends Controller
 {
@@ -14,7 +15,12 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        return evaluation::all();
+        //return evaluation::all();
+        return $result = DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
+        ->get();
     }
 
     /**
@@ -62,7 +68,13 @@ class EvaluationController extends Controller
      */
     public function show($id)
     {
-        return evaluation::findOrFail($id);
+        //return evaluation::findOrFail($id);
+        return $result = DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
+        ->where('evaluation.evaluatorId', $id)
+        ->get();
     }
 
     /**

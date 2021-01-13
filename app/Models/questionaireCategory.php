@@ -11,7 +11,7 @@ class questionaireCategory extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['categoryDescription'];
+    protected $fillable = ['questionCategoryDesc'];
     protected $table = 'questionaire_category';
 
     public function questionCategory()

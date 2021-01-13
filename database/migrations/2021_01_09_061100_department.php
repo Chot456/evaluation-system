@@ -17,17 +17,9 @@ class Department extends Migration
             $table->id();
             $table->string('dept_description')->unique();
             $table->string('deptAcronym');
+            $table->string('courseName');
             $table->timestamps();
         });
-
-        $now = new DateTime();
-        
-        DB::table('department')->insert([
-            'dept_description' => 'IT Department',
-            'deptAcronym' => 'ITDEPT',
-            'created_at' => $now,
-            'updated_at' => $now
-        ]);
     }
 
     /**

@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>Student Number: PM-123-156 {{ info }} </div>
+              <div>Student Number: PM-123-156 {{  student.data  }} </div>
               <div>Student Name: Carl William</div>
               <div>Number of Instructor to evaluate: 5</div>
               <div>Course/ Year. Section: BSIT/ 4 - 404</div>
@@ -52,12 +52,14 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "MainPortal",
   components: {},
 
   data: () => ({
-    sampleData: '',  
+    questiondata: '',
+    student: null,  
     dialog: false,
     items: [
       {
@@ -74,9 +76,15 @@ export default {
   }),
 
   mounted () {
-    axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.sampleData = response))
-  }
+        this.getStudent();
+  },
+
+   methods : {
+      	getStudent: function() {
+      	axios
+      	.get('http://localhost/Laravue-spa-template/public/api/student/PM100')
+      	.then(response => ( this.student = response.data ) )
+      	},
+    },
 };
 </script>

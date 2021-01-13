@@ -45,6 +45,7 @@ class DepartmentController extends Controller
         $department = new department([
             'dept_description' => $request->get('dept_description'),
             'deptAcronym' => $request->get('deptAcronym'),
+            'courseName' => $request->get('courseName'),
         ]);
         $department->save();
 
@@ -85,7 +86,8 @@ class DepartmentController extends Controller
         $department = department::findOrFail($id);
         $department->dept_description = $request->dept_description;
         $department->deptAcronym = $request->deptAcronym;
-
+        $department->courseName = $request->courseName;
+        
         if($department->save()) {
             return response()->json($department, 201);
         }

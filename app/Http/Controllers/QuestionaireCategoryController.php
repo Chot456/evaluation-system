@@ -36,10 +36,10 @@ class QuestionaireCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'questionCategoryDescription'=>'required',
+            'questionCategoryDesc'=>'required',
         ]);
         $questionCategory = new questionaireCategory([
-            'questionCategoryDescription' => $request->get('questionCategoryDescription'),
+            'questionCategoryDesc' => $request->get('questionCategoryDesc'),
         ]);
 
         $questionCategory->save();
@@ -79,7 +79,7 @@ class QuestionaireCategoryController extends Controller
     public function update(Request $request, questionaireCategory $questionaireCategory)
     {
         $questionCategory = questionaireCategory::findOrFail($id);
-        $questionCategory->categoryDescription = $request->categoryDescription;
+        $questionCategory->questionCategoryDesc = $request->questionCategoryDesc;
 
         if($questionCategory->save()) {
             return response()->json($questionCategory, 201);

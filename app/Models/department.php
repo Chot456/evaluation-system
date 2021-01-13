@@ -11,7 +11,7 @@ class department extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['dept_description', 'deptAcronym'];
+    protected $fillable = ['dept_description', 'deptAcronym', 'courseName'];
     protected $table = 'department';
     
 }

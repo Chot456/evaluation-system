@@ -19,6 +19,7 @@ class Subject extends Migration
             $table->string('subjDesc');
             $table->string('courseDescription');
             $table->foreign('courseDescription')->references('courseDescription')->on('course')->onDelete('cascade');
+            $table->string('unit');
             $table->timestamps();
         });
     }

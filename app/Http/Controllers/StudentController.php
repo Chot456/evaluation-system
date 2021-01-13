@@ -61,11 +61,13 @@ class StudentController extends Controller
     public function show($id)
     {   
         // return student::findOrFail($id);
-        return DB::table('student')
+        $res =  DB::table('student')
             ->select('*')
             ->join('section', 'student.studId', '=', 'section.studId')
             ->where('student.studId', $id)
             ->get();
+
+            return response()->json(['response' => 'success', 'data' => $res]);
     }
 
     public function getRecordsToEvaluate($id)
