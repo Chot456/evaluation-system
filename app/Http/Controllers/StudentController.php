@@ -60,10 +60,19 @@ class StudentController extends Controller
      */
     public function show($id)
     {   
+        // SELECT  section.studid,student.firstname, student.lastname,student.coursedescription,student.yeardescription, subject.subjDesc FROM student
+        // INNER JOIN section ON section.studid = student.studid
+        // inner join employee ON employee.id = section.employee_id
+        // inner JOIN subject ON subject.subjCode = section.subjCode 
+        // WHERE student.studid = 'S0001'
+
+
         // return student::findOrFail($id);
         $res =  DB::table('student')
-            ->select('*')
-            ->join('section', 'student.studId', '=', 'section.studId')
+            ->select('section.studid, student.firstname, student.lastname, student.coursedescription, student.yeardescription, section.subjcode')
+            ->join('section', 'section.studId', '=', 'student.studId')
+            ->join('employee', 'employee.id', '=', 'section.employee_id')
+            ->join('subject', 'subject.subjCode', '=', 'section.subjCode ')
             ->where('student.studId', $id)
             ->get();
 
