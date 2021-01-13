@@ -61,7 +61,7 @@ class SectionController extends Controller
      */
     public function show($id)
     {
-        return section::findOrFail($id);
+        return section::findOrFail($id)->employees;
     }
 
     /**

@@ -9,6 +9,8 @@ class subject extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $fillable = [
         'subjCode',
         'subjDesc',
@@ -16,5 +18,9 @@ class subject extends Model
         'unit'
     ];
     protected $table = 'subject';
-    
+
+    public function sections() {
+        return $this->belongsTo(section::class);
+    }
+
 }

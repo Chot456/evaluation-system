@@ -9,6 +9,9 @@ class department extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['deptDescription', 'deptAcronym'];
+    protected $guarded = [];
+
+    protected $fillable = ['dept_description', 'deptAcronym', 'courseName'];
     protected $table = 'department';
+    
 }

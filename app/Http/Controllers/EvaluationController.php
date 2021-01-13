@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\evaluation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationController extends Controller
 {
@@ -14,7 +15,12 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        return evaluation::all();
+        //return evaluation::all();
+        return $result = DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
+        ->get();
     }
 
     /**
@@ -37,15 +43,16 @@ class EvaluationController extends Controller
     {
         $request->validate([
             'evaluatorId'=>'required',
-            'profId'=>'required',
+            'employee_id'=>'required',
             'questionaireId'=>'required',
             'rating'=>'required'
         ]);
         $evaluation = new evaluation([
             'evaluatorId' => $request->get('evaluatorId'),
-            'profId' => $request->get('profId'),
+            'employee_id' => $request->get('employee_id'),
             'questionaireId' => $request->get('questionaireId'),
-            'rating' => $request->get('rating')
+            'rating' => $request->get('rating'),
+            'userTypeDescription' => $request->get('userTypeDescription')
         ]);
 
         $evaluation->save();
@@ -61,7 +68,13 @@ class EvaluationController extends Controller
      */
     public function show($id)
     {
-        return evaluation::findOrFail($id);
+        //return evaluation::findOrFail($id);
+        return $result = DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
+        ->where('evaluation.evaluatorId', $id)
+        ->get();
     }
 
     /**
@@ -86,9 +99,10 @@ class EvaluationController extends Controller
     {
         $evaluation = evaluation::findOrFail($id);
         $evaluation->evaluatorId = $request->evaluatorId;
-        $evaluation->profId = $request->profId;
+        $evaluation->employee_id = $request->employee_id;
         $evaluation->questionaireId = $request->questionaireId;
         $evaluation->rating = $request->rating;
+        $evaluation->userTypeDescription = $request->userTypeDescription;
 
         if($evaluation->save()) {
             return response()->json($evaluation, 201);

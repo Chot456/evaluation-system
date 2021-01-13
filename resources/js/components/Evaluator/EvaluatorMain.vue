@@ -5,10 +5,11 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>Student Number: PM-123-156</div>
-              <div>Student Name: Carl William</div>
+              <div>Student Number: {{ this.questiondata.data[0].studId}}</div>
+              <div>Student Name:  {{ this.questiondata.data[0].firstName + this.questiondata.data[0].lastName }} </div>
               <div>Number of Instructor to evaluate: 5</div>
-              <div>Course/ Year. Section: BSIT/ 4 - 404</div>
+              <div>Course/ Year. Section:  {{ this.questiondata.data[0].courseDescription}} / 
+              {{ this.questiondata.data[0].yearDescription}} {{ this.questiondata.data[0].section_code}}  </div>
             </v-col>
             <v-col>
                <img  src="../../../../storage/app/public/img/sansebastiancollege.png">
@@ -18,19 +19,19 @@
           <v-card
             outlined
             color="transparent"
-            v-for="(item, i) in items"
+            v-for="(profdata, i) in profevaluatedata"
             :key="i"
           >
             <v-row>
               <v-col>
                 <div>
-                  {{ item.section }}
+                  {{ profdata.subjCode }}
                 </div>
                 <div>
-                  {{ item.instructortype }}
+                  {{ profdata.instructortype }}
                 </div>
                 <div>
-                  {{ item.instrucname }}
+                  {{ profdata.instrucname }}
                 </div>
               </v-col>
               <v-col>
@@ -62,18 +63,33 @@ export default {
 
     created(){
       this.getstudrecordbyid();
+      this.getprofevaluate();
     },
 
            methods : {
       getstudrecordbyid: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-        debugger;
+    
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost:8080/evaluation-system/public/api/student/PM100" , config).then(data => {
+        axios.get("http://localhost:8080/evaluation-system/public/api/student/S0001" , config).then(data => {
           console.log(data.data);
           this.questiondata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
+
+            getprofevaluate: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/S0001" , config).then(data => {
+          console.log(data.data);
+          this.profevaluatedata = data.data;
         }).catch(err => {
           alert("Error :" + err)
         });
@@ -83,6 +99,9 @@ export default {
 
   data: () => ({  
     dialog: false,
+    questiondata: [],
+    
+    profevaluatedata: [],
     items: [
       {
         section: "REL301",

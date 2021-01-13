@@ -149,6 +149,8 @@
   </v-app>
 </template>
 <script>
+
+import axios from 'axios';
   export default {
     data: () => ({
       dialog: false,
@@ -184,6 +186,9 @@
       },
     },
 
+    
+
+ 
     watch: {
       dialog (val) {
         val || this.close()
@@ -198,6 +203,7 @@
     },
 
     methods: {
+      
       initialize () {
         this.coursedata = [
           {
@@ -212,6 +218,26 @@
           }
         ]
       },
+
+
+
+          addcourse(params) {
+      console.log(params);
+     
+      axios({
+        
+        method: "post",
+        url: "http://localhost:8080/evaluation-system/public/api/course",
+        data: {
+            courseAcronym: params.coursecode,
+            courseDescription: params.coursedescription,
+            created_at: Date.now()
+        },
+      });
+      this.$nextTick(() => {
+        this.getsnum();
+      });
+    },
 
       editItem (item) {
         this.editedIndex = this.coursedata.indexOf(item)
@@ -247,10 +273,13 @@
       },
 
       save () {
+       
         if (this.editedIndex > -1) {
           Object.assign(this.coursedata[this.editedIndex], this.editedItem)
+    
         } else {
           this.coursedata.push(this.editedItem)
+                 this.addcourse(this.editedItem);
         }
         this.close()
       },

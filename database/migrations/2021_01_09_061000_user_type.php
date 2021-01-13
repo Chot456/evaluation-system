@@ -15,7 +15,7 @@ class UserType extends Migration
     {
         Schema::create('user_type', function (Blueprint $table) {
             $table->id();
-            $table->string('userTypeDescription');
+            $table->string('userTypeDescription')->unique();
             $table->timestamps();
         });
 

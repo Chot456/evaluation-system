@@ -39,12 +39,13 @@ class DepartmentController extends Controller
         // $department = department::create($request->all());
 
         $request->validate([
-            'deptDescription'=>'required',
+            'dept_description'=>'required',
             'deptAcronym'=>'required'
         ]);
         $department = new department([
-            'deptDescription' => $request->get('deptDescription'),
+            'dept_description' => $request->get('dept_description'),
             'deptAcronym' => $request->get('deptAcronym'),
+            'courseName' => $request->get('courseName'),
         ]);
         $department->save();
 
@@ -83,9 +84,10 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         $department = department::findOrFail($id);
-        $department->deptDescription = $request->deptDescription;
+        $department->dept_description = $request->dept_description;
         $department->deptAcronym = $request->deptAcronym;
-
+        $department->courseName = $request->courseName;
+        
         if($department->save()) {
             return response()->json($department, 201);
         }

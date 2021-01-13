@@ -42,6 +42,7 @@ class QuestionaireController extends Controller
         $questionaire = new questionaire([
             'questionDescription' => $request->get('questionDescription'),
             'userTypeId' => $request->get('userTypeId'),
+            'questionCategoryId' => $request->get('questionCategoryId'),
         ]);
         $questionaire->save();
 
@@ -82,6 +83,7 @@ class QuestionaireController extends Controller
         $questionaire = questionaire::findOrFail($id);
         $questionaire->questionDescription = $request->questionDescription;
         $questionaire->userTypeId = $request->userTypeId;
+        $questionaire->questionCategoryId = $request->questionCategoryId;
 
         if($questionaire->save()) {
             return response()->json($questionaire, 201);

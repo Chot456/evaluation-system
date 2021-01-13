@@ -20,7 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
+Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
+
+Route::get('getRecordsToEvaluate/{id}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');
@@ -31,6 +34,8 @@ Route::apiResource('evaluation', 'App\Http\Controllers\EvaluationController');
 Route::apiResource('evaluation-summary', 'App\Http\Controllers\EvaluationSummaryController');
 Route::apiResource('year', 'App\Http\Controllers\YearController');
 Route::apiResource('section', 'App\Http\Controllers\SectionController');
+
+Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
 
 Route::get('session', function() {
     

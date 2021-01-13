@@ -9,13 +9,26 @@ class evaluationSummary extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $fillable = [
         'evaluatorId',
         'remarks',
         'evaluationDate',
         'userTypeId',
-        'collegeId',
+        'courseId',
+        'report',
+        'publish',
     ];
 
     protected $table = 'evaluation_summary';
+    //hasMany
+
+    public function userTypeId() {
+        return $this-hasMany(userTypeId::class);
+    }
+
+    public function courseId() {
+        return $this-hasMany(course::class);
+    }
 }

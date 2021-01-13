@@ -9,6 +9,18 @@ class questionaire extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['questionDescription', 'userTypeId'];
+    protected $guarded = [];
+
+    protected $fillable = ['questionDescription', 'userTypeId', 'questionCategoryId'];
     protected $table = 'questionaire';
+
+    public function userTypes()
+    {
+        return $this.hasMany(user_type::class);
+    }
+
+    public function questionaires()
+    {
+        return $this.belongsTo(questionaire::class);
+    }
 }

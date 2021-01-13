@@ -9,6 +9,14 @@ class questionaireCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['categoryDescription'];
+    protected $guarded = [];
+
+    protected $fillable = ['questionCategoryDesc'];
     protected $table = 'questionaire_category';
+
+    public function questionCategory()
+    {
+        return $this.hasMany(questionaire::class);
+    }
+    
 }
