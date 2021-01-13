@@ -233,8 +233,7 @@ export default {
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
-      axios
-        .get(
+      axios.get(
           "http://localhost/Laravue-spa-template/public/api/course",
           config
 		)
@@ -246,7 +245,12 @@ export default {
         .catch((err) => {
           alert("Error :" + err);
         });
-    },
+	},
+	
+	addCourse: function() {
+
+	}
+
   },
 };
 </script>

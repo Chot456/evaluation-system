@@ -158,9 +158,9 @@
           text: 'Subject Code',
           align: 'start',
           sortable: false,
-          value: 'subjcode',
+          value: 'subjCode',
         },
-        { text: 'Subject Name', value: 'subjname' },
+        { text: 'Subject Name', value: 'subjDesc' },
         { text: 'Date Added', value: 'dateadded' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -194,7 +194,8 @@
     },
 
     created () {
-      this.initialize()
+	  this.initialize()
+	  this.getSubject();
     },
 
     methods: {
@@ -253,7 +254,27 @@
           this.subjectdata.push(this.editedItem)
         }
         this.close()
-      },
+	  },
+	  
+	  getSubject: function () {
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+      let config = {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios.get(
+          "http://localhost/Laravue-spa-template/public/api/subject",
+          config
+		)
+	
+        .then((data) => {
+          console.log(data.data);
+          this.subjectdata = data.data;
+        })
+        .catch((err) => {
+          alert("Error :" + err);
+        });
+	},
     },
   }
 </script>
