@@ -10,12 +10,11 @@
           <v-container fluid>
                     <v-row class="fill-height">
             <v-col>
-              <div>Student Number: PM-12-1235</div>
-              <div>Student Name: Carl William Laguindino</div>
+              <div>Student Number:  {{ this.studentdetaildata.data[0].studid}}  </div>
+              <div>Student Name:   {{ this.studentdetaildata.data[0].firstname  }} {{ this.studentdetaildata.data[0].lastname  }}</div>
               
-              <div>Course/ Year. Section: BSIT/ 4 - 404</div>
               <div>Instructor: Limotan</div>
-              <div>Subject:</div>
+              <div>Subject:  {{ this.studentdetaildata.data[0].subjDesc  }}  </div>
             </v-col>
             <v-col>
                 
@@ -131,6 +130,7 @@ export default {
 
   data() {
     return {
+      props: ["studid"],
       headers: [
         {
           text: "ID",
@@ -143,6 +143,7 @@ export default {
      
       ],
       questiondata:[],
+      studentdetaildata:[],
       itemquestion: [
           {
            id: 1,
@@ -173,6 +174,7 @@ export default {
 
        created(){
          this.getquestion();
+         this.getevaluteprof();
        },
 
           methods : {
@@ -185,6 +187,21 @@ export default {
         axios.get("http://localhost:8080/evaluation-system/public/api/questionaire/userType/2" , config).then(data => {
           console.log(data.data);
           this.questiondata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
+
+ 
+           getevaluteprof: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+        debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/student/transaction/S100/MATH100" , config).then(data => {
+          console.log(data.data);
+          this.studentdetaildata = data.data;
         }).catch(err => {
           alert("Error :" + err)
         });

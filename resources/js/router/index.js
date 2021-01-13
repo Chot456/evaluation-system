@@ -45,7 +45,7 @@ const routes = [
     },{
         component: EvaluateProf,
         name: "EvaluateProf",
-        path: "/EvaluateProf"
+        path: "/EvaluateProf/:studid"
     },{
         component: Subject,
         name: "Subject",

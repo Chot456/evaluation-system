@@ -205,24 +205,27 @@ import axios from 'axios';
     },
 
     methods: {
-      initialize () {
-        this.subjectdata = [
-          {
-            subjCode: 'CSC312',
-            subjDesc: 'Operation System',
-            dateadded: '09/09/20',
-          },
-                {
-            subjCode: 'CSC313',
-            subjDesc: 'Methods of research in computing',
-            dateadded: '09/09/20',
-          }
-        ]
-      },
+
+        addSubject: function(item) {
+
+        console.log(item)
+        axios({
+        method: 'post',
+        url: 'http://localhost:8080/evaluation-system/public/api/subject', 
+        data: {
+          id: 4,
+           subjCode: item.subjCode,
+           subjDesc: item.subjDesc,
+           courseDescription: "Batchelor of Science in Information Technology",
+           unit: 3
+        }
+      })
+        },
+
 
             getsubject: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-      debugger;
+     
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
@@ -268,10 +271,13 @@ import axios from 'axios';
       },
 
       save () {
+
+     
         if (this.editedIndex > -1) {
           Object.assign(this.subjectdata[this.editedIndex], this.editedItem)
         } else {
           this.subjectdata.push(this.editedItem)
+          this.addSubject(this.editedItem);
         }
         this.close()
 	  },

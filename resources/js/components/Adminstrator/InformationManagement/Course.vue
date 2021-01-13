@@ -205,26 +205,11 @@ import axios from 'axios';
 
     methods: {
       
-      initialize () {
-        this.coursedata = [
-          {
-            coursecode: 'CSC312',
-            coursename: 'Operation System',
-            dateadded: '09/09/20',
-          },
-                {
-            coursecode: 'CSC313',
-            coursename: 'Methods of research in computing',
-            dateadded: '09/09/20',
-          }
-        ]
-      },
 
 
 
             getcourse: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-      debugger;
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
@@ -309,7 +294,7 @@ import axios from 'axios';
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
       axios.get(
-          "http://localhost/Laravue-spa-template/public/api/course",
+          "http://localhost/evaluation-system/public/api/course",
           config
 		)
 	
