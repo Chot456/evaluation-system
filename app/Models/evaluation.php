@@ -13,9 +13,10 @@ class evaluation extends Model
 
     protected $fillable = [
         'evaluatorId',
-        'profId',
+        'employee_id',
         'questionaireId',
         'rating',
+        'userTypeDescription'
     ];
 
     protected $table = 'evaluation';

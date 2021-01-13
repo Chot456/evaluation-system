@@ -11,7 +11,7 @@ class questionaire extends Model
 
     protected $guarded = [];
 
-    protected $fillable = ['questionDescription', 'userTypeId'];
+    protected $fillable = ['questionDescription', 'userTypeId', 'questionCategoryId'];
     protected $table = 'questionaire';
 
     public function userTypes()

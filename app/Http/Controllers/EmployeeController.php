@@ -90,9 +90,19 @@ class EmployeeController extends Controller
      * @param  \App\Models\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $employee = employee::findOrFail($id);
+
+        $employee->employee_id = $request->employee_id;
+        $employee->firstname = $request->firstname;
+        $employee->lastname = $request->lastname;
+        $employee->email = $request->email;
+        $employee->user_type_id = $request->user_type_id;
+
+        if($employee->save()) {
+            return response()->json($employee, 201);
+        }
     }
 
     /**

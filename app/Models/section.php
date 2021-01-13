@@ -21,25 +21,25 @@ class section extends Model
     ];
     protected $table = 'section';
 
-    function student() {
-        return $this->hasMany(student::class);
-    }
+    // public function student() {
+    //     return $this->hasMany('App\student', 'studId', 'studId');
+    // }
 
-    function subjects() {
-        return $this->hasMany(subject::class);
-    }
+    // public function subjects() {
+    //     return $this->belongsTo('App\subject', 'subjCode', 'subjCode');                         
+    // }
 
-    function employees() {
+    public function employees() {
         return $this->hasMany(employee::class);
     }
 
-    function semesters() {
-        return $this->hasMany(semester::class);
-    }
+    // public function semesters() {
+    //     return $this->hasMany(semester::class);
+    // }
 
-    function years() {
-        return $this->hasMany(year::class);
-    }
+    // public function years() {
+    //     return $this->hasMany(year::class);
+    // }
 
     
 }

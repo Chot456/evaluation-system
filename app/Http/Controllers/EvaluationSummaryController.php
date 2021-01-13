@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\evaluationSummary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationSummaryController extends Controller
 {
@@ -35,8 +36,28 @@ class EvaluationSummaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'evaluatorId'=>'required',
+            'remarks'=>'required',
+            'evaluationDate'=>'required',
+            'userTypeId'=>'required'
+        ]);
+
+        $evaluation = new evaluationSummary([
+            'evaluatorId' => $request->get('evaluatorId'),
+            'remarks' => $request->get('remarks'),
+            'evaluationDate' => $request->get('evaluationDate'),
+            'userTypeId' => $request->get('userTypeId'),
+            'courseId' => $request->get('courseId'),
+            'report' => $request->get('report'),
+            'publish' => $request->get('publish'),
+        ]);
+
+        $evaluation->save();
+
+        return response()->json($evaluation, 201);
     }
+    
 
     /**
      * Display the specified resource.
@@ -44,9 +65,24 @@ class EvaluationSummaryController extends Controller
      * @param  \App\Models\evaluationSummary  $evaluationSummary
      * @return \Illuminate\Http\Response
      */
-    public function show(evaluationSummary $evaluationSummary)
+    public function show($id)
     {
-        //
+        return $result = DB::table('evaluation')
+        ->select('*')
+        ->join('evaluation_summary', 'evaluation_summary.evaluatorId', '=', 'evaluation.evaluatorId')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->where('evaluation_summary.evaluatorId', $id)
+        ->get();
+        $userTypeId = evaluationSummary::findOrFail($id);
+        if($userTypeId === 1) {
+            // student
+        } else if ($userTypeId === 2) {
+            // teacher
+        } else if ($userTypeId === 3) {
+            // dean
+        } else {
+            // admin
+        }
     }
 
     /**

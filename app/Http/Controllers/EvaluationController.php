@@ -37,15 +37,16 @@ class EvaluationController extends Controller
     {
         $request->validate([
             'evaluatorId'=>'required',
-            'profId'=>'required',
+            'employee_id'=>'required',
             'questionaireId'=>'required',
             'rating'=>'required'
         ]);
         $evaluation = new evaluation([
             'evaluatorId' => $request->get('evaluatorId'),
-            'profId' => $request->get('profId'),
+            'employee_id' => $request->get('employee_id'),
             'questionaireId' => $request->get('questionaireId'),
-            'rating' => $request->get('rating')
+            'rating' => $request->get('rating'),
+            'userTypeDescription' => $request->get('userTypeDescription')
         ]);
 
         $evaluation->save();
@@ -86,9 +87,10 @@ class EvaluationController extends Controller
     {
         $evaluation = evaluation::findOrFail($id);
         $evaluation->evaluatorId = $request->evaluatorId;
-        $evaluation->profId = $request->profId;
+        $evaluation->employee_id = $request->employee_id;
         $evaluation->questionaireId = $request->questionaireId;
         $evaluation->rating = $request->rating;
+        $evaluation->userTypeDescription = $request->userTypeDescription;
 
         if($evaluation->save()) {
             return response()->json($evaluation, 201);

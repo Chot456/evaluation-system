@@ -16,7 +16,9 @@ class evaluationSummary extends Model
         'remarks',
         'evaluationDate',
         'userTypeId',
-        'collegeId',
+        'courseId',
+        'report',
+        'publish',
     ];
 
     protected $table = 'evaluation_summary';
