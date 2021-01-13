@@ -16,14 +16,10 @@ class EvaluationSummary extends Migration
         Schema::create('evaluation_summary', function (Blueprint $table) {
             $table->id();
             $table->integer('evaluatorId');
-            $table->string('remarks');
-            $table->date('evaluationDate');
             $table->unsignedBigInteger('userTypeId');
             $table->foreign('userTypeId')->references('id')->on('user_type');
             $table->unsignedBigInteger('courseId');
             $table->foreign('courseId')->references('id')->on('course');
-            $table->string('report');
-            $table->string('publish');
             $table->timestamps();
         });
     }

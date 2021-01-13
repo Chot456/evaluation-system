@@ -58,36 +58,65 @@ class StudentController extends Controller
      * @param  \App\Models\student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $subjCode)
     {   
+        // SELECT  section.studid,student.firstname, student.lastname,student.coursedescription,student.yeardescription, subject.subjDesc FROM student
+        // INNER JOIN section ON section.studid = student.studid
+        // inner join employee ON employee.id = section.employee_id
+        // inner JOIN subject ON subject.subjCode = section.subjCode 
+        // WHERE student.studid = 'S0001'
+
+        // SELECT  section.studid,student.firstname, student.lastname,student.coursedescription,student.yeardescription, subject.subjDesc FROM student
+        // INNER JOIN section ON section.studid = student.studid
+        // inner join employee ON employee.id = section.employee_id
+        // inner JOIN subject ON subject.subjCode = section.subjCode 
+        // WHERE student.studid = 'S0001' AND section.subjCode = '712'
+
+
         // return student::findOrFail($id);
-        $res =  DB::table('student')
-            ->select('*')
-            ->join('section', 'student.studId', '=', 'section.studId')
+        $res = DB::table('student')
+            ->select('section.studid, student.firstname, student.lastname, student.coursedescription, student.yeardescription, section.subjcode')
+            ->join('section', 'section.studId', '=', 'student.studId')
+            ->join('employee', 'employee.id', '=', 'section.employee_id')
+            ->join('subject', 'subject.subjCode', '=', 'section.subjCode ')
             ->where('student.studId', $id)
             ->get();
 
             return response()->json(['response' => 'success', 'data' => $res]);
     }
 
-    public function getRecordsToEvaluate()
+    public function studentTransaction($id, $subjCode) {
+        $res = DB::table('student')
+            ->select('section.studid, student.firstname, student.lastname, student.coursedescription, student.yeardescription, section.subjcode')
+            ->join('section', 'section.studId', '=', 'student.studId')
+            ->join('employee', 'employee.id', '=', 'section.employee_id')
+            ->join('subject', 'subject.subjCode', '=', 'section.subjCode ')
+            ->where('student.studId', $id)->and('section.subjCode', $subjCode)
+            ->get();
+
+            return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    public function getRecordsToEvaluate($id)
     {
         // SELECT section_code, CONCAT_WS(" ", firstname, lastname) as NAME, userTypeDescription  FROM section
 		// inner join employee ON employee.id = section.employee_id
         // left JOIN user_type ON user_type.id = employee.id
+
+        // SELECT section_code, CONCAT_WS(" ", firstname, lastname) as NAME, userTypeDescription  FROM section
+		// inner join employee ON employee.id = section.employee_id
+		// left JOIN user_type ON user_type.id = employee.id
+		// LEFT JOIN evaluation ON evaluation.employee_id = section.employee_id
+		// WHERE section.studid = 'S0001' AND evaluation.publsh = 'yes'
         
         return DB::table('section')
-            ->select('*')
-            ->join('employee', 'employee.id', '=', 'section.employee_id')
-            ->leftJoin('user_type', 'user_type.id', '=', 'employee.id')
-            ->get();
-
-            // return DB::table('section')
-            // ->select('*')
-            // ->join('student', 'student.studId', '=', 'section.studId')
-            // ->join('employee', 'employee.employee_id', '=', 'employee.employee_id')
-            // ->where('student.studId', $id)
-            // ->get();
+        ->select('section.section_code', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->leftjoin('employee', 'employee.id', '=', 'section.employee_id')
+        ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
+        ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
+        ->where('section.studId', $id)
+        ->where('evaluation.publish', '!=', 'yes')
+        ->get();
     }
 
     /**

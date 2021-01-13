@@ -23,7 +23,9 @@ Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController'
 Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
 
-Route::get('getRecordsToEvaluate', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+Route::get('getRecordsToEvaluate/{student_number}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+
+Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');
