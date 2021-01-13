@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.deptcode"
+                      v-model="editedItem.deptAcronym"
                       label="Department Code"
                     ></v-text-field>
                   </v-col>
@@ -63,7 +63,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.coursename"
+                      v-model="editedItem.courseName"
                       label="Course Name"
                     ></v-text-field>
                   </v-col>
@@ -73,7 +73,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.dateadded"
+                      v-model="editedItem.created_at"
                       label="Date Added"
                     ></v-text-field>
                   </v-col>
@@ -158,23 +158,23 @@
           text: 'Department Code',
           align: 'start',
           sortable: false,
-          value: 'deptcode',
+          value: 'deptAcronym',
         },
-        { text: 'Course Name', value: 'coursename' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Course Name', value: 'courseName' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       Departmentdata: [],
       editedIndex: -1,
       editedItem: {
-        deptcode: '',
-        coursename: '',
-        dateadded: '',
+        deptAcronym: '',
+        courseName: '',
+        created_at: '',
       },
       defaultItem: {
-        deptcode: '',
-        coursename: '',
-        dateadded: '',
+        deptAcronym: '',
+        courseName: '',
+        created_at: '',
       },
     }),
 
@@ -194,24 +194,25 @@
     },
 
     created () {
-      this.initialize()
+      this.getDepartment()
     },
 
     methods: {
-      initialize () {
-        this.Departmentdata = [
-          {
-            deptcode: 'DIT',
-            coursename: 'Department of information Technology',
-            dateadded: '09/09/20',
-          },
-                {
-            deptcode: 'MIT',
-            coursename: 'Department of language and mas communication',
-            dateadded: '09/09/20',
-          }
-        ]
+
+                       getDepartment: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+    
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/department" , config).then(data => {
+          console.log(data.data);
+          this.Departmentdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
+
 
       editItem (item) {
         this.editedIndex = this.Departmentdata.indexOf(item)

@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subjcode"
+                      v-model="editedItem.subjCode"
                       label="Subject Code"
                     ></v-text-field>
                   </v-col>
@@ -63,7 +63,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.subjname"
+                      v-model="editedItem.subjDesc"
                       label="Subject Code"
                     ></v-text-field>
                   </v-col>
@@ -148,7 +148,10 @@
     </v-content>
   </v-app>
 </template>
+
 <script>
+
+import axios from 'axios';
   export default {
     data: () => ({
       dialog: false,
@@ -158,22 +161,22 @@
           text: 'Subject Code',
           align: 'start',
           sortable: false,
-          value: 'subjcode',
+          value: 'subjCode',
         },
-        { text: 'Subject Name', value: 'subjname' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Subject Name', value: 'subjDesc' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       subjectdata: [],
       editedIndex: -1,
       editedItem: {
-        subjcode: '',
-        subjname: '',
+        subjCode: '',
+        subjDesc: '',
         dateadded: '',
       },
       defaultItem: {
-        subjcode: '',
-        subjname: '',
+        subjCode: '',
+        subjDesc: '',
         dateadded: '',
       },
     }),
@@ -195,22 +198,37 @@
 
     created () {
       this.initialize()
+      this.getsubject()
     },
 
     methods: {
       initialize () {
         this.subjectdata = [
           {
-            subjcode: 'CSC312',
-            subjname: 'Operation System',
+            subjCode: 'CSC312',
+            subjDesc: 'Operation System',
             dateadded: '09/09/20',
           },
                 {
-            subjcode: 'CSC313',
-            subjname: 'Methods of research in computing',
+            subjCode: 'CSC313',
+            subjDesc: 'Methods of research in computing',
             dateadded: '09/09/20',
           }
         ]
+      },
+
+            getsubject: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/subject" , config).then(data => {
+          console.log(data.data);
+          this.subjectdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
 
       editItem (item) {

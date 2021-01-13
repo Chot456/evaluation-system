@@ -200,6 +200,7 @@ import axios from 'axios';
 
     created () {
       this.initialize()
+      this.getcourse()
     },
 
     methods: {
@@ -220,6 +221,20 @@ import axios from 'axios';
       },
 
 
+
+            getcourse: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/course" , config).then(data => {
+          console.log(data.data);
+          this.subjectdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
 
           addcourse(params) {
       console.log(params);

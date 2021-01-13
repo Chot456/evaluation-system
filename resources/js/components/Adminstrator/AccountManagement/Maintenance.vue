@@ -229,6 +229,8 @@
         ]
       },
 
+      
+
       editItem (item) {
         this.editedIndex = this.maitenancedata.indexOf(item)
         this.editedItem = Object.assign({}, item)

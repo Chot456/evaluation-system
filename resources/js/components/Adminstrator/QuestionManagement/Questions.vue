@@ -53,8 +53,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.category"
-                      label="Category"
+                      v-model="editedItem.questionCategoryId"
+                      label="questionCategoryId"
                     ></v-text-field>
                   </v-col>
                           <v-col
@@ -63,7 +63,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.queestionval"
+                      v-model="editedItem.questionDescription"
                       label="Queston"
                     ></v-text-field>
                   </v-col>
@@ -73,7 +73,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.dateadded"
+                      v-model="editedItem.created_at"
                       label="Date Added"
                     ></v-text-field>
                   </v-col>
@@ -158,23 +158,23 @@
           text: 'Category',
           align: 'start',
           sortable: false,
-          value: 'category',
+          value: 'questionCategoryId',
         },
-        { text: 'Queston', value: 'queestionval' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Queston', value: 'questionDescription' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       questiondata: [],
       editedIndex: -1,
       editedItem: {
-        category: '',
-        queestionval: '',
-        dateadded: '',
+        questionCategoryId: '',
+        questionDescription: '',
+        created_at: '',
       },
       defaultItem: {
-        category: '',
-        queestionval: '',
-        dateadded: '',
+        questionCategoryId: '',
+        questionDescription: '',
+        created_at: '',
       },
     }),
 
@@ -194,23 +194,37 @@
     },
 
     created () {
-      this.initialize()
+      this.getQuestion()
     },
 
     methods: {
-      initialize () {
-        this.questiondata = [
-          {
-            category: 'Commitment',
-            queestionval: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
-            dateadded: '09/09/20',
-          },
-                {
-            category: 'Commitment',
-            queestionval: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
-            dateadded: '09/09/20',
-          }
-        ]
+      // initialize () {
+      //   this.questiondata = [
+      //     {
+      //       questionCategoryId: 'Commitment',
+      //       questionDescription: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
+      //       created_at: '09/09/20',
+      //     },
+      //           {
+      //       questionCategoryId: 'Commitment',
+      //       questionDescription: 'orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, ',
+      //       created_at: '09/09/20',
+      //     }
+      //   ]
+      // },
+
+                        getQuestion: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/questionaire" , config).then(data => {
+          console.log(data.data);
+          this.questiondata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
 
       editItem (item) {

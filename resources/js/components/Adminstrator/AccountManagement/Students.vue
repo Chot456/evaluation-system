@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.studnum"
+                      v-model="editedItem.studId"
                       label="Student Number"
                     ></v-text-field>
                   </v-col>
@@ -169,16 +169,16 @@
           text: 'Student Number',
           align: 'start',
           sortable: false,
-          value: 'studnum',
+          value: 'studId',
         },
-        { text: 'Student Name', value: 'studname' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Student Name', value: 'firstName' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       studentsdata: [],
       editedIndex: -1,
       editedItem: {
-        studnum: '',
+        studId: '',
         studname: '',
         lastname: '',
         firstname: '',
@@ -186,7 +186,7 @@
         dateadded:   Date().toLocaleString(),
       },
       defaultItem: {
-        studnum: '',
+        studId: '',
         studname: '',
         dateadded: '',
       },
@@ -208,24 +208,26 @@
     },
 
     created () {
-      this.initialize()
+      this.getStudent()
     },
 
     methods: {
-      initialize () {
-        this.studentsdata = [
-          {
-            studnum: 'CSC312',
-            studname: 'Operation System',
-            dateadded: '09/09/20',
-          },
-                {
-            studnum: 'CSC313',
-            studname: 'Methods of research in computing',
-            dateadded: '09/09/20',
-          }
-        ]
+
+                             getStudent: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+    
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/student" , config).then(data => {
+          console.log(data.data);
+          this.studentsdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
+
+
 
       editItem (item) {
         this.editedIndex = this.studentsdata.indexOf(item)
