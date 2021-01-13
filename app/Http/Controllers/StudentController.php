@@ -90,7 +90,7 @@ class StudentController extends Controller
         //Evaluator main transaction
         $res = DB::table('section')
         ->select('section.section_code', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
-        ->leftjoin('employee', 'employee.id', '=', 'section.employee_id')
+        ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
         ->where('section.studId', $id)
