@@ -23,7 +23,7 @@ Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController'
 Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
 
-Route::get('getRecordsToEvaluate/{id}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+Route::get('getRecordsToEvaluate', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');

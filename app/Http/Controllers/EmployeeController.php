@@ -115,4 +115,8 @@ class EmployeeController extends Controller
     {
         //
     }
+
+    public function filterByUserTypeId($userTypeId) {
+        return employee::all()->where('usertype_id', 'userTypeId');
+    }
 }

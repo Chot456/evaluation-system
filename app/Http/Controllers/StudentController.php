@@ -70,14 +70,24 @@ class StudentController extends Controller
             return response()->json(['response' => 'success', 'data' => $res]);
     }
 
-    public function getRecordsToEvaluate($id)
+    public function getRecordsToEvaluate()
     {
+        // SELECT section_code, CONCAT_WS(" ", firstname, lastname) as NAME, userTypeDescription  FROM section
+		// inner join employee ON employee.id = section.employee_id
+        // left JOIN user_type ON user_type.id = employee.id
+        
         return DB::table('section')
             ->select('*')
-            ->join('student', 'student.studId', '=', 'section.studId')
-            ->join('employee', 'employee.employee_id', '=', 'employee.employee_id')
-            ->where('student.studId', $id)
+            ->join('employee', 'employee.id', '=', 'section.employee_id')
+            ->leftJoin('user_type', 'user_type.id', '=', 'employee.id')
             ->get();
+
+            // return DB::table('section')
+            // ->select('*')
+            // ->join('student', 'student.studId', '=', 'section.studId')
+            // ->join('employee', 'employee.employee_id', '=', 'employee.employee_id')
+            // ->where('student.studId', $id)
+            // ->get();
     }
 
     /**
