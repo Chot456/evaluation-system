@@ -16,7 +16,7 @@
               <transition name="fade">
             <v-data-table
     :headers="headers"
-    :items="categoriesdate"
+    :items="categoriesdata"
     sort-by="calories"
     class="elevation-1"
   >
@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.categoryname"
+                      v-model="editedItem.questionCategoryDesc"
                       label="Category Name"
                     ></v-text-field>
                   </v-col>
@@ -73,7 +73,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.dateadded"
+                      v-model="editedItem.created_at"
                       label="Date Added"
                     ></v-text-field>
                   </v-col>
@@ -149,6 +149,8 @@
   </v-app>
 </template>
 <script>
+
+import axios from 'axios';
   export default {
     data: () => ({
       dialog: false,
@@ -158,20 +160,20 @@
           text: 'Category Name',
           align: 'start',
           sortable: false,
-          value: 'categoryname',
+          value: 'questionCategoryDesc',
         },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      categoriesdate: [],
+      categoriesdata: [],
       editedIndex: -1,
       editedItem: {
-        categoryname: '',
-        dateadded: '',
+        questionCategoryDesc: '',
+        created_at: '',
       },
       defaultItem: {
-        categoryname: '',
-        dateadded: '',
+        questionCategoryDesc: '',
+        created_at: '',
       },
     }),
 
@@ -191,30 +193,25 @@
     },
 
     created () {
-      this.initialize()
+    
+      this.getCategories()
     },
 
     methods: {
-      initialize () {
-        this.categoriesdate = [
-          {
-            categoryname: 'Commitment',
 
-            dateadded: '09/09/20',
-          },
-                {
-            categoryname: 'Knowledge of Subject',
-            dateadded: '09/09/20',
-          },
-                {
-            categoryname: 'Management Learning',
-            dateadded: '09/09/20',
-          },
-                {
-            categoryname: 'Teaching for independent Learning',
-            dateadded: '09/09/20',
-          }
-        ]
+
+                  getCategories: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/question-category" , config).then(data => {
+          console.log(data.data);
+          this.categoriesdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
 
       editItem (item) {

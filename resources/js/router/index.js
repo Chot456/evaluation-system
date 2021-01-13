@@ -14,6 +14,7 @@ import Questions from "../components/Adminstrator/QuestionManagement/Questions"
 import Department from "../components/Adminstrator/AccountManagement/Department"
 import Faculties from "../components/Adminstrator/AccountManagement/Faculties"
 import Students from "../components/Adminstrator/AccountManagement/Students"
+import ManageSessions from "../components/Adminstrator/Session/ManageSessions"
 import Maintenance from "../components/Adminstrator/AccountManagement/Maintenance"
 import Evaluation from "../components/Adminstrator/Report/Evaluation"
 import ActivityLogs from "../components/Adminstrator/Report/ActivityLogs"
@@ -44,7 +45,7 @@ const routes = [
     },{
         component: EvaluateProf,
         name: "EvaluateProf",
-        path: "/EvaluateProf"
+        path: "/EvaluateProf/:studid"
     },{
         component: Subject,
         name: "Subject",
@@ -112,6 +113,10 @@ const routes = [
         component: ViewReport,
         name: "ViewReport",
         path: "/ViewReport"
+    },{
+        component: ManageSessions,
+        name: "ManageSessions",
+        path: "/ManageSessions"
     }
 
 

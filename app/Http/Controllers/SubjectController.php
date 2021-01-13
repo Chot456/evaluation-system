@@ -35,6 +35,7 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+     //   dd(request()->all());
         $request->validate([
             'subjCode'=>'required',
             'subjDesc'=>'required'
@@ -48,7 +49,7 @@ class SubjectController extends Controller
         ]);
 
         $subject->save();
-
+        dd($subject);
         return response()->json($subject, 201);
     }
 
