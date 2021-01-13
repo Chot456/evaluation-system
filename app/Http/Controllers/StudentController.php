@@ -59,9 +59,9 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {     
         $res = DB::table('student')
-            ->select('section.studid')
+            ->select('section.studid', 'student.firstname', 'student.lastname', 'student.coursedescription', 'student.yeardescription', 'section.subjcode')
             ->join('section', 'section.studId', '=', 'student.studId')
             ->join('employee', 'employee.id', '=', 'section.employee_id')
             ->join('subject', 'subject.subjCode', '=', 'section.subjCode')

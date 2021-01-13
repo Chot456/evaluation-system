@@ -16,7 +16,30 @@ class evaluation extends Model
         'employee_id',
         'questionaireId',
         'rating',
-        'userTypeDescription'
+        'remarks',
+        'evaluationDate',
+        'report',
+        'publish',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+        'a1',
+
     ];
 
     protected $table = 'evaluation';
