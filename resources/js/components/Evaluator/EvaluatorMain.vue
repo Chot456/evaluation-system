@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>Student Number: PM-123-156</div>
+              <div>Student Number: PM-123-156 {{ info }} </div>
               <div>Student Name: Carl William</div>
               <div>Number of Instructor to evaluate: 5</div>
               <div>Course/ Year. Section: BSIT/ 4 - 404</div>
@@ -56,7 +56,8 @@ export default {
   name: "MainPortal",
   components: {},
 
-  data: () => ({  
+  data: () => ({
+    sampleData: '',  
     dialog: false,
     items: [
       {
@@ -71,5 +72,11 @@ export default {
       }
     ],
   }),
+
+  mounted () {
+    axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.sampleData = response))
+  }
 };
 </script>
