@@ -254,6 +254,7 @@ import axios from 'axios';
       });
     },
 
+
       editItem (item) {
         this.editedIndex = this.coursedata.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -298,6 +299,32 @@ import axios from 'axios';
         }
         this.close()
       },
-    },
-  }
+
+
+
+    getCourse: function () {
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+      let config = {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios.get(
+          "http://localhost/Laravue-spa-template/public/api/course",
+          config
+		)
+	
+        .then((data) => {
+          console.log(data.data);
+          this.coursedata = data.data;
+        })
+        .catch((err) => {
+          alert("Error :" + err);
+        });
+	},
+	
+
+
+  },
+};
+
 </script>

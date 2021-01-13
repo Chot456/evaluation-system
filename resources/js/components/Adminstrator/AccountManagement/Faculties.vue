@@ -212,19 +212,20 @@
     },
 
     methods: {
-      initialize () {
-        this.Facultiesdata = [
-          {
-            instrucid: '11111',
-            instrucname: 'Cruz, Rod John',
-            dateadded: '09/09/20',
-          },
-                {
-            instrucid: '22222',
-            instrucname: 'Cruz, Rodrigo ',
-            dateadded: '09/09/20',
-          }
-        ]
+
+
+                           getDepartment: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+    
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/department" , config).then(data => {
+          console.log(data.data);
+          this.Facultiesdata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
       },
 
       editItem (item) {
