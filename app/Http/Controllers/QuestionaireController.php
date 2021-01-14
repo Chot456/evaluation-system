@@ -96,9 +96,13 @@ class QuestionaireController extends Controller
      * @param  \App\Models\questionaire  $questionaire
      * @return \Illuminate\Http\Response
      */
-    public function destroy(questionaire $questionaire)
+    public function destroy($id)
     {
-        //
+        $aData = department::findOrFail($id);
+
+        if ($aData->delete()) {
+            return response()->json("one record has been deleted!", 204);
+        }
     }
 
     public function getQuestionaireByUserType($userTypeId) {

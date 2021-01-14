@@ -19,7 +19,6 @@ class EvaluationController extends Controller
         return $result = DB::table('evaluation')
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
-        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
         ->get();
     }
 
@@ -44,16 +43,15 @@ class EvaluationController extends Controller
         $request->validate([
             'evaluatorId'=>'required',
             'employee_id'=>'required',
-            'questionaireId'=>'required',
         ]);
 
         
         $evaluation = new evaluation([
             'evaluatorId' => $request->get('evaluatorId'),
             'employee_id' => $request->get('employee_id'),
-            'questionaireId' => $request->get('questionaireId'),
             'rating' => $request->get('rating'),
             'evaluationDate' => $request->get('evaluationDate'),
+            'userTypeDescription' => $request->get('userTypeDescription'),
             'remarks' => $request->get('remarks'),
             'publish' => $request->get('publish'),
             'report' => $request->get('report'),
@@ -92,12 +90,11 @@ class EvaluationController extends Controller
      */
     public function show($id)
     {
-        //return evaluation::findOrFail($id);
+        // return evaluation::findOrFail($id);
         return $result = DB::table('evaluation')
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
-        ->join('questionaire', 'questionaire.id', '=', 'evaluation.questionaireId')
-        ->where('evaluation.evaluatorId', $id)
+        ->where('evaluation.id', $id)
         ->get();
     }
 
@@ -121,16 +118,7 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $evaluation = evaluation::findOrFail($id);
-        $evaluation->evaluatorId = $request->evaluatorId;
-        $evaluation->employee_id = $request->employee_id;
-        $evaluation->questionaireId = $request->questionaireId;
-        $evaluation->rating = $request->rating;
-        $evaluation->userTypeDescription = $request->userTypeDescription;
-
-        if($evaluation->save()) {
-            return response()->json($evaluation, 201);
-        }
+        
     }
 
     /**

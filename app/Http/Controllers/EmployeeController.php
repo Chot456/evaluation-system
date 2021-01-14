@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -39,13 +40,12 @@ class EmployeeController extends Controller
             'employee_id'=>'required',
             'firstname'=>'required',
             'lastname'=>'required',
-            'email'=>'required'
         ]);
+        
         $employee = new employee([
             'employee_id' => $request->get('employee_id'),
             'firstname' => $request->get('firstname'),
             'lastname' => $request->get('lastname'),
-            'email' => $request->get('email'),
             'user_type_id' => $request->get('user_type_id'),
         ]);
 
@@ -97,7 +97,6 @@ class EmployeeController extends Controller
         $employee->employee_id = $request->employee_id;
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;
-        $employee->email = $request->email;
         $employee->user_type_id = $request->user_type_id;
 
         if($employee->save()) {
@@ -116,7 +115,47 @@ class EmployeeController extends Controller
         //
     }
 
-    public function filterByUserTypeId($userTypeId) {
+    public function filterByIdAndUserTypeId($userTypeId) 
+    {
         return employee::all()->where('usertype_id', 'userTypeId');
+    }
+
+    /**
+     * 
+     */
+    public function getEmployeeByIdUserType($id, $user_type_id) 
+    {
+        $res = DB::table('employee')
+        ->select('*')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->where('employee.user_type_id', $id)
+        ->where('employee.user_type_id', $user_type_id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    /**
+     * 
+     */
+    public function getEmployeeByUserType() 
+    {
+        $res = DB::table('employee')
+        ->select('*')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->where('employee.user_type_id', $user_type_id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    public function getEmployeeByEmpNumber($employee_number)
+    {
+        $res = DB::table('employee')
+        ->select('*')
+        ->where('employee_id', $employee_number)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
     }
 }

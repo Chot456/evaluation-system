@@ -12,7 +12,7 @@
               {{ this.questiondata.data[0].yeardescription}}  </div>
             </v-col>
             <v-col>
-               <img  src="../../../../storage/app/public/img/sansebastiancollege.png">
+               <!-- <img  src="../../../../storage/app/public/img/sansebastiancollege.png"> -->
             </v-col>
           </v-row>
           <v-divider></v-divider>
