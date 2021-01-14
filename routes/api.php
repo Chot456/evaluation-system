@@ -36,6 +36,7 @@ Route::apiResource('evaluation', 'App\Http\Controllers\EvaluationController');
 Route::apiResource('evaluation-summary', 'App\Http\Controllers\EvaluationSummaryController');
 Route::apiResource('year', 'App\Http\Controllers\YearController');
 Route::apiResource('section', 'App\Http\Controllers\SectionController');
+Route::apiResource('faculty', 'App\Http\Controllers\FacultyController');
 
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
 

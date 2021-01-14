@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FacultyController extends Controller
 {
@@ -14,7 +15,17 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
+        // SELECT * FROM faculty
+        // INNER JOIN employee
+        // ON faculty.employee_id = employee.id
+        // INNER JOIN user_type
+        // ON employee.user_type_id = user_type.id
+
+        return DB::table('faculty')
+        ->select('*')
+        ->join('employee', 'faculty.employee_id', '=', 'employee.id')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->get();
     }
 
     /**
@@ -35,7 +46,19 @@ class FacultyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'faculty_name'=>'required',
+            'employee_id'=>'required',
+        ]);
+
+        $aRes = new faculty([
+            'faculty_name' => $request->get('faculty_name'),
+            'employee_id' => $request->get('employee_id'),
+        ]);
+
+        $aRes->save();
+
+        return response()->json($aRes, 201);
     }
 
     /**
@@ -44,9 +67,14 @@ class FacultyController extends Controller
      * @param  \App\Models\faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function show(faculty $faculty)
+    public function show($id)
     {
-        //
+        return DB::table('faculty')
+        ->select('*')
+        ->join('employee', 'faculty.employee_id', '=', 'employee.id')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->where('faculty.id', $id)
+        ->get();
     }
 
     /**
@@ -67,9 +95,15 @@ class FacultyController extends Controller
      * @param  \App\Models\faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, faculty $faculty)
+    public function update(Request $request, $id)
     {
-        //
+        $faculty = faculty::findOrFail($id);
+        $faculty->faculty_name = $request->faculty_name;
+        $faculty->employee_id = $request->employee_id;
+
+        if($faculty->save()) {
+            return response()->json($faculty, 201);
+        }
     }
 
     /**
@@ -78,8 +112,12 @@ class FacultyController extends Controller
      * @param  \App\Models\faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(faculty $faculty)
+    public function destroy($id)
     {
-        //
+        $faculty = faculty::findOrFail($id);
+
+        if ($faculty->delete()) {
+            return response()->json("one record has been deleted!", 204);
+        }
     }
 }

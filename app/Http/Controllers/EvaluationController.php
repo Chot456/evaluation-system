@@ -54,6 +54,7 @@ class EvaluationController extends Controller
             'questionaireId' => $request->get('questionaireId'),
             'rating' => $request->get('rating'),
             'evaluationDate' => $request->get('evaluationDate'),
+            'userTypeDescription' => $request->get('userTypeDescription'),
             'remarks' => $request->get('remarks'),
             'publish' => $request->get('publish'),
             'report' => $request->get('report'),

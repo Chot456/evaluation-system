@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class faculty extends Model
 {
     use HasFactory;
@@ -12,16 +13,11 @@ class faculty extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'department_id',
-        'instructor_id',
+        'faculty_name',
+        'employee_id',
     ];
 
     protected $table = 'faculty';
-
-    public function department()
-    {
-        return $this.hasMany(department::class);
-    }
 
     public function employees()
     {

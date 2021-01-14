@@ -160,7 +160,7 @@
           sortable: false,
           value: 'deptAcronym',
         },
-        { text: 'Course Name', value: 'courseName' },
+        { text: 'Department Name', value: 'dept_description' },
         { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -199,7 +199,7 @@
 
     methods: {
 
-                       getDepartment: function() {
+      getDepartment: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
     
         let config  = {
