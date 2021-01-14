@@ -126,5 +126,4 @@ export default new VueRouter({
     // mode: 'history',
     // routes   //short for `routes: routes:`
     routes,
-    mode: 'history',
 });
