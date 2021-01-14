@@ -39,6 +39,9 @@ Route::apiResource('section', 'App\Http\Controllers\SectionController');
 
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
 
+
+Route::get('getSession', 'App\Http\Controllers\UserController@getSession');
+
 Route::get('session', function() {
     
     // Get the currently authenticated user's ID...

@@ -149,4 +149,15 @@ class StudentController extends Controller
     {
         //
     }
+
+    public function getSession(){
+    
+        $userID = Auth::id();
+
+        if (Auth::check()) {
+            return "User logged , user_id : ".$userID ;
+        }else{
+            return "Not logged"; //It is returning this
+        }
+    }
 }

@@ -149,6 +149,7 @@
   </v-app>
 </template>
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       dialog: false,
@@ -213,6 +214,21 @@
         });
       },
 
+          adddepartment(params) {
+      console.log(params);
+     debugger;
+      axios({
+        
+        method: "post",
+        url: "http://localhost:8080/evaluation-system/public/api/department",
+        data: {
+            deptAcronym: params.deptAcronym,
+           courseName: params.courseName,
+            created_at: Date.now()
+        },
+      });
+
+    },
 
       editItem (item) {
         this.editedIndex = this.Departmentdata.indexOf(item)
@@ -252,6 +268,7 @@
           Object.assign(this.Departmentdata[this.editedIndex], this.editedItem)
         } else {
           this.Departmentdata.push(this.editedItem)
+           this.adddepartment(this.editedItem);	
         }
         this.close()
       },

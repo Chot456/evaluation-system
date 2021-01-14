@@ -36,7 +36,7 @@
               </v-col>
               <v-col>
   
-                <router-link :to="{ name: 'EvaluateProf'   }" >
+                <router-link :to="{ name: 'EvaluateProf', params: { studid: 200 }   }" >
                   <v-btn  class="float-right mt-7 m-10" depressed color="primary">
                    Evaluate
                   </v-btn>

@@ -1,12 +1,9 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 
-Vue.use(VueRouter)
 
 import Dashboard from "../components/dashboard/container"
 import Contact from "../components/contact/container"
-import EvaluatorMain from "../components/Evaluator/EvaluatorMain"
-import EvaluateProf from "../components/Evaluator/EvaluateProf"
 import Subject from "../components/Adminstrator/InformationManagement/Subject"
 import Course from "../components/Adminstrator/InformationManagement/Course"
 import Categories from "../components/Adminstrator/QuestionManagement/Categories"
@@ -22,6 +19,9 @@ import ViewComputations from "../components/Adminstrator/Report/ViewComputations
 import ViewComments from "../components/Adminstrator/Report/ViewComments"
 import ViewReport from "../components/Adminstrator/Report/ViewReprt"
 import MultiFiltersPlugin  from "../../plugins/MultiFilters"
+import EvaluatorMain from "../components/Evaluator/EvaluatorMain.vue"
+// import EvaluateProf from "../components/Evaluator/EvaluateProf.vue"
+Vue.use(VueRouter)
 
 Vue.use(MultiFiltersPlugin); // <-- THIS
 
@@ -38,14 +38,6 @@ const routes = [
         component: Contact,
         name: "contact",
         path: "/contact"
-    },{
-        component: EvaluatorMain,
-        name: "EvaluatorMain",
-        path: "/EvaluatorMain"
-    },{
-        component: EvaluateProf,
-        name: "EvaluateProf",
-        path: "/EvaluateProf/:studid"
     },{
         component: Subject,
         name: "Subject",
@@ -117,11 +109,66 @@ const routes = [
         component: ManageSessions,
         name: "ManageSessions",
         path: "/ManageSessions"
-    }
+    },
+    {
+        component: EvaluatorMain,
+        name: "EvaluatorMain",
+        path: "/EvaluatorMain"
+    },  
+     {
+        path: "/EvaluateProf/:studid",
+        name: 'EvaluateProf',
+        component: () => import('../components/Evaluator/EvaluateProf.vue'),
+          children: [
+          {
+            name: 'payments',
+            path: '/payments',
+            component: () => import('../components/Evaluator/EvaluateProf.vue'),
+          },
+        ], 
+        
+      }
+
+    // {
+    //     component: EvaluateProf,
+    //     name: "EvaluateProf",
+    //     path: "/EvaluateProf/:studid"
+    // }
+
+    // {
+    //     path: "/EvaluatorMain",
+    //     name: 'EvaluatorMain',
+    //     component: () => import('../components/Evaluator/EvaluatorMain')
+    //import EvaluateProf from "../components/Evaluator/EvaluateProf.vue"
+        
+    //   },
+    //  ,  {
+    //     path: "/evaluate",
+    //     name: "evaluate",
+        
+    //     component: () =>
+    //     import(/* webpackChunkName: "PQP/catalogue" */ "../components/Evaluator/index"),
+    //     children: [
+    //       {
+    //         path: "/",
+    //         name: 'EvaluatorMain',
+    //         component: () => import(/* webpackChunkName: "PQP/catalogue" */ "../components/Evaluator/EvaluatorMain.vue")
+    //       },
+    //       {
+    //         name: 'EvaluateProf',
+    //         path: '/EvaluateProf/:studid',
+    //         component: () => import('../components/Evaluator/EvaluateProf.vue'),
+    //       }
+    //     ]
+    //   }
+    
+    
+
 
 
 ];
 
 export default new VueRouter({
-    routes   //short for `routes: routes:`
+    routes,
+    // mode: 'history',
 });

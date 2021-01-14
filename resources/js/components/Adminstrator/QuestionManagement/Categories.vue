@@ -252,6 +252,7 @@ import axios from 'axios';
           Object.assign(this.categoriesdate[this.editedIndex], this.editedItem)
         } else {
           this.categoriesdate.push(this.editedItem)
+          
         }
         this.close()
       },

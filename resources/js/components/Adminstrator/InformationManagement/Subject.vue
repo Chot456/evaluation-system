@@ -67,16 +67,7 @@
                       label="Subject Code"
                     ></v-text-field>
                   </v-col>
-                          <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.dateadded"
-                      label="Subject Code"
-                    ></v-text-field>
-                  </v-col>
+
      
                 </v-row>
               </v-container>
@@ -174,12 +165,12 @@ import axios from 'axios';
       editedItem: {
         subjCode: '',
         subjDesc: '',
-        dateadded: '',
+        created_at: Date.now(),
       },
       defaultItem: {
         subjCode: '',
         subjDesc: '',
-        dateadded: '',
+        created_at: '',
       },
     }),
 
@@ -213,7 +204,7 @@ import axios from 'axios';
         method: 'post',
         url: 'http://localhost:8080/evaluation-system/public/api/subject', 
         data: {
-          id: 4,
+       
            subjCode: item.subjCode,
            subjDesc: item.subjDesc,
            courseDescription: "Batchelor of Science in Information Technology",
@@ -225,8 +216,7 @@ import axios from 'axios';
 
             getsubject: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-     
-        let config  = {
+            let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
         axios.get("http://localhost:8080/evaluation-system/public/api/subject" , config).then(data => {
