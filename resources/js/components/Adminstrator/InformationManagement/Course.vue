@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.coursecode"
+                      v-model="editedItem.courseAcronym"
                       label="Course Code"
                     ></v-text-field>
                   </v-col>
@@ -63,20 +63,11 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.coursename"
+                      v-model="editedItem.courseDescription"
                       label="Course Name"
                     ></v-text-field>
                   </v-col>
-                          <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.dateadded"
-                      label="Date Added"
-                    ></v-text-field>
-                  </v-col>
+
      
                 </v-row>
               </v-container>
@@ -160,23 +151,23 @@ import axios from 'axios';
           text: 'Course Code',
           align: 'start',
           sortable: false,
-          value: 'coursecode',
+          value: 'courseAcronym',
         },
-        { text: 'Course Name', value: 'coursename' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Course Name', value: 'courseDescription' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       coursedata: [],
       editedIndex: -1,
       editedItem: {
-        coursecode: '',
-        coursename: '',
-        dateadded: '',
+        courseAcronym: '',
+        courseDescription: '',
+        created_at: '',
       },
       defaultItem: {
-        coursecode: '',
-        coursename: '',
-        dateadded: '',
+        courseAcronym: '',
+        courseDescription: '',
+        created_at: '',
       },
     }),
 
@@ -199,7 +190,7 @@ import axios from 'axios';
     },
 
     created () {
-      this.initialize()
+  
       this.getcourse()
     },
 
@@ -215,7 +206,7 @@ import axios from 'axios';
         }
         axios.get("http://localhost:8080/evaluation-system/public/api/course" , config).then(data => {
           console.log(data.data);
-          this.subjectdata = data.data;
+          this.coursedata = data.data;
         }).catch(err => {
           alert("Error :" + err)
         });
@@ -223,20 +214,18 @@ import axios from 'axios';
 
           addcourse(params) {
       console.log(params);
-     
+     debugger;
       axios({
         
         method: "post",
         url: "http://localhost:8080/evaluation-system/public/api/course",
         data: {
-            courseAcronym: params.coursecode,
+            courseAcronym: params.courseAcronym,
             courseDescription: params.coursedescription,
             created_at: Date.now()
         },
       });
-      this.$nextTick(() => {
-        this.getsnum();
-      });
+
     },
 
 

@@ -149,6 +149,7 @@
   </v-app>
 </template>
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       dialog: false,
@@ -213,6 +214,24 @@
       //   ]
       // },
 
+      
+        addSubject: function(item) {
+
+        console.log(item)
+        axios({
+        method: 'post',
+        url: 'http://localhost:8080/evaluation-system/public/api/questionaire', 
+        data: {
+       
+       questionCategoryId: item.questionCategoryId,
+        questionDescription: item.questionDescription,
+        created_at: Date.now()
+
+        }
+      })
+        },
+
+
                         getQuestion: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
 
@@ -265,6 +284,7 @@
           Object.assign(this.questiondata[this.editedIndex], this.editedItem)
         } else {
           this.questiondata.push(this.editedItem)
+           this.addSubject(this.editedItem);
         }
         this.close()
       },
