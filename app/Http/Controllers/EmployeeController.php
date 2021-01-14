@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -116,7 +117,28 @@ class EmployeeController extends Controller
         //
     }
 
-    public function filterByUserTypeId($userTypeId) {
+    public function filterByIdAndUserTypeId($userTypeId) {
         return employee::all()->where('usertype_id', 'userTypeId');
+    }
+
+    public function getEmployeeByIdUserType($id, $user_type_id) {
+        $res = DB::table('employee')
+        ->select('*')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->where('employee.user_type_id', $id)
+        ->where('employee.user_type_id', $user_type_id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    public function getEmployeeByUserType() {
+        $res = DB::table('employee')
+        ->select('*')
+        ->join('user_type', 'employee.id', '=', 'user_type.id')
+        ->where('employee.user_type_id', $user_type_id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
     }
 }

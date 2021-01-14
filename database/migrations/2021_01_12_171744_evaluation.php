@@ -18,8 +18,6 @@ class Evaluation extends Migration
             $table->string('evaluatorId');
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employee');
-            $table->unsignedBigInteger('questionaireId');
-            $table->foreign('questionaireId')->references('id')->on('questionaire');
             $table->integer('rating');
             $table->string('remarks')->nullable();
             $table->date('evaluationDate')->nullable();

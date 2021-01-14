@@ -23,7 +23,7 @@ Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController'
 Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
 
-Route::get('getRecordsToEvaluate/{student_number}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+Route::get('getRecordsToEvaluate/{studentId}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
 
 Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
 
@@ -39,6 +39,8 @@ Route::apiResource('section', 'App\Http\Controllers\SectionController');
 Route::apiResource('faculty', 'App\Http\Controllers\FacultyController');
 
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
+Route::get('employee/userType/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByUserType');
+Route::get('employee/userType/{id}/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByIdUserType');
 
 Route::get('session', function() {
     
