@@ -37,9 +37,9 @@ Route::post('logout', [UserAuthController::class, 'logOut']);
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/test', function() {
-    return 'test';
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home');
+Route::get('/getSession', function() {
+    return session('LoggedUser');
 });
 
 Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('any', '.*');
