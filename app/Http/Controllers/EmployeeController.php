@@ -40,13 +40,12 @@ class EmployeeController extends Controller
             'employee_id'=>'required',
             'firstname'=>'required',
             'lastname'=>'required',
-            'email'=>'required'
         ]);
+        
         $employee = new employee([
             'employee_id' => $request->get('employee_id'),
             'firstname' => $request->get('firstname'),
             'lastname' => $request->get('lastname'),
-            'email' => $request->get('email'),
             'user_type_id' => $request->get('user_type_id'),
         ]);
 
@@ -98,7 +97,6 @@ class EmployeeController extends Controller
         $employee->employee_id = $request->employee_id;
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;
-        $employee->email = $request->email;
         $employee->user_type_id = $request->user_type_id;
 
         if($employee->save()) {
@@ -117,11 +115,16 @@ class EmployeeController extends Controller
         //
     }
 
-    public function filterByIdAndUserTypeId($userTypeId) {
+    public function filterByIdAndUserTypeId($userTypeId) 
+    {
         return employee::all()->where('usertype_id', 'userTypeId');
     }
 
-    public function getEmployeeByIdUserType($id, $user_type_id) {
+    /**
+     * 
+     */
+    public function getEmployeeByIdUserType($id, $user_type_id) 
+    {
         $res = DB::table('employee')
         ->select('*')
         ->join('user_type', 'employee.id', '=', 'user_type.id')
@@ -132,11 +135,25 @@ class EmployeeController extends Controller
         return response()->json(['response' => 'success', 'data' => $res]);
     }
 
-    public function getEmployeeByUserType() {
+    /**
+     * 
+     */
+    public function getEmployeeByUserType() 
+    {
         $res = DB::table('employee')
         ->select('*')
         ->join('user_type', 'employee.id', '=', 'user_type.id')
         ->where('employee.user_type_id', $user_type_id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    public function getEmployeeByEmpNumber($employee_number)
+    {
+        $res = DB::table('employee')
+        ->select('*')
+        ->where('employee_id', $employee_number)
         ->get();
 
         return response()->json(['response' => 'success', 'data' => $res]);

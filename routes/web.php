@@ -19,7 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/test', function() {
+    return 'test';
+});
 
 Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('any', '.*');
+//Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('vue', '[\/\w\.-]*');
+

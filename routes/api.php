@@ -41,6 +41,14 @@ Route::apiResource('faculty', 'App\Http\Controllers\FacultyController');
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
 Route::get('employee/userType/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByUserType');
 Route::get('employee/userType/{id}/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByIdUserType');
+Route::get('employee/number/{employee_num}', 'App\Http\Controllers\EmployeeController@getEmployeeByEmpNumber');
+
+
+Route::get('user', 'App\Http\Controllers\UserController@getUser');
+Route::get('user/{id}', 'App\Http\Controllers\UserController@getUserById');
+Route::get('getUserByRole/{role}', 'App\Http\Controllers\UserController@getUserByRole');
+Route::post('createUser', 'App\Http\Controllers\UserController@createUser');
+Route::put('updateUser/{id}', 'App\Http\Controllers\UserController@updateUser');
 
 Route::get('session', function() {
     
