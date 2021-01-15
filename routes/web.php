@@ -30,16 +30,14 @@ Route::get('userRegister', [UserAuthController::class, 'register'])->name('auth.
 // insert data
 Route::post('createUser', [UserAuthController::class, 'create'])->name('auth.create');
 Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
-Route::post('logout', [UserAuthController::class, 'logOut']);
+Route::get('logout', [UserAuthController::class, 'logOut']);
 
 
 // Auth::routes();
 
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home');
 Route::get('/getSession', function() {
-    return session('LoggedUser');
+    return session('LoggedUser')->id;   
 });
 
 Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('any', '.*');

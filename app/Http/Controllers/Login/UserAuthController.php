@@ -32,7 +32,13 @@ class UserAuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
 
                 $request->session()->put('LoggedUser', $user);
-                return redirect('home');
+
+                if (session('LoggedUser')->roles == 'evaluator'){
+                        // evaluator
+                        return redirect('evaluate#/EvaluatorMain');
+                } else {
+                    return redirect('home');
+                }
 
             } else {
                 return back()->with('fail', 'invalid password!');
@@ -49,8 +55,6 @@ class UserAuthController extends Controller
             'password' => 'required|min:5|max:12',
         ]);
         
-       
-
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -66,8 +70,7 @@ class UserAuthController extends Controller
         }
     }
     
-    function logOut() {
-
+    public function logOut() {
         if (session()->has('LoggedUser')) {
             session()->pull('LoggedUser');
             return redirect('userLogin');

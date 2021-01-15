@@ -50,6 +50,9 @@ Route::get('getUserByRole/{role}', 'App\Http\Controllers\UserController@getUserB
 Route::post('createUser', 'App\Http\Controllers\UserController@createUser');
 Route::put('updateUser/{id}', 'App\Http\Controllers\UserController@updateUser');
 
+//get user session records
+Route::get('getUserSession/{id}', 'App\Http\Controllers\StudentController@getUserRecords');
+
 // Route::get('Session', 'App\Http\Controllers\UserController@getSession');
 // Route::get('logout', 'App\Http\Controllers\UserController@logout');
 

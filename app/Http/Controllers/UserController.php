@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+      //  $this->middleware('auth');
     }
 
     public function getSession()
@@ -40,4 +40,16 @@ class UserController extends Controller
             return "Not logged"; //It is returning this
         }
     }
+
+    public function getUserRecords($id) {
+
+        return '321';
+        return DB::table('users')
+            ->select('*')
+            ->lefjoin('employee', 'users.id', '=', 'employee.user_id')
+            ->leftjoin('student', 'users.id', '=', 'student.user_id')
+            ->where('users.id', $subjCode)
+            ->get($id);
+    }
+
 }

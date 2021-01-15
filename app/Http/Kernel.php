@@ -14,8 +14,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        // 'isLogged' => \App\Http\Middleware\AuthCheck::class,
-        // 'AlreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
        'trustHost' => \App\Http\Middleware\TrustHosts::class,
         'trustProxies' => \App\Http\Middleware\TrustProxies::class,
         'handleCors' =>\Fruitcake\Cors\HandleCors::class,

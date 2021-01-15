@@ -89,7 +89,7 @@ class StudentController extends Controller
     {
         //Evaluator main transaction
         $res = DB::table('section')
-        ->select('section.section_code', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('section.section_code', 'section.subjCode', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
@@ -159,5 +159,14 @@ class StudentController extends Controller
         }else{
             return "Not logged"; //It is returning this
         }
+    }
+
+    public function getUserRecords($id) {
+        return DB::table('users')
+            ->select('*')
+            ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
+            ->leftjoin('student', 'users.id', '=', 'student.user_id')
+            ->where('users.id', $id)
+            ->get($id);
     }
 }
