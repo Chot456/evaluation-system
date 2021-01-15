@@ -116,7 +116,7 @@ const routes = [
         path: "/EvaluatorMain"
     },  {
         component: EvaluateProf ,
-        path: "/EvaluateProf",
+        path: "/EvaluateProf/:id/subjcode",
         name: 'EvaluateProf',
     }
     
