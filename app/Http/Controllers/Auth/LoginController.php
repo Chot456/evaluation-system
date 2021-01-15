@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -36,5 +36,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticate(Request $request)
+    {
+        
+        $credentials = $request->only('email', 'password');
+
+        // if (Auth::attempt($credentials)) {
+
+        //     dd(321);
+        //     $request->session()->regenerate();
+        //     $user = User::where('email', '=', $request->email)->first();
+        //     //$request->session()->put('LoggedUser', $user);
+        //     Session::set('LoggedUser', $user);
+
+        //     return redirect()->intended('home');
+        // }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 }

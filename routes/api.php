@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
@@ -41,7 +41,7 @@ Route::apiResource('faculty', 'App\Http\Controllers\FacultyController');
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');
 Route::get('employee/userType/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByUserType');
 Route::get('employee/userType/{id}/{user_type_id}', 'App\Http\Controllers\EmployeeController@getEmployeeByIdUserType');
-Route::get('employee/number/{employee_num}', 'App\Http\Controllers\EmployeeController@getEmployeeByEmpNumber');
+Route::get('employee/number/{empN}', 'App\Http\Controllers\EmployeeController@getEmployeeByEmpNumber');
 
 
 Route::get('user', 'App\Http\Controllers\UserController@getUser');
@@ -50,16 +50,25 @@ Route::get('getUserByRole/{role}', 'App\Http\Controllers\UserController@getUserB
 Route::post('createUser', 'App\Http\Controllers\UserController@createUser');
 Route::put('updateUser/{id}', 'App\Http\Controllers\UserController@updateUser');
 
+<<<<<<< HEAD
+Route::get('Session', 'App\Http\Controllers\UserController@getSession');
+Route::get('logout', 'App\Http\Controllers\UserController@logout');
+
+Route::get('getSession', function() {
+=======
 
 Route::get('getSession', 'App\Http\Controllers\UserController@getSession');
 
 Route::get('session', function() {
+>>>>>>> fe6b6db0e9009f8e5b5f29c4dee3ea17e35a5f0e
     
+    if(session()->has('LoggedUser')) {
+        return session('LoggedUser');
+    }
+   
     // Get the currently authenticated user's ID...
-    $id = Auth::id();
+    // $id = Auth::id();
 
-    // Get the currently authenticated user...
-    return Auth::user();
-
-
+    // // Get the currently authenticated user...
+    // return Auth::user();
 });

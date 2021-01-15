@@ -6,8 +6,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
+
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function getSession()
+    {
+        $admin = Auth::user();
+        dd(Auth::user());
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +39,30 @@ class UserController extends Controller
             'roles' => $request['roles'],
             'password' => Hash::make('password'),
         ]);
+    }
+
+    public function getSession2(){
+            dd($user);
+        
+        if (Auth::check()) {
+            // The user is logged in...
+            return 'login';
+        }
+
+        // if (session()->has('LoggedUser')) {
+        //     return "User logged , user_id : " ;
+        // }else{
+        //     return "Not logged"; //It is returning this
+        // }
+    }
+    
+
+    public function logout(){
+        
+        // Auth::logout();
+
+        // $request->session()->invalidate();
+        // return redirect('/');
     }
 
     /**

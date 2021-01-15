@@ -63,17 +63,17 @@ export default {
 
     created(){
       this.getstudrecordbyid();
-      this.getprofevaluate();
+    //  this.getprofevaluate();
     },
 
            methods : {
       getstudrecordbyid: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-    
+    debugger;
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost:8080/evaluation-system/public/api/student/S100" , config).then(data => {
+        axios.get("http://localhost/Laravue-spa-template/public/api/student/S100", config).then(data => {
           console.log(data.data);
           this.questiondata = data.data;
         }).catch(err => {
