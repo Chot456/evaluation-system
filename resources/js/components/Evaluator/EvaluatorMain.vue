@@ -41,6 +41,10 @@
                    Evaluate
                   </v-btn>
                 </router-link>
+
+                <button @click="route(profdata.section_code, profdata.section_code)">
+                  aasdasasdasdadasdasda11111123asdasdasdasd asdasdasd
+                </button>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -67,8 +71,16 @@ export default {
       this.getStudentSession();
     },
 
+
            methods : {
-                   getStudentSession: function() {
+  
+            route(name,asd){
+            debugger;
+
+                this.$router.push({ name: "EvaluateProf", params: { id: name  , subjCode: asd } });
+            },
+             
+             getStudentSession: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
       
         let config  = {
@@ -113,22 +125,12 @@ export default {
     },
 
   data: () => ({  
+    
     dialog: false,
     questiondata: [],
     sessiondata: [],
     profevaluatedata: [],
-    items: [
-      {
-        section: "REL301",
-        instructortype: "Instructor",
-        instrucname: "Limotan, Belan",
-      },
-      {
-        section: "SSC101",
-        instructortype: "Instructor",
-        instrucname: "Cruz,",
-      }
-    ],
+
   }),
 };
 </script>
