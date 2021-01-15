@@ -15,9 +15,8 @@ class CreateActivityLogsTable extends Migration
     {
         Schema::create('activity_log', function (Blueprint $table) {
             $table->id();
-            $table->string('comments');
-            $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employee');
+            $table->string('logs');
+            $table->string('username');
             $table->timestamps();
         });
     }

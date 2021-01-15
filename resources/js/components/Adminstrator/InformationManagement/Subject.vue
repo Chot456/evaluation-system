@@ -5,7 +5,7 @@
         <v-toolbar color="main" dark>
       
 
-          <v-toolbar-title>Subject</v-toolbar-title>
+          <v-toolbar-title>Subjectasd</v-toolbar-title>
 
           <v-spacer></v-spacer>
         </v-toolbar>
