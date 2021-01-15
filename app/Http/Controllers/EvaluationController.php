@@ -118,10 +118,6 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'evaluatorId'=>'required',
-            'employee_id'=>'required'
-        ]);
         $aRes = evaluation::findOrFail($id);
 
         $aRes->evaluatorId = $request->evaluatorId;

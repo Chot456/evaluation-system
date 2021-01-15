@@ -15,10 +15,10 @@ class Evaluation extends Migration
     {
         Schema::create('evaluation', function (Blueprint $table) {
             $table->id();
-            $table->string('evaluatorId');
-            $table->unsignedBigInteger('employee_id');
+            $table->string('evaluatorId')->nullable();
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->foreign('employee_id')->references('id')->on('employee');
-            $table->integer('rating');
+            $table->integer('rating')->nullable();
             $table->string('remarks')->nullable();
             $table->date('evaluationDate')->nullable();
             $table->string('report')->nullable();

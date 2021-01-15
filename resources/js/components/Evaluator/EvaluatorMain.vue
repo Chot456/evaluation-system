@@ -5,24 +5,45 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>Student Number: {{ this.questiondata[0].studid }}</div>
+            
+                  <div>Student Number: {{ questiondata.data[0].studid }}</div>
               <div>
                 Student Name:
                 {{
-                  this.questiondata[0].firstname +
+                  questiondata.data[0].firstname +
                   " " +
-                  this.questiondata[0].lastname
+                  questiondata.data[0].lastname
                 }}
-              </div>
+              </div> 
               <div>
                 Number of Instructor to evaluate:{{
-                  this.profevaluatedata.data.length
+                  profevaluatedata.data.length
                 }}
               </div>
-              <div>
-                Course/ Year {{ this.questiondata[0].coursedescription }} /
-                {{ this.questiondata[0].yeardescription }}
+               <div>
+                Course/ Year :{{ questiondata.data[0].coursedescription }} /
+                {{ questiondata.data[0].yeardescription }}
               </div>
+                <!-- <template  v-for="(studentinfo, i) in questiondata.data">
+              <div>Student Number: {{ studentinfo.studid }}</div>
+              <div>
+                Student Name:
+                {{
+                  studentinfo.firstname +
+                  " " +
+                  studentinfo.lastname
+                }}
+              </div> 
+              <div>
+                Number of Instructor to evaluate:{{
+                  profevaluatedata.data.length
+                }}
+              </div>
+               <div>
+                Course/ Year {{ studentinfo.coursedescription }} /
+                {{ studentinfo.yeardescription }}
+              </div>
+              </template> -->
             </v-col>
             <v-col>
               <!-- <img  src="../../../../storage/app/public/img/sansebastiancollege.png"> -->
@@ -57,7 +78,7 @@
                 </router-link>
 
                 <button
-                  @click="route(profdata.studId , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname  )"
+                  @click="route(profdata.studId , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname, profdata.id , profdata.empid, profdata.evalid, profdata.userTypeDescription )"
                 >
                   aasdasasdasdadasdasda11111123asdasdasdasd asdasdasd
                 </button>
@@ -78,44 +99,51 @@ export default {
   name: "MainPortal",
   components: {},
 
+
   created() {
     this.getStudentSession();
 
-
-      this.getstudrecordbyid();
-      this.getprofevaluate();
-
   },
 
+
   methods: {  
-    route(name, subjCode , usertype, fullname) {
+    route(name, subjCode , usertype, fullname,id, empid, evalid, userTypeDescription) {
       debugger;
       this.$router.push({
         name: "EvaluateProf",
-        params: { id: name, subjCode: subjCode, usertype: usertype ,  fullname},
+        params: { id: name, subjCode: subjCode, usertype: usertype ,  fullname : fullname, eval :id, empid: empid, evalid: evalid, userTypeDescription : userTypeDescription},
         props: true,
       });
     },
 
-    getStudentSession: function () {
-      // var snum = JSON.stringify({ snum :  "PH20080105"});
+     getStudentSession: function () {
 
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+     
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
-      axios
+      
+       axios 
         .get(
+          
           "http://localhost:8080/evaluation-system/public/getSession",
           config
         )
         .then((data) => {
+          debugger;
           console.log(data.data);
           this.sessiondata = data.data;
-          this.studId = this.sessiondata[0].studId
+          this.studId = this.sessiondata[0].studId;
+                  this.$nextTick(()=> {
+             this.getstudrecordbyid();
+         this.getprofevaluate();
+         });
         })
         .catch((err) => {
           alert("Error :" + err);
         });
+        
     },  
 
     getstudrecordbyid: function () {
@@ -134,6 +162,8 @@ export default {
         .then((data) => {
           console.log(data.data);
           this.questiondata = data.data;
+
+          
         })
         .catch((err) => {
           alert("Error :" + err);
@@ -142,13 +172,13 @@ export default {
 
     getprofevaluate: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});
-
+  debugger;
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/S100",
+          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/" + this.studId ,
           config
         )
         .then((data) => {

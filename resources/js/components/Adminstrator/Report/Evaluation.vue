@@ -161,7 +161,7 @@ export default {
       };
       axios
         .get(
-          "http://localhost/Laravue-spa-template/public/api/getEvaluatedRecords",
+          "http://localhost/evaluation-system/public/api/getEvaluatedRecords",
           config
         )
         .then((data) => {

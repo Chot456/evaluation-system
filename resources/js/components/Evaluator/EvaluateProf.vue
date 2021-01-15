@@ -11,34 +11,48 @@
           <v-row class="fill-height">
             <v-col>
               <div>
-                Student Number: {{ this.studentdetaildata.data[0].studid }}
+                Student Number: {{ studentdetaildata.data[0].studid }}
               </div>
               <div>
-                Student Name: {{ this.studentdetaildata.data[0].firstname }}
-                {{ this.studentdetaildata.data[0].lastname }}
+                Student Name: {{ studentdetaildata.data[0].firstname }}
+                {{ studentdetaildata.data[0].lastname }}
               </div>
 
-              <div>Instructor: Limotan</div>
-              <div>Subject: {{ this.studentdetaildata.data[0].subjDesc }}</div>
+              <div>Instructor: {{ studentdetaildata.data[0].employeefirstname }} {{ studentdetaildata.data[0].employeelastname }}</div>
+              <div>Subject: {{ studentdetaildata.data[0].subjDesc }}</div>
             </v-col>
             <v-col> </v-col>
-          </v-row>
+          </v-row>       
           <v-divider></v-divider>
           <v-row class="fill-height">
             <v-col>
               <h4 class="font-weight-bold">Evaluation</h4>
               <div class="ml-5">
-                <span class="text-decoration-underline">Instruction:</span>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                <span class="text-decoration-underline">Instructions :</span>
+             
+
+In this inventory you are asked to assess your instructor's
+sepcific classroom behavior. Your instructor has requested this 
+information for purposes of instructional analysis and improvement.
+Please try to be both objective and candid in your responses so
+as to maximize the value of the feedback.
+
+Your Judgement should reflect that type of teaching you think is best
+for this particular course and your particular learning style. Try To assess
+each behaviour independetly rather than letting your overall impression
+of the instructor determine each individual rating.
+
+Each section of the inventory begins with a definition of the category of
+teaching to be assessed in that section. For each specific teaching
+behaviour, please indicate the frequency with which he/she exhibits the
+behaviour in question. Please use the following rating scale ina making
+your judgement.
+
+5 = almost always
+4 = often
+3 = sometimes
+2 = rarely
+1= almost never
               </div>
             </v-col>
           </v-row>
@@ -121,7 +135,7 @@
                     value=""
                   ></v-textarea>
                   
-                  <v-btn text color="primary" @click="SubmitEval(textarea,  questiondata )"
+                  <v-btn text color="primary" @click="SubmitEval(textarea,  questiondata, usertypedescr, employ, studid )"
                     >Submit</v-btn
                   >
                 </td>
@@ -142,11 +156,19 @@ export default {
   data() {
     return {
       props: ["studid"],
+      props: ["fullname"],
+      props: ["usertype"],
+      props: ["empid"],
+      props: ["userTypeDescription"],
+      props: ["evalid"],
       evaluatorid: "",
       employee_id: " ",
+      usertypedescr: " ",
       remarks: " ",
       publish: " ",
       answers: " ",
+      employ: " ", 
+      evid: " ",
       userTypeDescrption: " ",
       created_at: " ",
       headers: [
@@ -165,15 +187,20 @@ export default {
     };
   },
 
+ 
   created() {
     this.getquestion();
     this.getevaluteprof();
+    this.employ = this.$route.params.empid;
+    this.studid = this.$route.params.id; 
+    this.evid  =   this.$route.params.evalid;
+    this.usertypedescr  = this.$route.params.userTypeDescription;
   },
 
   methods: {
 
     
-       SubmitEval(params,questiondata) {
+       SubmitEval(textarea,questiondata, usertypedescr, empid, studid) {
 
 debugger;
 
@@ -195,16 +222,17 @@ if(count <= 19) {
 }
 }
 
-
+       
           
       axios({
         method: "put",
-        url: "http://localhost:8080/evaluation-system/public/api/evaluation/1",
+        url: "http://localhost:8080/evaluation-system/public/api/evaluation/"+
+         this.evid,
         data: {
-      evaluatorid: "",
-      employee_id: " ",
-      remarks: " ",
-      publish: " ",
+      evaluatorid: studid,
+      employee_id: empid,
+      remarks: textarea,
+      publish: "yes",
       a1: concat[0] ,
       a2: concat[1],
       a3: concat[2],
@@ -224,8 +252,8 @@ if(count <= 19) {
       a17: concat[16],
       a18: concat[17],
       a19: concat[18],
-      a20: concat[19]
-
+      a20: concat[19],
+      userTypeDescription: usertypedescr
 
 
         },

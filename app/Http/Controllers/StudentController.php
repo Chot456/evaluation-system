@@ -74,10 +74,11 @@ class StudentController extends Controller
     public function studentTransaction($id, $subjCode) {        
         //Evaluator Main
         $res = DB::table('student')
-            ->select('section.studid', 'student.firstname', 'student.lastname as studlastname', 'employee.firstname as employeefirstname','employee.lastname as employeelastname', 'student.yeardescription', 'subject.subjDesc')
+            ->select('section.studid', 'student.firstname', 'student.lastname as studlastname', 'employee.firstname as employeefirstname','employee.lastname as employeelastname', 'student.yeardescription', 'subject.subjDesc' , 'user_type.userTypeDescription')
             ->join('section', 'section.studId', '=', 'student.studId')
             ->join('employee', 'employee.id', '=', 'section.employee_id')
             ->join('subject', 'section.subjCode', '=', 'subject.subjCode')
+            ->join('user_type','user_type.id','=','employee.user_type_id')
             ->where('student.studId', $id)
             ->where('section.subjCode', $subjCode)
             ->get();
@@ -90,7 +91,7 @@ class StudentController extends Controller
         $studtype = 1;
         //Evaluator main transaction
         $res = DB::table('section')
-        ->select('section.id' ,'section.section_code', 'section.studId', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('evaluation.id as evalid','section.id','employee.id as empid'  ,'section.section_code', 'section.studId', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
