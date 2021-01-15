@@ -18,16 +18,6 @@ class UserController extends Controller
         return Auth::id();
     }
 
-<<<<<<< HEAD
-    public function getSession(){
-    
-        $userID = Auth::id();
-
-        if (Auth::check()) {
-            return "User logged , user_id : ".$userID ;
-        }else{
-            return "Not logged"; //It is returning this
-=======
     public function createUser(Request $request) 
     {
         return User::create([
@@ -82,7 +72,6 @@ class UserController extends Controller
        
         if($user->save()) {
             return response()->json($user, 201);
->>>>>>> 9622b33d64412cc5868d32b52f7c51b14f0ac57e
         }
     }
 }

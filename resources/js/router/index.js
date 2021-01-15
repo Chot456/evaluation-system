@@ -169,14 +169,6 @@ const routes = [
 ];
 
 export default new VueRouter({
-<<<<<<< HEAD
     routes,
     // mode: 'history',
 });
-=======
-    // mode: 'history',
-    // routes   //short for `routes: routes:`
-    routes,
-    mode: 'history',
-});
->>>>>>> 9622b33d64412cc5868d32b52f7c51b14f0ac57e

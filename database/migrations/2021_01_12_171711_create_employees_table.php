@@ -18,11 +18,8 @@ class CreateEmployeesTable extends Migration
             $table->string('employee_id')->unique();
             $table->string('firstname');
             $table->string('lastname');
-<<<<<<< HEAD
             $table->string('email');
             $table->string('user_id');
-=======
->>>>>>> 9622b33d64412cc5868d32b52f7c51b14f0ac57e
             $table->unsignedBigInteger('user_type_id');
             $table->foreign('user_type_id')->references('id')->on('user_type');
             $table->timestamps();
