@@ -85,5 +85,6 @@ class UserAuthController extends Controller
             session()->pull('LoggedUser');
             return redirect('userLogin');
         }
+        return redirect('userLogin');
     }
 }

@@ -30,7 +30,7 @@ Route::get('userRegister', [UserAuthController::class, 'register'])->name('auth.
 // insert data
 Route::post('createUser', [UserAuthController::class, 'create'])->name('auth.create');
 Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
-Route::get('logout', [UserAuthController::class, 'logOut']);
+// Route::get('home#/logout', [UserAuthController::class, 'logOut']);
 
 
 // Auth::routes();
@@ -39,6 +39,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/getSession', function() {
     return session('LoggedUser');   
 });
+
+Route::get('/logout', function(){
+    if (session()->has('LoggedUser')) {
+        session()->pull('LoggedUser');
+        return view('auth.user-login');
+    }
+    return view('auth.user-login');
+});
+
 
 Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('any', '.*');
 //Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('vue', '[\/\w\.-]*');

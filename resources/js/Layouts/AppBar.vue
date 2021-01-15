@@ -19,7 +19,7 @@
 
         <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
+        <v-btn @click="logout()"
            class="ml-2"
           dark
           v-bind="attrs"
@@ -47,15 +47,22 @@
     
 </template>
 <script>
-
 export default {
+  data: () => ({
+    items: [{ title: "Logout", link: "/logout" }],
+  }),
 
-      data: () => ({
-      items: [
-        { title: 'Logout', link: "/logout"  },
-
-      ],
-    }),
-
-}
+  methods: {
+    async logout() {
+     await axios
+        .get("/logout")
+        .then((response) => {
+          this.$router.push("/userLogin");
+        })
+        .catch((error) => {
+          location.reload();
+        });
+    },
+  },
+};
 </script>
