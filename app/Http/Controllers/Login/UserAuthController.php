@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserAuthController extends Controller
 {
@@ -30,16 +31,25 @@ class UserAuthController extends Controller
         
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
+                
+                $aRes = DB::table('users')
+                    ->select('*')
+                    ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
+                    ->leftjoin('student', 'users.id', '=', 'student.user_id')
+                    ->where('users.id', $user->id)
+                    ->get();
 
-                $request->session()->put('LoggedUser', $user);
+                $request->session()->put('LoggedUser', $aRes);
+                return redirect('home');
 
-                if (session('LoggedUser')->roles == 'evaluator'){
-                        // evaluator
-                        return redirect('evaluate#/EvaluatorMain');
-                } else {
-                    return redirect('home');
-                }
-
+                // if (session('LoggedUser')->roles) {
+                //     if (session('LoggedUser')->roles == 'evaluator'){
+                //         // evaluator
+                //         return redirect('evaluate#/EvaluatorMain');
+                //     } else {
+                //         return redirect('home');
+                //     }
+                // }
             } else {
                 return back()->with('fail', 'invalid password!');
             }

@@ -74,7 +74,7 @@ class StudentController extends Controller
     public function studentTransaction($id, $subjCode) {        
         //Evaluator Main
         $res = DB::table('student')
-            ->select('section.studid', 'student.firstname', 'student.lastname', 'student.yeardescription', 'subject.subjDesc')
+            ->select('section.studid', 'student.firstname', 'student.lastname as studlastname', 'employee.firstname as employeefirstname','employee.lastname as employeelastname', 'student.yeardescription', 'subject.subjDesc')
             ->join('section', 'section.studId', '=', 'student.studId')
             ->join('employee', 'employee.id', '=', 'section.employee_id')
             ->join('subject', 'section.subjCode', '=', 'subject.subjCode')
@@ -87,14 +87,16 @@ class StudentController extends Controller
 
     public function getRecordsToEvaluate($id)
     {
+        $studtype = 1;
         //Evaluator main transaction
         $res = DB::table('section')
-        ->select('section.section_code', 'section.subjCode', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('section.id' ,'section.section_code', 'section.studId',  'employee.user_type_id', 'section.subjCode', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
         ->where('section.studId', $id)
         ->where('evaluation.publish', '!=', 'yes')
+        ->where('user_type.id', '!=', $studtype)
         ->get();
 
         return response()->json(['response' => 'success', 'data' => $res]);

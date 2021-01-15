@@ -207,7 +207,8 @@ import axios from 'axios';
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
         axios.get("http://localhost:8080/evaluation-system/public/api/department" , config).then(data => {
-          console.log(data.data);
+      
+      console.log(data.data);
           this.Departmentdata = data.data;
         }).catch(err => {
           alert("Error :" + err)
@@ -218,13 +219,10 @@ import axios from 'axios';
       console.log(params);
      debugger;
       axios({
-        
         method: "post",
         url: "http://localhost:8080/evaluation-system/public/api/department",
         data: {
-            deptAcronym: params.deptAcronym,
-           courseName: params.courseName,
-            created_at: Date.now()
+
         },
       });
 

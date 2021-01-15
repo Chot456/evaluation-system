@@ -101,6 +101,7 @@
             :headers="headers"
             :items="questiondata"
             class="elevation-1"
+            item-key="name"
           >
             <template v-slot:item.Answer="{ item }">
               <v-text-field
@@ -120,8 +121,8 @@
                     value=""
                   ></v-textarea>
                   
-                  <v-btn text color="primary" @click="menupay = false"
-                    >Reset</v-btn
+                  <v-btn text color="primary" @click="SubmitEval(textarea,  questiondata )"
+                    >Submit</v-btn
                   >
                 </td>
                 <td colspan="4"></td>
@@ -136,7 +137,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "MainPortal",
+  name: " MainPortal",
 
   data() {
     return {
@@ -145,26 +146,7 @@ export default {
       employee_id: " ",
       remarks: " ",
       publish: " ",
-      a1: " ",
-      a2: " ",
-      a3: " ",
-      a4: " ",
-      a5: " ",
-      a6: " ",
-      a7: " ",
-      a8: " ",
-      a9: " ",
-      a10: " ",
-      a11: " ",
-      a12: " ",
-      a13: " ",
-      a14: " ",
-      a15: " ",
-      a16: " ",
-      a17: " ",
-      a18: " ",
-      a19: " ",
-      a20: " ",
+      answers: " ",
       userTypeDescrption: " ",
       created_at: " ",
       headers: [
@@ -179,31 +161,7 @@ export default {
       ],
       questiondata: [],
       studentdetaildata: [],
-      itemquestion: [
-        {
-          id: 1,
-          question: "The instructor was well prepared for the class.",
-          Answer: " ",
-        },
-        {
-          id: 2,
-          question:
-            " The instructor showed an interest in helping students learn.",
-          Answer: "",
-        },
-        {
-          id: 3,
-          question:
-            "I received useful feedback on my performance on tests, papers, etc.",
-          Answer: "",
-        },
-        {
-          id: 4,
-          question:
-            "The instructional materials (i.e., books, readings, handouts, study guides, lab manuals, multimedia, software) increased my knowledge and skills in the subject matter.",
-          Answer: "",
-        },
-      ],
+
     };
   },
 
@@ -215,13 +173,59 @@ export default {
   methods: {
 
     
-       submitEval(params) {
-      console.log(params);
-     debugger;
+       SubmitEval(params,questiondata) {
+
+debugger;
+
+const concat =  {};
+var key = 0;
+var count = 0;
+            for (var data in questiondata) {
+                var value = questiondata[data];
+                concat[key] = value.Answer ;
+                key++;
+		          count++;			
+            }
+
+if(count <= 19) {
+	for (var i=0; i<= 19; i++) {
+	concat[key] = ' ';	
+            key++;
+            count++;			
+}
+}
+
+
+          
       axios({
         method: "put",
-        url: "http://localhost:8080/evaluation-system/public/api/department",
+        url: "http://localhost:8080/evaluation-system/public/api/evaluation/1",
         data: {
+      evaluatorid: "",
+      employee_id: " ",
+      remarks: " ",
+      publish: " ",
+      a1: concat[0] ,
+      a2: concat[1],
+      a3: concat[2],
+      a4: concat[3],
+      a5: concat[4],
+      a6: concat[5],
+      a7: concat[6],
+      a8: concat[7],
+      a9: concat[8],
+      a10: concat[9],
+      a11: concat[10],
+      a12: concat[11],
+      a13: concat[12],
+      a14: concat[13],
+      a15: concat[14],
+      a16: concat[15],
+      a17: concat[16],
+      a18: concat[17],
+      a19: concat[18],
+      a20: concat[19]
+
 
 
         },
@@ -236,12 +240,12 @@ export default {
       };
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/questionaire/userType/2",
+          "http://localhost:8080/evaluation-system/public/api/questionaire/userType/" + this.$route.params.usertype,
           config
         )
         .then((data) => {
           console.log(data.data);
-          
+          this.questiondata = data.data
         })
         .catch((err) => {
           alert("Error :" + err);
@@ -256,7 +260,7 @@ export default {
       };
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/student/transaction/S100/ENG100",
+          "http://localhost:8080/evaluation-system/public/api/student/transaction/" + this.$route.params.id + "/" + this.$route.params.subjCode ,
           config
         )
         .then((data) => {

@@ -21,6 +21,7 @@ import ViewReport from "../components/Adminstrator/Report/ViewReprt"
 import MultiFiltersPlugin  from "../../plugins/MultiFilters"
 import EvaluatorMain from "../components/Evaluator/EvaluatorMain.vue"
 import EvaluateProf from "../components/Evaluator/EvaluateProf"
+
 Vue.use(VueRouter)
 
 Vue.use(MultiFiltersPlugin); // <-- THIS
@@ -116,7 +117,7 @@ const routes = [
         path: "/EvaluatorMain"
     },  {
         component: EvaluateProf ,
-        path: "/EvaluateProf/:id/subjcode",
+        path: "/EvaluateProf/:id/:subjCode/:usertype",
         name: 'EvaluateProf',
     }
     
