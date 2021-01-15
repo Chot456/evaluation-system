@@ -50,17 +50,10 @@ Route::get('getUserByRole/{role}', 'App\Http\Controllers\UserController@getUserB
 Route::post('createUser', 'App\Http\Controllers\UserController@createUser');
 Route::put('updateUser/{id}', 'App\Http\Controllers\UserController@updateUser');
 
-<<<<<<< HEAD
-Route::get('Session', 'App\Http\Controllers\UserController@getSession');
-Route::get('logout', 'App\Http\Controllers\UserController@logout');
+// Route::get('Session', 'App\Http\Controllers\UserController@getSession');
+// Route::get('logout', 'App\Http\Controllers\UserController@logout');
 
 Route::get('getSession', function() {
-=======
-
-Route::get('getSession', 'App\Http\Controllers\UserController@getSession');
-
-Route::get('session', function() {
->>>>>>> fe6b6db0e9009f8e5b5f29c4dee3ea17e35a5f0e
     
     if(session()->has('LoggedUser')) {
         return session('LoggedUser');
