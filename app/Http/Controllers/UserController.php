@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+      //  $this->middleware('auth');
     }
 
     public function getSession()
@@ -31,84 +31,25 @@ class UserController extends Controller
         return Auth::id();
     }
 
-    public function createUser(Request $request) 
-    {
-        return User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'roles' => $request['roles'],
-            'password' => Hash::make('password'),
-        ]);
-    }
+    public function getSession2() {
+        $userID = Auth::id();
 
-    public function getSession2(){
-            dd($user);
-        
         if (Auth::check()) {
-            // The user is logged in...
-            return 'login';
-        }
-
-        // if (session()->has('LoggedUser')) {
-        //     return "User logged , user_id : " ;
-        // }else{
-        //     return "Not logged"; //It is returning this
-        // }
-    }
-    
-
-    public function logout(){
-        
-        // Auth::logout();
-
-        // $request->session()->invalidate();
-        // return redirect('/');
-    }
-
-    /**
-     * 
-     */
-    public function getUser()
-    {
-        return User::all();
-    }
-
-    /**
-     * 
-     */
-    public function getUserById($id)
-    {
-        return User::findOrFail($id);
-    }
-
-    /**
-     * 
-     */
-    public function getUserByRole($role)
-    {
-         return DB::table('users')
-         ->select('*')
-         ->where('role', $role)
-         ->get();
-    }
-
-    /**
-     * 
-     */
-    public function updateUser(Request $request, $id) {
-        $user =  User::findOrFail($id);
-
-        dd($request);
-        $user->name = $request->faculty_name;
-        $user->email = $request->employee_id;
-        $user->roles = $request->roles;
-
-        if($request->user_id) {
-            $user->user_id = $request->user_id;
-        }
-       
-        if($user->save()) {
-            return response()->json($user, 201);
+            return "User logged , user_id : ".$userID ;
+        }else{
+            return "Not logged"; //It is returning this
         }
     }
+
+    public function getUserRecords($id) {
+
+        return '321';
+        return DB::table('users')
+            ->select('*')
+            ->lefjoin('employee', 'users.id', '=', 'employee.user_id')
+            ->leftjoin('student', 'users.id', '=', 'student.user_id')
+            ->where('users.id', $subjCode)
+            ->get($id);
+    }
+
 }

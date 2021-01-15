@@ -55,8 +55,6 @@ class UserAuthController extends Controller
             'password' => 'required|min:5|max:12',
         ]);
         
-       
-
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;

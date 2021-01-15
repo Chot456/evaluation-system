@@ -35,13 +35,10 @@ Route::get('logout', [UserAuthController::class, 'logOut']);
 
 // Auth::routes();
 
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home');
 Route::get('/getSession', function() {
-    return session('LoggedUser');   
+    return session('LoggedUser')->id;   
 });
-
 
 Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('any', '.*');
 //Route::get('/{any}', 'App\Http\Controllers\HomeController@index')->where('vue', '[\/\w\.-]*');
