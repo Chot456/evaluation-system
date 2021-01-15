@@ -20,7 +20,7 @@ import ViewComments from "../components/Adminstrator/Report/ViewComments"
 import ViewReport from "../components/Adminstrator/Report/ViewReprt"
 import MultiFiltersPlugin  from "../../plugins/MultiFilters"
 import EvaluatorMain from "../components/Evaluator/EvaluatorMain.vue"
-// import EvaluateProf from "../components/Evaluator/EvaluateProf.vue"
+import EvaluateProf from "../components/Evaluator/EvaluateProf"
 Vue.use(VueRouter)
 
 Vue.use(MultiFiltersPlugin); // <-- THIS
@@ -114,20 +114,13 @@ const routes = [
         component: EvaluatorMain,
         name: "EvaluatorMain",
         path: "/EvaluatorMain"
-    },  
-     {
-        path: "/EvaluateProf/:studid",
+    },  {
+        component: EvaluateProf ,
+        path: "/EvaluateProf",
         name: 'EvaluateProf',
-        component: () => import('../components/Evaluator/EvaluateProf.vue'),
-          children: [
-          {
-            name: 'payments',
-            path: '/payments',
-            component: () => import('../components/Evaluator/EvaluateProf.vue'),
-          },
-        ], 
-        
-      }
+    }
+    
+
 
     // {
     //     component: EvaluateProf,

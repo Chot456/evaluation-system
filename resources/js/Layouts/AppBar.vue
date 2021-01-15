@@ -16,14 +16,28 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-     <v-btn
-      class="ml-2"
-      min-width="0"
-      text
-      to="##"
-    >
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+
+        <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+           class="ml-2"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          :to="item.link"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     </v-toolbar>
   </v-card>
   <div>
@@ -35,6 +49,13 @@
 <script>
 
 export default {
+
+      data: () => ({
+      items: [
+        { title: 'Logout', link: "/logout"  },
+
+      ],
+    }),
 
 }
 </script>

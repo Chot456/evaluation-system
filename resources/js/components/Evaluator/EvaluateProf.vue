@@ -105,7 +105,7 @@
           label="Remarks"
           value=""
         ></v-textarea>
-            <v-btn text color="primary" @click="menupay = false"
+            <v-btn text color="primary" @click="submitEval = false"
                             >Submit</v-btn
                           >
                               <v-btn text color="primary" @click="menupay = false"
@@ -199,7 +199,7 @@ export default {
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost:8080/evaluation-system/public/api/student/transaction/S100/MATH100" , config).then(data => {
+        axios.get("http://localhost:8080/evaluation-system/public/api/student/transaction/S100/ENG100" , config).then(data => {
           console.log(data.data);
           this.studentdetaildata = data.data;
         }).catch(err => {

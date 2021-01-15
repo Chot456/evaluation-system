@@ -36,7 +36,7 @@
               </v-col>
               <v-col>
   
-                <router-link :to="{ name: 'EvaluateProf', params: { studid: 200 }   }" >
+                <router-link :to="{ name: 'EvaluateProf' }" >
                   <v-btn  class="float-right mt-7 m-10" depressed color="primary">
                    Evaluate
                   </v-btn>
@@ -63,17 +63,32 @@ export default {
 
     created(){
       this.getstudrecordbyid();
-    //  this.getprofevaluate();
+      this.getprofevaluate();
+      this.getStudentSession();
     },
 
            methods : {
-      getstudrecordbyid: function() {
+                   getStudentSession: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
-    debugger;
+      
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost/Laravue-spa-template/public/api/student/S100", config).then(data => {
+        axios.get("http://localhost:8080/evaluation-system/public/getSession" , config).then(data => {
+          console.log(data.data);
+          this.sessiondata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
+
+      getstudrecordbyid: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+    
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/student/S100" , config).then(data => {
           console.log(data.data);
           this.questiondata = data.data;
         }).catch(err => {
@@ -100,7 +115,7 @@ export default {
   data: () => ({  
     dialog: false,
     questiondata: [],
-    
+    sessiondata: [],
     profevaluatedata: [],
     items: [
       {
