@@ -19,12 +19,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
+Route::apiResource('activityLog', 'App\Http\Controllers\ActivityLogController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
 Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
 
-Route::get('getRecordsToEvaluate/{studentId}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
 
+// Evaluation Routes
+Route::get('findEvaluationByEmployee/{firstname}', 'App\Http\Controllers\EvaluationController@findEvaluationByEmployee');
+Route::get('getEvaluatedRecordsById/{id}', 'App\Http\Controllers\StudentController@getEvaluatedRecordsById');
+Route::get('getEvaluatedRecords', 'App\Http\Controllers\StudentController@getEvaluatedRecords');
+Route::get('getRecordsToEvaluate/{studentId}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
+Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
 Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
@@ -44,6 +50,8 @@ Route::get('employee/userType/{id}/{user_type_id}', 'App\Http\Controllers\Employ
 Route::get('employee/number/{empN}', 'App\Http\Controllers\EmployeeController@getEmployeeByEmpNumber');
 
 
+// user routes
+Route::put('changePassword/{id}', 'App\Http\Controllers\UserController@changePassword');
 Route::get('user', 'App\Http\Controllers\UserController@getUser');
 Route::get('user/{id}', 'App\Http\Controllers\UserController@getUserById');
 Route::get('getUserByRole/{role}', 'App\Http\Controllers\UserController@getUserByRole');

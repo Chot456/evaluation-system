@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
-
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,41 +14,85 @@ class UserController extends Controller
       //  $this->middleware('auth');
     }
 
-    public function getSession()
-    {
-        $admin = Auth::user();
-        dd(Auth::user());
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getUser()
     {
-        return Auth::id();
+        return DB::table('users')
+            ->select('*')
+            ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
+            ->leftjoin('student', 'users.id', '=', 'student.user_id')
+            ->get();
     }
 
-    public function getSession2() {
-        $userID = Auth::id();
-
-        if (Auth::check()) {
-            return "User logged , user_id : ".$userID ;
-        }else{
-            return "Not logged"; //It is returning this
-        }
-    }
-
-    public function getUserRecords($id) {
-
-        return '321';
+    public function getUserRecords($id) 
+    {
         return DB::table('users')
             ->select('*')
             ->lefjoin('employee', 'users.id', '=', 'employee.user_id')
             ->leftjoin('student', 'users.id', '=', 'student.user_id')
-            ->where('users.id', $subjCode)
-            ->get($id);
+            ->where('users.id', $id)
+            ->get();
     }
 
+    public function changePassword(Request $request, $id) 
+    {
+        $aUser = User::findOrFail($id);
+
+        if (Hash::check($request->current_password, $aUser->password)) {
+
+            $aUser->password = Hash::make($request->new_password);
+    
+            if ($aUser->save()) {
+                return response()->json($aUser, 201);
+            }
+        } else {
+            return back()->withErrors('invalid current password');
+        }
+    }
+
+    public function getUserByRole($role)
+    {
+        $aRes = DB::table('users')
+                ->select('*')
+                ->where('roles', $role)->get();
+
+         return response()->json(['response' => 'success', 'data' => $aRes]);
+    }
+
+    public function createUser(Request $request)
+    {
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required'
+        ]);
+
+        $aRes = new User([
+            'name' => $request->get('name'),
+            'password' => Hash::make($request->get('password')),
+            'email' => $request->get('email'),
+            'roles' => $request->get('roles')
+        ]);
+
+        $aRes->save();
+
+        return response()->json($aRes, 201);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id)->first();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->roles = $request->roles;
+
+        if($user->save()) {
+            return response()->json($user, 201);
+        }
+
+    }
 }

@@ -118,7 +118,46 @@ class EvaluationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $request->validate([
+            'evaluatorId'=>'required',
+            'employee_id'=>'required'
+        ]);
+        $aRes = evaluation::findOrFail($id);
+
+        $aRes->evaluatorId = $request->evaluatorId;
+        $aRes->employee_id = $request->employee_id;
+        $aRes->rating = $request->rating;
+        $aRes->evaluationDate = $request->evaluationDate;
+        $aRes->userTypeDescription = $request->userTypeDescription;
+        $aRes->remarks = $request->remarks;
+        $aRes->publish = $request->publish;
+        $aRes->report = $request->report;
+        $aRes->a1 = $request->a1;
+        $aRes->a2 = $request->a2;
+        $aRes->a3 = $request->a3;
+        $aRes->a4 = $request->a4;
+        $aRes->a5 = $request->a5;
+        $aRes->a6 = $request->a6;
+        $aRes->a7 = $request->a7;
+        $aRes->a8 = $request->a8;
+        $aRes->a9 = $request->a9;
+        $aRes->a10 = $request->a10;
+        $aRes->a11 = $request->a11;
+        $aRes->a12 = $request->a12;
+        $aRes->a13 = $request->a13;
+        $aRes->a14 = $request->a14;
+        $aRes->a15 = $request->a15;
+        $aRes->a16 = $request->a16;
+        $aRes->a17 = $request->a17;
+        $aRes->a18 = $request->a18;
+        $aRes->a19 = $request->a19;
+        $aRes->a20 = $request->a20;
+    
+        $aRes->save();
+
+        if ($aRes->save()) {
+            return response()->json($aRes, 201);
+        }
     }
 
     /**
@@ -130,5 +169,21 @@ class EvaluationController extends Controller
     public function destroy(evaluation $evaluation)
     {
         //
+    }
+
+    public function findEvaluationByEmployee($firstname)
+    {
+        $evaluation = DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->where('employee.firstname', 'like', '%' . $firstname . '%')
+        ->get();
+
+        return response()->json($evaluation, 201);
+    }
+
+    public function getEvaluationByUserType()
+    {
+        
     }
 }

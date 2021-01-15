@@ -13,7 +13,7 @@
               <transition name="fade">
                 <v-data-table
                   :headers="headers"
-                  :items="desserts"
+                  :items="evaluationData"
                   item-key="name"
                   class="elevation-1 pa-6"
                 >
@@ -56,35 +56,27 @@
                       </v-row>
                     </v-container>
                   </template>
-                   <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="$router.push({ name: 'ViewComputations' })"
-      >
-        mdi-calculator
-      </v-icon>
-      <v-icon
-        small
-         @click="$router.push({ name: 'ViewComments' })"
-      >
-        mdi-comment-account-outline
-      </v-icon>
-            <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-newspaper-variant-outline
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
+                  <template v-slot:item.actions="{ item }">
+                    <v-icon
+                      small
+                      class="mr-2"
+                      @click="$router.push({ name: 'ViewComputations' })"
+                    >
+                      mdi-calculator
+                    </v-icon>
+                    <v-icon
+                      small
+                      @click="$router.push({ name: 'ViewComments' })"
+                    >
+                      mdi-comment-account-outline
+                    </v-icon>
+                    <v-icon small @click="deleteItem(item)">
+                      mdi-newspaper-variant-outline
+                    </v-icon>
+                  </template>
+                  <template v-slot:no-data>
+                    <v-btn color="primary" @click="initialize"> Reset </v-btn>
+                  </template>
                 </v-data-table>
               </transition>
             </v-col>
@@ -98,10 +90,12 @@
 
 <script>
 // Table info.
-import tableData from "./sampleDataTable.json";
+
 export default {
   data() {
     return {
+      evaluationData: [],
+
       // We need some values for our select.
       schoolyearList: [
         { text: "All", value: null },
@@ -120,7 +114,6 @@ export default {
       schoolyearFilterValue: null,
       semesterFilterValue: null,
       // Table data.
-      desserts: tableData.data,
     };
   },
   computed: {
@@ -130,22 +123,29 @@ export default {
           text: "Instructor ID",
           align: "left",
           sortable: false,
-          value: "instrucid",
+          value: "employee_id",
           filter: this.nameFilter,
         },
         {
-          text: "Instructor",
-          value: "instrucname",
-          
+          text: "Instruasd  ctor",
+          value: "employee_id",
         },
-        { text: "School Year", value: "schoolyear" ,filter: this.schoolyearFilter},
-        { text: "Semester", value: "semester"  ,filter: this.semesterFilter},
+        {
+          text: "School Year",
+          value: "evaluationDate",
+          filter: this.schoolyearFilter,
+        },
         { text: "Publish", value: "publish" },
         { text: "Report", value: "report" },
-         { text: 'Actions', value: 'actions', sortable: false },
+        { text: "Actions", value: "actions", sortable: false },
       ];
     },
   },
+
+  created() {
+    this.getEvaluation();
+  },
+
   methods: {
     /**
      * Filter for dessert names column.
@@ -153,6 +153,25 @@ export default {
      * @returns {boolean}
      */
 
+    getEvaluation: function () {
+      debugger;
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+      let config = {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios
+        .get(
+          "http://localhost/Laravue-spa-template/public/api/getEvaluatedRecords",
+          config
+        )
+        .then((data) => {
+          console.log(data);
+          this.evaluationData = data.data;
+        })
+        .catch((err) => {
+          alert("Error :" + err);
+        });
+    },
 
     nameFilter(value) {
       // If this filter has no value we just skip the entire filter.
@@ -180,15 +199,14 @@ export default {
       return value === this.schoolyearFilterValue;
     },
 
-    semesterFilter(value){
-          if (!this.semesterFilterValue) {
+    semesterFilter(value) {
+      if (!this.semesterFilterValue) {
         return true;
       }
       // Check if the current loop value (The calories value)
       // equals to the selected value at the <v-select>.
       return value === this.semesterFilterValue;
-
-    }
+    },
   },
 };
 </script> 

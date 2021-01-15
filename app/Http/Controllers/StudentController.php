@@ -89,7 +89,7 @@ class StudentController extends Controller
     {
         //Evaluator main transaction
         $res = DB::table('section')
-        ->select('section.section_code', 'section.subjCode', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('section.section_code', 'section.studId', 'section.subjCode', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
@@ -99,6 +99,29 @@ class StudentController extends Controller
 
         return response()->json(['response' => 'success', 'data' => $res]);
     }
+
+    public function getEvaluatedRecords()
+    {
+        $res = DB::table('evaluation')
+        ->select('employee.employee_id', 'employee.firstname', 'employee.lastname', 'evaluation.evaluationDate', 'evaluation.publish', 'evaluation.report') 
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+    public function getEvaluatedRecordsById($id)
+    {
+        $res = DB::table('evaluation')
+        ->select('*') 
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->where('evaluation.id', $id)
+        ->get();
+
+        return response()->json(['response' => 'success', 'data' => $res]);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -167,6 +190,6 @@ class StudentController extends Controller
             ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
             ->leftjoin('student', 'users.id', '=', 'student.user_id')
             ->where('users.id', $id)
-            ->get($id);
+            ->get();
     }
 }

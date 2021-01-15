@@ -10,8 +10,8 @@ class activity_log extends Model
     use HasFactory;
 
     protected $fillable = [
-        'comment',
-        'employee_id',
+        'logs',
+        'username',
     ];
-    protected $table = 'comment';
+    protected $table = 'activity_log';
 }
