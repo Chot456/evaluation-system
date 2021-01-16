@@ -279,7 +279,7 @@ import axios from 'axios';
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
       axios.get(
-          "http://localhost/Laravue-spa-template/public/api/subject",
+          "http://localhost/evaluation-system/public/api/subject",
           config
 		)
 	

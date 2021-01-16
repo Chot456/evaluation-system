@@ -129,7 +129,7 @@ export default {
       };
       axios
         .get(
-          "http://localhost/Laravue-spa-template/public/getSession",
+          "http://localhost:8080/evaluation-system/public/getSession",
           config
         )
         .then((data) => {
