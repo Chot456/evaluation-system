@@ -13,12 +13,13 @@ class EvaluationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($usertype)
     {
         //return evaluation::all();
         return $result = DB::table('evaluation')
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        //->where('evaluation.userTypeDescription',$usertype )
         ->get();
     }
 

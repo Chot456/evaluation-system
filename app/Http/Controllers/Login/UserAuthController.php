@@ -23,24 +23,25 @@ class UserAuthController extends Controller
     function check(Request $request) 
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:5|max:12'
+            'email' => 'required',
+            'password' => 'required'
         ]);
 
         $user = User::where('email', '=', $request->email)->first();
-        
+    
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                
+
                 $aRes = DB::table('users')
                     ->select('*')
                     ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
                     ->leftjoin('student', 'users.id', '=', 'student.user_id')
+                    ->leftjoin('faculty', 'employee.id', '=', 'faculty.employee_id')
                     ->where('users.id', $user->id)
                     ->get();
-
+                    
                 $request->session()->put('LoggedUser', $aRes);
-                return redirect('home');
+                return redirect('Evaluator#/EvaluatorMain');
 
                 // if (session('LoggedUser')->roles) {
                 //     if (session('LoggedUser')->roles == 'evaluator'){

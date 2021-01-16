@@ -19,7 +19,7 @@
 
         <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn @click="logout()"
+        <v-btn
            class="ml-2"
           dark
           v-bind="attrs"
@@ -30,6 +30,7 @@
       </template>
       <v-list>
         <v-list-item
+         @click="logout()"
           v-for="(item, index) in items"
           :key="index"
           :to="item.link"
@@ -52,16 +53,9 @@ export default {
     items: [{ title: "Logout", link: "/logout" }],
   }),
 
-  methods: {
-    async logout() {
-     await axios
-        .get("/logout")
-        .then((response) => {
-          this.$router.push("/userLogin");
-        })
-        .catch((error) => {
-          location.reload();
-        });
+methods: {
+    logout() {
+      window.location = "http://localhost:8080/evaluation-system/public/logout";
     },
   },
 };

@@ -18,8 +18,8 @@ class CreateSectionsTable extends Migration
             $table->string('section_code');
             $table->string('subjCode');
             $table->foreign('subjCode')->references('subjCode')->on('subject')->onDelete('cascade');
-            $table->string('studId');
-            $table->foreign('studId')->references('studId')->on('student')->onDelete('cascade');
+            $table->unsignedBigInteger('evaluator_id');
+            $table->foreign('evaluator_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employee');
             $table->string('semesterDescription');

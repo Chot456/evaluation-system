@@ -202,7 +202,7 @@ export default {
     
        SubmitEval(textarea,questiondata, usertypedescr, empid, studid) {
 
-debugger;
+
 
 const concat =  {};
 var key = 0;
@@ -258,7 +258,8 @@ if(count <= 19) {
 
         },
       });
-
+        this.$router.push({name: "EvaluatorMain"});
+         
     },
     getquestion: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});

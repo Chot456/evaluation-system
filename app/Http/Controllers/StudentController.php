@@ -15,7 +15,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return student::all();
+        dd(432);
+        return student::All();
     }
 
     /**
@@ -54,12 +55,12 @@ class StudentController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     *  
      * @param  \App\Models\student  $student
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {     
+    {           
         $res = DB::table('student')
             ->select('section.studid', 'student.firstname', 'student.lastname', 'student.coursedescription', 'student.yeardescription', 'section.subjcode')
             ->join('section', 'section.studId', '=', 'student.studId')
@@ -88,7 +89,7 @@ class StudentController extends Controller
 
     public function getRecordsToEvaluate($id)
     {
-        $studtype = 1;
+        //$studtype = 1;
         //Evaluator main transaction
         $res = DB::table('section')
         ->select('evaluation.id as evalid','section.id','employee.id as empid'  ,'section.section_code', 'section.studId', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
@@ -96,8 +97,9 @@ class StudentController extends Controller
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
         ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
         ->where('section.studId', $id)
-        ->where('evaluation.publish', '!=', 'yes')
-        ->where('user_type.id', '!=', $studtype)
+        //->where('evaluation.publish', '!=', 'yes')
+        //->where('user_type.id', '!=', $studtype)
+        ->where('evaluation.userTypeDescription', '=' , 'teacher' )
         ->get();
 
         return response()->json(['response' => 'success', 'data' => $res]);

@@ -5,14 +5,15 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-            
-                  <div>Student Number: {{ questiondata.data[0].studid }}</div>
+              <div>
+              <div>Student Number: {{ evaluteinfodata.data[0].studid }}</div>
+
               <div>
                 Student Name:
                 {{
-                  questiondata.data[0].firstname +
+                  evaluteinfodata.data[0].firstname +
                   " " +
-                  questiondata.data[0].lastname
+                  evaluteinfodata.data[0].lastname
                 }}
               </div> 
               <div>
@@ -21,10 +22,13 @@
                 }}
               </div>
                <div>
-                Course/ Year :{{ questiondata.data[0].coursedescription }} /
-                {{ questiondata.data[0].yeardescription }}
+                Course/ Year :{{ evaluteinfodata.data[0].coursedescription }} /
+                {{ evaluteinfodata.data[0].yeardescription }}
               </div>
-                <!-- <template  v-for="(studentinfo, i) in questiondata.data">
+              <div>
+                 Professor Name: 
+              </div>
+                <!-- <template  v-for="(studentinfo, i) in evaluteinfodata.data">
               <div>Student Number: {{ studentinfo.studid }}</div>
               <div>
                 Student Name:
@@ -44,22 +48,25 @@
                 {{ studentinfo.yeardescription }}
               </div>
               </template> -->
+              </div>
             </v-col>
             <v-col>
               <!-- <img  src="../../../../storage/app/public/img/sansebastiancollege.png"> -->
             </v-col>
           </v-row>
           <v-divider></v-divider>
+         
           <v-card
             outlined
             color="transparent"
             v-for="(profdata, i) in profevaluatedata.data"
+            v-if="profdata"
             :key="i"
           >
             <v-row>
               <v-col>
                 <div>
-                  {{ profdata.section_code }}
+                  {{ profdata.subjCode }}
                 </div>
                 <div>
                   {{ profdata.userTypeDescription }}
@@ -67,24 +74,23 @@
                 <div>{{ profdata.firstname }} {{ profdata.lastname }}</div>
               </v-col>
               <v-col>
-                <router-link :to="{ name: 'EvaluateProf' }">
+
                   <v-btn
                     class="float-right mt-7 m-10"
                     depressed
                     color="primary"
+                     @click="route(profdata.studId , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname, profdata.id , profdata.empid, profdata.evalid, profdata.userTypeDescription )"
                   >
                     Evaluate
                   </v-btn>
-                </router-link>
 
-                <button
-                  @click="route(profdata.studId , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname, profdata.id , profdata.empid, profdata.evalid, profdata.userTypeDescription )"
-                >
-                  aasdasasdasdadasdasda11111123asdasdasdasd asdasdasd
-                </button>
+
               </v-col>
             </v-row>
             <v-divider></v-divider>
+          </v-card>
+          <v-card  v-else>
+            No professor to evaluate
           </v-card>
         </v-container>
       </v-card>
@@ -131,10 +137,10 @@ export default {
           config
         )
         .then((data) => {
-          debugger;
           console.log(data.data);
           this.sessiondata = data.data;
           this.studId = this.sessiondata[0].studId;
+
                   this.$nextTick(()=> {
              this.getstudrecordbyid();
          this.getprofevaluate();
@@ -161,7 +167,7 @@ export default {
         )
         .then((data) => {
           console.log(data.data);
-          this.questiondata = data.data;
+          this.evaluteinfodata = data.data;
 
           
         })
@@ -176,9 +182,10 @@ export default {
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
+
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/" + this.studId ,
+          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/" + this.studId , 
           config
         )
         .then((data) => {
@@ -193,7 +200,7 @@ export default {
 
   data: () => ({
     dialog: false,
-    questiondata: [],
+    evaluteinfodata: [],
     sessiondata: String,
     profevaluatedata: [],
     studId: "",
