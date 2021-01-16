@@ -53,15 +53,8 @@ export default {
   }),
 
   methods: {
-    async logout() {
-     await axios
-        .get("/logout")
-        .then((response) => {
-          this.$router.push("/userLogin");
-        })
-        .catch((error) => {
-          location.reload();
-        });
+    logout() {
+      window.location = "http://localhost/Laravue-spa-template/public/logout";
     },
   },
 };

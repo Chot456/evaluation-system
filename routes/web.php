@@ -33,8 +33,6 @@ Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
 // Route::get('home#/logout', [UserAuthController::class, 'logOut']);
 
 
-
-
 // Auth::routes();
 // Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('isLogged');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home')->middleware('isLogged');
