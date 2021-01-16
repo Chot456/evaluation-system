@@ -13,13 +13,25 @@ class EvaluationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($usertype)
+    public function index()
     {
         //return evaluation::all();
-        return $result = DB::table('evaluation')
+        return DB::table('evaluation')
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
-        //->where('evaluation.userTypeDescription',$usertype )
+        ->get();
+    }
+
+    /**
+    * Find evaluation by user type 
+    *param usertype
+    */
+    public function findEvaluationByUserType($userType)
+    {
+        return  DB::table('evaluation')
+        ->select('*')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->where('evaluation.userTypeDescription',$usertype )
         ->get();
     }
 

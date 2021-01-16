@@ -10,7 +10,43 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
+                            <div v-for="(evalinfo, i) in evaluteinfodata" >
+              <div v-if="evalinfo.studId !== null">
+              <div>Student Number: {{ evalinfo.studId }}</div>
+
               <div>
+                Student Name:
+                {{
+                  evalinfo.firstName +
+                  " " +
+                  evalinfo.lastName
+                }}
+              </div> 
+                  <div>
+                Course/ Year :{{ evalinfo.courseDescription }} /
+                {{ evalinfo.yearDescription }}
+              </div>
+              </div>
+           
+                 <div v-else> Professor Name:     {{
+                  evalinfo.firstname +
+                  " " +
+                  evalinfo.lastname
+                }} </div>
+                                <div>
+                Course: {{ evalinfo.courseDescription }} 
+              </div>
+                   <div>
+              </div>
+
+                <!-- <div>
+                Number of Instructor to evaluate:{{
+                  profevaluatedata.data.length
+                }}
+              </div> -->
+
+              </div>
+              <!-- <div>
                 Student Number: {{ studentdetaildata.data[0].studid }}
               </div>
               <div>
@@ -19,7 +55,7 @@
               </div>
 
               <div>Instructor: {{ studentdetaildata.data[0].employeefirstname }} {{ studentdetaildata.data[0].employeelastname }}</div>
-              <div>Subject: {{ studentdetaildata.data[0].subjDesc }}</div>
+              <div>Subject: {{ studentdetaildata.data[0].subjDesc }}</div> -->
             </v-col>
             <v-col> </v-col>
           </v-row>       
@@ -161,6 +197,8 @@ export default {
       props: ["empid"],
       props: ["userTypeDescription"],
       props: ["evalid"],
+      props: ["userid"],
+      userevalid: " ",
       evaluatorid: "",
       employee_id: " ",
       usertypedescr: " ",
@@ -182,27 +220,26 @@ export default {
         { text: "Answer", value: "Answer" },
       ],
       questiondata: [],
-      studentdetaildata: [],
+      evaluteinfodata: [],
 
     };
   },
 
  
   created() {
-    this.getquestion();
-    this.getevaluteprof();
-    this.employ = this.$route.params.empid;
+   this.employ = this.$route.params.empid;
     this.studid = this.$route.params.id; 
     this.evid  =   this.$route.params.evalid;
     this.usertypedescr  = this.$route.params.userTypeDescription;
+    this.userevalid   =  this.$route.params.userid;
+    this.getquestion();
+    this.getevaluteprof();
   },
 
   methods: {
 
     
        SubmitEval(textarea,questiondata, usertypedescr, empid, studid) {
-
-
 
 const concat =  {};
 var key = 0;
@@ -225,8 +262,8 @@ if(count <= 19) {
        
           
       axios({
-        method: "put",
-        url: "http://localhost:8080/evaluation-system/public/api/evaluation/"+
+        method: "post",
+        url: "http://localhost:8080/evaluation-system/public/api/evaluation/" +
          this.evid,
         data: {
       evaluatorid: studid,
@@ -263,7 +300,7 @@ if(count <= 19) {
     },
     getquestion: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});
-      debugger;
+       
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
@@ -283,18 +320,19 @@ if(count <= 19) {
 
     getevaluteprof: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});
-      debugger;
+           // "http://localhost:8080/evaluation-system/public/api/student/transaction/" + this.$route.params.id + "/" + this.$route.params.subjCode ,
+       
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/student/transaction/" + this.$route.params.id + "/" + this.$route.params.subjCode ,
+          "http://localhost:8080/evaluation-system/public/api/user/" + this.userevalid,
           config
         )
         .then((data) => {
           console.log(data.data);
-          this.studentdetaildata = data.data;
+          this.evaluteinfodata = data.data;
         })
         .catch((err) => {
           alert("Error :" + err);

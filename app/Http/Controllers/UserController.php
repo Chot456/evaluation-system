@@ -28,11 +28,11 @@ class UserController extends Controller
             ->get();
     }
 
-    public function getUserRecords($id) 
+    public function getUserById($id) 
     {
         return DB::table('users')
             ->select('*')
-            ->lefjoin('employee', 'users.id', '=', 'employee.user_id')
+            ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
             ->leftjoin('student', 'users.id', '=', 'student.user_id')
             ->where('users.id', $id)
             ->get();

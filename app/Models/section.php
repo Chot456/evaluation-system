@@ -14,7 +14,7 @@ class section extends Model
     protected $fillable = [
         'section_code', 
         'subject_code',
-        'studId',
+        'evaluator_id',
         'profId',
         'semester',
         'year',

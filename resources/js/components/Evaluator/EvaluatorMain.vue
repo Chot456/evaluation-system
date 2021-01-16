@@ -5,49 +5,41 @@
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
-              <div>
-              <div>Student Number: {{ evaluteinfodata.data[0].studid }}</div>
+              <div v-for="(evalinfo, i) in evaluteinfodata" >
+              <div v-if="evalinfo.studId !== null">
+              <div>Student Number: {{ evalinfo.studId }}</div>
 
               <div>
                 Student Name:
                 {{
-                  evaluteinfodata.data[0].firstname +
+                  evalinfo.firstName +
                   " " +
-                  evaluteinfodata.data[0].lastname
+                  evalinfo.lastName
                 }}
               </div> 
-              <div>
+                  <div>
+                Course/ Year :{{ evalinfo.courseDescription }} /
+                {{ evalinfo.yearDescription }}
+              </div>
+              </div>
+           
+                 <div v-else> Professor Name:     {{
+                  evalinfo.firstname +
+                  " " +
+                  evalinfo.lastname
+                }} </div>
+                                <div>
+                Course: {{ evalinfo.courseDescription }} 
+              </div>
+                   <div>
+              </div>
+
+                <!-- <div>
                 Number of Instructor to evaluate:{{
                   profevaluatedata.data.length
                 }}
-              </div>
-               <div>
-                Course/ Year :{{ evaluteinfodata.data[0].coursedescription }} /
-                {{ evaluteinfodata.data[0].yeardescription }}
-              </div>
-              <div>
-                 Professor Name: 
-              </div>
-                <!-- <template  v-for="(studentinfo, i) in evaluteinfodata.data">
-              <div>Student Number: {{ studentinfo.studid }}</div>
-              <div>
-                Student Name:
-                {{
-                  studentinfo.firstname +
-                  " " +
-                  studentinfo.lastname
-                }}
-              </div> 
-              <div>
-                Number of Instructor to evaluate:{{
-                  profevaluatedata.data.length
-                }}
-              </div>
-               <div>
-                Course/ Year {{ studentinfo.coursedescription }} /
-                {{ studentinfo.yeardescription }}
-              </div>
-              </template> -->
+              </div> -->
+
               </div>
             </v-col>
             <v-col>
@@ -66,12 +58,16 @@
             <v-row>
               <v-col>
                 <div>
-                  {{ profdata.subjCode }}
+                   ID: {{ profdata.evalid }}
                 </div>
                 <div>
-                  {{ profdata.userTypeDescription }}
+    
+                  Subject Code: {{ profdata.subjCode }}
                 </div>
-                <div>{{ profdata.firstname }} {{ profdata.lastname }}</div>
+                <div>
+                  Role: {{ profdata.userTypeDescription }}
+                </div>
+                <div> Professor Name;{{ profdata.firstname }} {{ profdata.lastname }}</div>
               </v-col>
               <v-col>
 
@@ -79,7 +75,7 @@
                     class="float-right mt-7 m-10"
                     depressed
                     color="primary"
-                     @click="route(profdata.studId , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname, profdata.id , profdata.empid, profdata.evalid, profdata.userTypeDescription )"
+                     @click="route(profdata.evalid , profdata.subjCode, profdata.user_type_id, profdata.firstname + profdata.lastname, profdata.id , profdata.empid, profdata.evalid, profdata.userTypeDescription, userid )"
                   >
                     Evaluate
                   </v-btn>
@@ -113,11 +109,13 @@ export default {
 
 
   methods: {  
-    route(name, subjCode , usertype, fullname,id, empid, evalid, userTypeDescription) {
-      debugger;
+    route(name, subjCode , usertype, fullname,id, empid, evalid, userTypeDescription, userid ) {
+
+      var uid = parseInt(userid);
+
       this.$router.push({
         name: "EvaluateProf",
-        params: { id: name, subjCode: subjCode, usertype: usertype ,  fullname : fullname, eval :id, empid: empid, evalid: evalid, userTypeDescription : userTypeDescription},
+        params: { id: name, subjCode: subjCode, usertype: usertype ,  fullname : fullname, eval :id, empid: empid, evalid: evalid, userTypeDescription : userTypeDescription, userid : uid},
         props: true,
       });
     },
@@ -139,8 +137,8 @@ export default {
         .then((data) => {
           console.log(data.data);
           this.sessiondata = data.data;
-          this.studId = this.sessiondata[0].studId;
-
+           this.studId = this.sessiondata[0].studId;
+          this.userid = this.sessiondata[0].user_id;
                   this.$nextTick(()=> {
              this.getstudrecordbyid();
          this.getprofevaluate();
@@ -161,8 +159,9 @@ export default {
       };
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/student/" +
-            this.studId,
+          // "http://localhost:8080/evaluation-system/public/api/student/" +
+          //   this.studId,
+          "http://localhost:8080/evaluation-system/public/api/user/" + this.userid,
           config
         )
         .then((data) => {
@@ -185,7 +184,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/" + this.studId , 
+          "http://localhost:8080/evaluation-system/public/api/getRecordsToEvaluate/" + this.userid , 
           config
         )
         .then((data) => {
@@ -204,6 +203,7 @@ export default {
     sessiondata: String,
     profevaluatedata: [],
     studId: "",
+    userid: Number,
     usersessiondata: [],
   }),
 };

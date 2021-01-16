@@ -31,7 +31,7 @@ class SectionController extends Controller
         $section = new section([
             'section_code' => $request->get('section'),
             'subject_code' => $request->get('subject_code'),
-            'studId' => $request->get('studId'),
+            'evaluator_id' => $request->get('evaluator_id'),
             'profId' => $request->get('profId'),
             'semester' => $request->get('semester'),
             'year' => $request->get('year')
@@ -87,7 +87,7 @@ class SectionController extends Controller
         $section = section::findOrFail($id);
         $section->section_code = $request->section_code;
         $section->subject_code = $request->subject_code;
-        $section->studId = $request->studId;
+        $section->evaluator_id = $request->evaluator_id;
         $section->profId = $request->profId;
         $section->semester = $request->semester;
         $section->year = $request->year;
