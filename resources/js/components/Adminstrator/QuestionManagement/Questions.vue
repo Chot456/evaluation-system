@@ -47,34 +47,15 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.questionCategoryId"
-                      label="questionCategoryId"
-                    ></v-text-field>
-                  </v-col>
+             
                           <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    sm="12"
+                    md="12"
                   >
                     <v-text-field
                       v-model="editedItem.questionDescription"
                       label="Queston"
-                    ></v-text-field>
-                  </v-col>
-                          <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.created_at"
-                      label="Date Added"
                     ></v-text-field>
                   </v-col>
      
@@ -117,13 +98,7 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
+
       <v-icon
         small
         @click="deleteItem(item)"
@@ -167,15 +142,16 @@ import axios from 'axios';
       ],
       questiondata: [],
       editedIndex: -1,
+      
       editedItem: {
         questionCategoryId: '',
         questionDescription: '',
-        created_at: '',
+        created_at: Date.now()
       },
       defaultItem: {
         questionCategoryId: '',
         questionDescription: '',
-        created_at: '',
+        created_at: Date.now()
       },
     }),
 
@@ -215,16 +191,17 @@ import axios from 'axios';
       // },
 
       
-        addSubject: function(item) {
-
+        addQuestions: function(item) {
+                debugger;
         console.log(item)
         axios({
         method: 'post',
         url: 'http://localhost:8080/evaluation-system/public/api/questionaire', 
         data: {
        
-       questionCategoryId: item.questionCategoryId,
+       questionCategoryId: 4,
         questionDescription: item.questionDescription,
+        userTypeId: 2,
         created_at: Date.now()
 
         }
@@ -284,7 +261,7 @@ import axios from 'axios';
           Object.assign(this.questiondata[this.editedIndex], this.editedItem)
         } else {
           this.questiondata.push(this.editedItem)
-           this.addSubject(this.editedItem);
+           this.addQuestions(this.editedItem);
         }
         this.close()
       },

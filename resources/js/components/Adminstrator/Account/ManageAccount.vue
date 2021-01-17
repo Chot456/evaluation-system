@@ -5,7 +5,7 @@
         <v-toolbar color="main" dark>
       
 
-          <v-toolbar-title>Students</v-toolbar-title>
+          <v-toolbar-title>Manage Account</v-toolbar-title>
 
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -16,15 +16,13 @@
               <transition name="fade">
             <v-data-table
     :headers="headers"
-    :items="studentsdata"
+    :items="usersdata"
     sort-by="calories"
     class="elevation-1"
   >
-    <template v-slot:item.studname="{ item }">
-        <div>{{ item.firstName}} {{ item.lastName }} </div>
-    </template>
     <template v-slot:top>
       <v-toolbar
+      v-show="false"
         flat
       >
         <v-dialog
@@ -33,14 +31,14 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+             color="primary"
               dark
               class="mb-2"
               v-bind="attrs"
               v-on="on"
             >
-              Add Students
-            </v-btn>
+              New ActivityLogs
+            </v-btn> 
           </template>
           <v-card>
             <v-card-title>
@@ -56,41 +54,46 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.studId"
-                      label="Student Number"
+                      v-model="editedItem.name"
+                      label="Name"
                     ></v-text-field>
                   </v-col>
-                            <v-col
+                                            <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.lastName"
-                      label="Last Name"
+                      v-model="editedItem.email"
+                      label="Email"
                     ></v-text-field>
                   </v-col>
-                    <v-col
+             
+                          <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.firstName"
-                      label="First Name"
+                      v-model="editedItem.roles"
+                      label="Role"
                     ></v-text-field>
                   </v-col>
-                    <!-- <v-col
+
+                                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.middlename"
-                      label="Middle Name"
+                      v-model="editedItem.password"
+                      label="Password"
+                       type="password"
                     ></v-text-field>
-                  </v-col> -->
-           
+                  </v-col>
+        
+        
+
      
                 </v-row>
               </v-container>
@@ -121,7 +124,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+             <!-- <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn> -->
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -138,12 +141,12 @@
       >
         mdi-pencil
       </v-icon>
-      <v-icon
+     <!-- <v-icon
         small
         @click="deleteItem(item)"
       >
         mdi-delete
-      </v-icon>
+      </v-icon> -->
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -167,39 +170,41 @@
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      usersdata: [],
+            //  { text: 'Actions', value: 'actions', sortable: false },
       headers: [
         {
-          text: 'Student Number',
+          text: 'Name',
           align: 'start',
           sortable: false,
-          value: 'studId',
+          value: 'name',
         },
-        { text: 'Student Name', value: 'studname' },
+          { text: 'Email', value: 'email' },
+           { text: 'Role', value: 'roles' },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
+         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      studentsdata: [],
+      manageAccountdata: [],
       editedIndex: -1,
       editedItem: {
-        studId: '',
-        studname: '',
-        lastName: '',
-        firstName: '',
-        middlename: ' ',
-        created_at:   Date().toLocaleString(),
+        name: '',
+        email: '',
+        roles: '',
+        created_at:  Date().toLocaleString(),
       },
       defaultItem: {
-        studId: '',
-        studname: '',
+        name: '',
+        email: '',
+        roles: '',
         created_at: '',
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Students' : 'Edit Item'
+        return this.editedIndex === -1 ? 'Edit User' : 'Edit Item'
       },
-    },
+},
 
     watch: {
       dialog (val) {
@@ -211,57 +216,45 @@
     },
 
     created () {
-      this.getStudent()
+      this.getUsers()
     },
 
     methods: {
 
-                             getStudent: function() {
-        // var snum = JSON.stringify({ snum :  "PH20080105"});
-    
-        let config  = {
-          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
-        }
-        axios.get("http://localhost:8080/evaluation-system/public/api/student" , config).then(data => {
+        getUsers: function () {
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+      debugger;
+      let config = {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios
+        .get(
+          "http://localhost:8080/evaluation-system/public/api/user",
+          config
+        )
+        .then((data) => {
           console.log(data.data);
-          this.studentsdata = data.data;
-        }).catch(err => {
-          alert("Error :" + err)
+          this.usersdata = data.data;
+        })
+        .catch((err) => {
+          alert("Error :" + err);
         });
-      },
-
-
-          addStudent(params) {
-      console.log(params);
-     debugger;
-      axios({
-        method: "post",
-        url: "http://localhost:8080/evaluation-system/public/api/student",
-        data: {
-         studId: params.studId,
-         firstName: params.firstName,
-         lastName: params.lastName,
-         yearDescription: '1st Year',
-         courseDescription:'Batchelor of Science in Information Technology',
-         semesterDescription: '1st Semester'
-        },
-      });
-
     },
+
       editItem (item) {
-        this.editedIndex = this.studentsdata.indexOf(item)
+        this.editedIndex = this.manageAccountdata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.studentsdata.indexOf(item)
+        this.editedIndex = this.manageAccountdata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.studentsdata.splice(this.editedIndex, 1)
+        this.manageAccountdata.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -282,12 +275,10 @@
       },
 
       save () {
-          //this.studname = this.editedItem.firstName +' ' + this.editedItem.middlename +' ' + this.editedItem.lastname
         if (this.editedIndex > -1) {
-          Object.assign(this.studentsdata[this.editedIndex], this.editedItem)
+          Object.assign(this.manageAccountdata[this.editedIndex], this.editedItem)
         } else {
-          this.studentsdata.push(this.editedItem)
-           this.addStudent(this.editedItem);
+          this.manageAccountdata.push(this.editedItem)
         }
         this.close()
       },

@@ -21,7 +21,7 @@ import ViewReport from "../components/Adminstrator/Report/ViewReprt"
 import MultiFiltersPlugin  from "../../plugins/MultiFilters"
 import EvaluatorMain from "../components/Evaluator/EvaluatorMain.vue"
 import EvaluateProf from "../components/Evaluator/EvaluateProf"
-
+import ManageAccount from "../components/Adminstrator/Account/ManageAccount"
 
 Vue.use(VueRouter)
 
@@ -120,6 +120,10 @@ const routes = [
         component: EvaluateProf ,
         path: "/EvaluateProf/:id/:subjCode/:usertype",
         name: 'EvaluateProf',
+    },{
+        component: ManageAccount,
+        path: "/ManageAccount",
+        name: "ManageAccount",
     }
     
     

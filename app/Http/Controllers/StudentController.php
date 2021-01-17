@@ -37,12 +37,15 @@ class StudentController extends Controller
      
     public function store(Request $request)
     {
+      
         $student = new student([
-            'evaluator_id' => $request->get('evaluator_id'),
+            'studId' => $request->get('studId'),
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
+            'user_id' => $request->get('user_id'),
             'yearDescription' => $request->get('yearDescription'),
-            'courseDescription' => $request->get('courseDescription')
+            'courseDescription' => $request->get('courseDescription'),
+            'semesterDescription' => $request->get('semesterDescription')
         ]);
         $student->save();
 
@@ -92,15 +95,18 @@ class StudentController extends Controller
     {
         //$studtype = 1;
         //Evaluator main transaction
+        //'evaluation.id as evalid',
+        //'section.id'
         $res = DB::table('section')
-        ->select('evaluation.id as evalid','section.id','employee.id as empid'  ,'section.section_code', 'section.evaluator_id', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('section.id as evalid','section.id','employee.user_type_id','employee.id as empid'  ,'section.section_code', 'section.evaluator_id', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
-        ->leftjoin('user_type', 'user_type.id', '=', 'employee.id')
-        ->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
+        ->leftjoin('user_type', 'user_type.id', '=', 'employee.user_type_id')
+        //->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
         ->where('section.evaluator_id', $id)
-        //->where('evaluation.publish', '!=', 'yes')
+        ->where('section.publish', '!=', 'yes')
         //->where('user_type.id', '!=', $studtype)
-       // ->where('evaluation.userTypeDescription', '=' , 'teacher' )
+        ->where('user_type.userTypeDescription', '=' , 'teacher')
+       //->where('employee.user_type_id', '=' , 2 )
         ->get();
 
         return response()->json(['response' => 'success', 'data' => $res]);
@@ -151,11 +157,13 @@ class StudentController extends Controller
     {
         $student = student::findOrFail($id);
 
-        $student->evaluator_id = $request->evaluator_id;
+        $student->user_id = $request->user_id;
+        $student->studId = $request->studId;
         $student->firstName = $request->firstName;
         $student->lastName = $request->lastName;
         $student->yearDescription = $request->yearDescription;
         $student->courseDescription = $request->courseDescription;
+        $student->semesterDescription = $request->semesterDescription;
     
         $student->save();
 

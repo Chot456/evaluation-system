@@ -8,6 +8,16 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fluid>
+                    <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="print"
+            >
+              Print
+            </v-btn>
           <v-row class="fill-height">
             <v-col>
               <transition name="fade">
@@ -21,18 +31,18 @@
                     <!-- v-container, v-col and v-row are just for decoration purposes. -->
                     <v-container fluid>
                       <v-row>
-                        <v-col cols="4">
+                       <!--- <v-col cols="4">
                           <v-row>
-                            <!-- Filter for calories -->
+                            
                             <v-select
                               :items="schoolyearList"
                               v-model="schoolyearFilterValue"
                               label="School Year"
                             ></v-select>
                           </v-row>
-                        </v-col>
+                        </v-col>-->
 
-                        <v-col cols="4">
+                        <v-col cols="6">
                           <v-row>
                             <!-- Filter for calories -->
                             <v-select
@@ -43,7 +53,7 @@
                           </v-row>
                         </v-col>
 
-                        <v-col cols="4">
+                        <v-col cols="6">
                           <v-row>
                             <!-- Filter for dessert name-->
                             <v-text-field
@@ -60,19 +70,17 @@
                     <v-icon
                       small
                       class="mr-2"
-                      @click="$router.push({ name: 'ViewComputations' })"
+                     @click="routeComputation(item)"
                     >
                       mdi-calculator
                     </v-icon>
                     <v-icon
                       small
-                      @click="$router.push({ name: 'ViewComments' })"
+                      @click="routeComments(item)"
                     >
                       mdi-comment-account-outline
                     </v-icon>
-                    <v-icon small @click="deleteItem(item)">
-                      mdi-newspaper-variant-outline
-                    </v-icon>
+                 
                   </template>
                   <template v-slot:no-data>
                     <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -127,13 +135,8 @@ export default {
           filter: this.nameFilter,
         },
         {
-          text: "Instruasd  ctor",
-          value: "employee_id",
-        },
-        {
-          text: "School Year",
-          value: "evaluationDate",
-          filter: this.schoolyearFilter,
+          text: "Instructor",
+          value: "firstname",
         },
         { text: "Publish", value: "publish" },
         { text: "Report", value: "report" },
@@ -147,6 +150,24 @@ export default {
   },
 
   methods: {
+
+    routeComputation(params){
+      this.$router.push({ name: 'ViewComputations',
+      params: { empid: params.id },
+        props: true });
+    
+    },
+
+    routeComments(params){
+      debugger;
+         this.$router.push({ name: 'ViewComments',
+      params: { empid: params.id },
+        props: true });
+    },
+
+         print() {
+                window.print()
+       },
     /**
      * Filter for dessert names column.
      * @param value Value to be tested.
@@ -161,7 +182,7 @@ export default {
       };
       axios
         .get(
-          "http://localhost/evaluation-system/public/api/getEvaluatedRecords",
+          "http://localhost:8080/evaluation-system/public/api/evaluation",
           config
         )
         .then((data) => {

@@ -5,7 +5,7 @@
         <v-toolbar color="main" dark>
       
 
-          <v-toolbar-title>ActivityLogs</v-toolbar-title>
+          <v-toolbar-title>Activity Logs</v-toolbar-title>
 
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -29,7 +29,7 @@
           max-width="500px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
+        <!--    <v-btn
               color="primary"
               dark
               class="mb-2"
@@ -37,7 +37,7 @@
               v-on="on"
             >
               New ActivityLogs
-            </v-btn>
+            </v-btn> -->
           </template>
           <v-card>
             <v-card-title>
@@ -156,6 +156,7 @@
     data: () => ({
       dialog: false,
       dialogDelete: false,
+            //  { text: 'Actions', value: 'actions', sortable: false },
       headers: [
         {
           text: 'Actions',
@@ -166,7 +167,7 @@
           { text: 'IP address', value: 'ipaddval' },
            { text: 'Commited By', value: 'commitby' },
         { text: 'Date Added', value: 'dateadded' },
-        { text: 'Actions', value: 'actions', sortable: false },
+
       ],
       ActivityLogsdate: [],
       editedIndex: -1,

@@ -18,7 +18,7 @@ class Student extends Migration
             $table->string('studId')->unique();
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('user_id');
+            $table->string('user_id')->nullable();
             $table->string('yearDescription');
             $table->foreign('yearDescription')->references('yearDescription')->on('year')->onDelete('cascade');
             $table->string('courseDescription');

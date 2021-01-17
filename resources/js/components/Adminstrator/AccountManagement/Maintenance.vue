@@ -16,9 +16,7 @@
               <transition name="fade">
             <v-data-table
     :headers="headers"
-    :items="maitenancedata"
-    sort-by="calories"
-    class="elevation-1"
+    :items="maintenancedata.data"
   >
     <template v-slot:top>
       <v-toolbar
@@ -53,7 +51,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.maintenanceid"
+                      v-model="editedItem.id"
                       label="Maintenance ID"
                     ></v-text-field>
                   </v-col>
@@ -168,17 +166,17 @@
           text: 'Maitenanceid',
           align: 'start',
           sortable: false,
-          value: 'maintenanceid',
+          value: 'id',
         },
-        { text: 'Name', value: 'maintenancename' },
-         { text: 'Role', value: 'role' },
-        { text: 'Date Added', value: 'dateadded' },
+        { text: 'Name', value: 'name' },
+         { text: 'Role', value: 'roles' },
+        { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      maitenancedata: [],
+      maintenancedata: [],
       editedIndex: -1,
       editedItem: {
-        maintenanceid: '',
+        id: '',
         firstname: '',
         lastname: '',
         middle: '',
@@ -186,7 +184,7 @@
         dateadded:   Date().toLocaleString(),
       },
       defaultItem: {
-        maintenanceid: '',
+        id: '',
         maintenancename: '',
         dateadded: '',
       },
@@ -208,43 +206,38 @@
     },
 
     created () {
-      this.initialize()
+      this.getMaintenance()
     },
 
     methods: {
-      initialize () {
-        this.maitenancedata = [
-          {
-            maintenanceid: 'CSC312',
-            maintenancename: 'Operation System',
-            role: 'Admin',
-            dateadded: '09/09/20',
-          },
-                {
-            maintenanceid: 'CSC313',
-            maintenancename: 'Methods of research in computing',
-             role: 'Admin',
-            dateadded: '09/09/20',
-          }
-        ]
-      },
-
       
-
+              getMaintenance: function() {
+        // var snum = JSON.stringify({ snum :  "PH20080105"});
+     debugger;
+        let config  = {
+          headers : {"Content-Type" : "application/x-www-form-urlencoded"}
+        }
+        axios.get("http://localhost:8080/evaluation-system/public/api/getUserByRole/admin" , config).then(data => {
+          console.log(data.data);
+          this.maintenancedata = data.data;
+        }).catch(err => {
+          alert("Error :" + err)
+        });
+      },
       editItem (item) {
-        this.editedIndex = this.maitenancedata.indexOf(item)
+        this.editedIndex = this.maintenancedata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.maitenancedata.indexOf(item)
+        this.editedIndex = this.maintenancedata.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.maitenancedata.splice(this.editedIndex, 1)
+        this.maintenancedata.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -267,9 +260,9 @@
       save () {
          this.editedItem.maintenancename = this.editedItem.firstname +' ' + this.editedItem.middlename +' ' + this.editedItem.lastname
         if (this.editedIndex > -1) {  
-          Object.assign(this.maitenancedata[this.editedIndex], this.editedItem)
+          Object.assign(this.maintenancedata[this.editedIndex], this.editedItem)
         } else {
-          this.maitenancedata.push(this.editedItem)
+          this.maintenancedata.push(this.editedItem)
         }
         this.close()
       },

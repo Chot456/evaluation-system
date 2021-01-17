@@ -13,10 +13,20 @@
 
           <v-row class="fill-height">
             <v-col>
+                            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="print"
+            >
+              Print
+            </v-btn>
               <transition name="fade">
      <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="commentsData"
     :items-per-page="5"
     class="elevation-1"
   ></v-data-table>
@@ -29,54 +39,57 @@
   </v-app>
 </template>
 <script>
+import axios from "axios";
   export default {
+
+        created(){
+       this.employid = this.$route.params.empid;
+     this.getEvaluation();
+    },
+    methods: {
+    getEvaluation: function () {
+      
+      // var snum = JSON.stringify({ snum :  "PH20080105"});
+      let config = {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios
+        .get(
+          "http://localhost:8080/evaluation-system/public/api/getEvaluationByEmployeeId/"+ this.employid ,
+          config
+        )
+        .then((data) => {
+          console.log(data);
+          this.commentsData = data.data;
+        })
+        .catch((err) => {
+          alert("Error :" + err);
+        });
+    },
+    },
+
+
+             print() {
+                window.print()
+       },
+
     data () {
       return {
+        props: ["empid"],
+        employid : "",
+        commentsData: [],
         headers: [
           {
             text: 'No.',
             align: 'start',
             sortable: false,
-            value: 'name',
+            value: 'id',
           },
-          { text: 'Comments / Suggestion', value: 'calories' },
-          { text: 'Subject', value: 'fat' },
+          { text: 'Comments / Suggestion', value: 'remarks' },
+         
    
         ],
-        desserts: [
-          {
-            name: 1,
-            calories: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-            fat: "SSC1",
-            carbs: 2,
-            protein: 4.,
-            iron: 1,
-          },
-          {
-            name: 2,
-            calories: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-             fat: "SSC1",
-          },
-          {
-            name: 4,
-            calories: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-             fat: "SSC1",
-           
-          },
-          {
-            name: 5,
-           calories: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-             fat: "SSC1",
-          },
-          {
-            name: 6,
-            calories: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s',
-            fat: "SSC1",
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-        ],
+    
       }
     },
   }

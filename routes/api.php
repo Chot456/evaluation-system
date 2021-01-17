@@ -32,6 +32,7 @@ Route::get('getEvaluatedRecords', 'App\Http\Controllers\StudentController@getEva
 Route::get('getRecordsToEvaluate/{studentId}', 'App\Http\Controllers\StudentController@getRecordsToEvaluate');
 Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
 Route::get('student/transaction/{id}/{subjCode}', 'App\Http\Controllers\StudentController@studentTransaction');
+Route::get('getEvaluationByEmployeeId/{id}', 'App\Http\Controllers\EvaluationController@getEvaluationByEmployeeId');
 
 Route::apiResource('student', 'App\Http\Controllers\StudentController');
 Route::apiResource('user-type', 'App\Http\Controllers\UserTypeController');
@@ -41,7 +42,12 @@ Route::apiResource('question-category', 'App\Http\Controllers\questionaireCatego
 Route::apiResource('evaluation', 'App\Http\Controllers\EvaluationController');
 Route::apiResource('evaluation-summary', 'App\Http\Controllers\EvaluationSummaryController');
 Route::apiResource('year', 'App\Http\Controllers\YearController');
+
+//Section routes
 Route::apiResource('section', 'App\Http\Controllers\SectionController');
+Route::put('updatePublish/{id}', 'App\Http\Controllers\SectionController@updatePublish');
+
+
 Route::apiResource('faculty', 'App\Http\Controllers\FacultyController');
 
 Route::apiResource('employee', 'App\Http\Controllers\EmployeeController');

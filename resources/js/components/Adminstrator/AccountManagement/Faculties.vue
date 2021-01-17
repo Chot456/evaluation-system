@@ -53,7 +53,7 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.instrucid"
+                      v-model="editedItem.employee_id"
                       label="Instructor ID"
                     ></v-text-field>
                   </v-col>
@@ -77,17 +77,7 @@
                       label="First Name"
                     ></v-text-field>
                   </v-col>
-                             <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.middlename"
-                      label="Middle Name"
-                    ></v-text-field>
-                  </v-col>
-           
+
      
                 </v-row>
               </v-container>
@@ -169,24 +159,24 @@
           text: 'Instructor ID',
           align: 'start',
           sortable: false,
-          value: 'instrucid',
+          value: 'employee_id',
         },
-        { text: 'Name', value: 'firstName'  },
+        { text: 'Name', value: 'firstname'  },
         { text: 'Date Added', value: 'created_at' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       Facultiesdata: [],
       editedIndex: -1,
       editedItem: {
-        instrucid: '',
+        employee_id: '',
         instrucname: '',
         firstname: '',
         lastname: '',
         middlename: '',
-        dateadded:   Date().toLocaleString(),
+        created_at:   Date().toLocaleString(),
       },
       defaultItem: {
-        instrucid: '',
+        employee_id: '',
         instrucname: '',
         dateadded: '',
       },
@@ -208,19 +198,38 @@
     },
 
     created () {
-      this.initialize()
+      this.getDepartment()
     },
 
     methods: {
+
+                addFaculties(params) {
+                
+      console.log(params);
+     debugger;
+      axios({
+        method: "post",
+        url: "http://localhost:8080/evaluation-system/public/api/employee",
+        data: {
+          employee_id: params.employee_id,
+          firstname: params.firstname,
+          lastname: params.lastname,
+          user_type_id: "2",
+          email: 'prof@gmail.com'
+        },
+      });
+
+    },
 
 
                            getDepartment: function() {
         // var snum = JSON.stringify({ snum :  "PH20080105"});
     
+    
         let config  = {
           headers : {"Content-Type" : "application/x-www-form-urlencoded"}
         }
-        axios.get("http://localhost:8080/evaluation-system/public/api/department" , config).then(data => {
+        axios.get("http://localhost:8080/evaluation-system/public/api/employee" , config).then(data => {
           console.log(data.data);
           this.Facultiesdata = data.data;
         }).catch(err => {
@@ -267,6 +276,7 @@
           Object.assign(this.Facultiesdata[this.editedIndex], this.editedItem)
         } else {
           this.Facultiesdata.push(this.editedItem)
+          this.addFaculties(this.editedItem);
         }
         this.close()
       },

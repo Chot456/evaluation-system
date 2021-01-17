@@ -47,6 +47,11 @@
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
+         <!-- {
+          action: "mdi-account-circle",
+          items: [{ title: "Site Setting", link: "SiteSetting" }],
+          title: "Setting",
+        },-->
 </template>
   <script>
 export default {
@@ -82,11 +87,7 @@ export default {
           ],
           title: "Account Management",
         },
-        {
-          action: "mdi-account-circle",
-          items: [{ title: "Site Setting", link: "SiteSetting" }],
-          title: "Setting",
-        },
+
         {
           action: "mdi-account-circle",
           items: [{ title: "Manage Sessions", link: "ManageSessions" }],
@@ -102,7 +103,7 @@ export default {
         },
         {
           action: "mdi-account-circle",
-          items: [{ title: "Manage Account", link: "Questions" }],
+          items: [{ title: "Manage Account", link: "ManageAccount" }],
           title: "Account",
         },
       ],
@@ -133,8 +134,8 @@ export default {
           config
         )
         .then((data) => {
-          let res = Object.values(data.data)
-           this.user_type_id = res[0].user_type_id;
+           console.log(data.data);
+          this.user_type_id = data.data;
           // this.evaluationData = data.data;
         })
         .catch((err) => {
@@ -143,7 +144,7 @@ export default {
     },
 
     validateAdminUser() {
-        return this.user_type_id === 4;
+        return this.user_type_id[0].roles === 'admin';
     }
   }
 };

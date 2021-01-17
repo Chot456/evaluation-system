@@ -33,7 +33,7 @@ class UserAuthController extends Controller
             if (Hash::check($request->password, $user->password)) {
 
                 $aRes = DB::table('users')
-                    ->select('*')
+                    ->select('*','users.user_id','users.user_id',)
                     ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
                     ->leftjoin('student', 'users.id', '=', 'student.user_id')
                     ->leftjoin('faculty', 'employee.id', '=', 'faculty.employee_id')

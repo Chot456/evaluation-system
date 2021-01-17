@@ -31,7 +31,7 @@ class UserController extends Controller
     public function getUserById($id) 
     {
         return DB::table('users')
-            ->select('*')
+            ->select('*','users.user_id','users.user_id')
             ->leftjoin('employee', 'users.id', '=', 'employee.user_id')
             ->leftjoin('student', 'users.id', '=', 'student.user_id')
             ->where('users.id', $id)

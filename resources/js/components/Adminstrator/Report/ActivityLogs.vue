@@ -20,14 +20,17 @@
     sort-by="calories"
     class="elevation-1"
   >
-    <template v-slot:top>
+  
+    <template v-slot:top >
       <v-toolbar
+       v-show="false"
         flat
       >
         <v-dialog
           v-model="dialog"
           max-width="500px"
         >
+        
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
@@ -39,6 +42,7 @@
               New ActivityLogs
             </v-btn>
           </template>
+          
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -151,11 +155,12 @@
     </v-content>
   </v-app>
 </template>
-<script>
+<script>  
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
+        // { text: 'Actions', value: 'actions', sortable: false },
       headers: [
         {
           text: 'Actions',
@@ -166,7 +171,7 @@
           { text: 'IP address', value: 'ipaddval' },
            { text: 'Commited By', value: 'commitby' },
         { text: 'Date Added', value: 'dateadded' },
-        { text: 'Actions', value: 'actions', sortable: false },
+      
       ],
       ActivityLogsdate: [],
       editedIndex: -1,

@@ -15,9 +15,10 @@ class section extends Model
         'section_code', 
         'subject_code',
         'evaluator_id',
-        'profId',
-        'semester',
-        'year',
+        'employee_id',
+        'publish',
+        'semesterDescription',
+        'yearDescription'
     ];
     protected $table = 'section';
 

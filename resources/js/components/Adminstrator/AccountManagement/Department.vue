@@ -49,8 +49,8 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    sm="12"
+                    md="12"
                   >
                     <v-text-field
                       v-model="editedItem.deptAcronym"
@@ -59,24 +59,15 @@
                   </v-col>
                           <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    sm="12"
+                    md="12"
                   >
                     <v-text-field
-                      v-model="editedItem.courseName"
+                      v-model="editedItem.dept_description"
                       label="Course Name"
                     ></v-text-field>
                   </v-col>
-                          <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.created_at"
-                      label="Date Added"
-                    ></v-text-field>
-                  </v-col>
+       
      
                 </v-row>
               </v-container>
@@ -169,19 +160,19 @@ import axios from 'axios';
       editedIndex: -1,
       editedItem: {
         deptAcronym: '',
-        courseName: '',
-        created_at: '',
+        dept_description: '',
+        created_at: Date.now(),
       },
       defaultItem: {
         deptAcronym: '',
-        courseName: '',
-        created_at: '',
+        dept_description: '',
+       created_at: Date.now(),
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Department' : 'Edit Department'
       },
     },
 
@@ -222,7 +213,9 @@ import axios from 'axios';
         method: "post",
         url: "http://localhost:8080/evaluation-system/public/api/department",
         data: {
-
+         deptAcronym: params.deptAcronym,
+         dept_description: params.dept_description,
+         courseName: 'BSIT'
         },
       });
 

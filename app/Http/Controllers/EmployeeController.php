@@ -45,6 +45,7 @@ class EmployeeController extends Controller
         $employee = new employee([
             'employee_id' => $request->get('employee_id'),
             'firstname' => $request->get('firstname'),
+            'email' => $request->get('email'),
             'lastname' => $request->get('lastname'),
             'user_type_id' => $request->get('user_type_id'),
         ]);

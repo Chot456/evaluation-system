@@ -29,12 +29,12 @@ class SectionController extends Controller
         ]);
 
         $section = new section([
-            'section_code' => $request->get('section'),
-            'subject_code' => $request->get('subject_code'),
+            'section_code' => $request->get('section_code'),
+            'subjCode' => $request->get('subjCode'),
             'evaluator_id' => $request->get('evaluator_id'),
-            'profId' => $request->get('profId'),
-            'semester' => $request->get('semester'),
-            'year' => $request->get('year')
+            'employee_id' => $request->get('employee_id'),
+            'semesterDescription' => $request->get('semesterDescription'),
+            'yearDescription' => $request->get('yearDescription')
         ]);
 
         $section->save();
@@ -86,14 +86,28 @@ class SectionController extends Controller
     {
         $section = section::findOrFail($id);
         $section->section_code = $request->section_code;
-        $section->subject_code = $request->subject_code;
+        $section->subjCode = $request->subjCode;
         $section->evaluator_id = $request->evaluator_id;
-        $section->profId = $request->profId;
-        $section->semester = $request->semester;
-        $section->year = $request->year;
+        $section->employee_id = $request->employee_id;
+        $section->semesterDescription = $request->semesterDescription;
+        $section->yearDescription = $request->yearDescription;
 
         if($section->save()) {
-            return response()->json($questionaire, 201);
+            return response()->json($section, 201);
+        }
+    }
+
+    /**
+     * update publish only
+     * 
+     */
+    public function updatePublish(Request $request, $id)
+    {
+        $section = section::findOrFail($id);
+        $section->publish = $request->publish;
+
+        if($section->save()) {
+            return response()->json($section, 201);
         }
     }
 

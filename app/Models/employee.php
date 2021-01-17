@@ -16,6 +16,7 @@ class employee extends Model
         'employee_id',
         'firstname',
         'lastname',
+        'email',
         'user_type_id',
     ];
 

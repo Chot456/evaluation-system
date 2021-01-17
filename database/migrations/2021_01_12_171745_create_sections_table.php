@@ -15,16 +15,17 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('section', function (Blueprint $table) {
             $table->id();
-            $table->string('section_code');
-            $table->string('subjCode');
+            $table->string('section_code')->nullable();
+            $table->string('subjCode')->nullable();
             $table->foreign('subjCode')->references('subjCode')->on('subject')->onDelete('cascade');
-            $table->unsignedBigInteger('evaluator_id');
+            $table->unsignedBigInteger('evaluator_id')->nullable();
             $table->foreign('evaluator_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->foreign('employee_id')->references('id')->on('employee');
-            $table->string('semesterDescription');
+            $table->string('publish')->nullable();
+            $table->string('semesterDescription')->nullable();
             $table->foreign('semesterDescription')->references('semesterDescription')->on('semester')->onDelete('cascade');
-            $table->string('yearDescription');
+            $table->string('yearDescription')->nullable();
             $table->foreign('yearDescription')->references('yearDescription')->on('year')->onDelete('cascade');
             $table->timestamps();
         });

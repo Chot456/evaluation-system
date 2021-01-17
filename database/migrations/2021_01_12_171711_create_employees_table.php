@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
-            $table->string('user_id');
+            $table->string('user_id');->nullable();
             $table->unsignedBigInteger('user_type_id');
             $table->foreign('user_type_id')->references('id')->on('user_type');
             $table->timestamps();

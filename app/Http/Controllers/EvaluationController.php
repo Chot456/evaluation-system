@@ -19,6 +19,7 @@ class EvaluationController extends Controller
         return DB::table('evaluation')
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->where('evaluation.publish','yes')
         ->get();
     }
 
@@ -47,7 +48,7 @@ class EvaluationController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+        *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -55,7 +56,7 @@ class EvaluationController extends Controller
     {
         $request->validate([
             'evaluatorId'=>'required',
-            'employee_id'=>'required',
+            'employee_id'=>'required'
         ]);
 
         
@@ -108,6 +109,22 @@ class EvaluationController extends Controller
         ->select('*')
         ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
         ->where('evaluation.id', $id)
+        ->get();
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function getEvaluationByEmployeeId($id)
+    {
+        // return evaluation::findOrFail($id);
+        return  DB::table('evaluation')
+        ->select('evaluation.id','evaluation.evaluatorId','evaluation.remarks', 'evaluation.publish'
+          ,'evaluation.a1','evaluation.a2','evaluation.a3','evaluation.a4','evaluation.a5')
+        ->join('employee', 'evaluation.employee_id', '=', 'employee.id')
+        ->leftjoin('subject', 'employee.employee_id', '=', 'employee.id')
+        ->where('evaluation.employee_id', $id)
         ->get();
     }
 

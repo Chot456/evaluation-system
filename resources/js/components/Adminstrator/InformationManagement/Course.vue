@@ -135,12 +135,12 @@ export default {
     editedItem: {
       courseAcronym: "",
       courseDescription: "",
-      created_at: "",
+    created_at: Date.now(),
     },
     defaultItem: {
       courseAcronym: "",
       courseDescription: "",
-      created_at: "",
+        created_at: Date.now(),
     },
   }),
 
@@ -185,14 +185,13 @@ export default {
 
     addcourse(params) {
       console.log(params);
-      debugger;
+
       axios({
         method: "post",
         url: "http://localhost:8080/evaluation-system/public/api/course",
         data: {
           courseAcronym: params.courseAcronym,
-          courseDescription: params.coursedescription,
-          created_at: Date.now(),
+          courseDescription: params.courseDescription 
         },
       });
     },

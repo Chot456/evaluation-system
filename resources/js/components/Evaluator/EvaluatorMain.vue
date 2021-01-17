@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content style="background-color: #eef1f6">
-      <v-card class="mx-auto mt-10" max-width="1300">
+      <v-card class="mx-auto mt-10" max-width="1200">
         <v-container fluid>
           <v-row class="fill-height">
             <v-col>
@@ -23,13 +23,14 @@
               </div>
               </div>
            
-                 <div v-else> Professor Name:     {{
+                 <div v-else> Professor Name: {{
                   evalinfo.firstname +
                   " " +
                   evalinfo.lastname
-                }} </div>
+                }}
+                 </div>
                                 <div>
-                Course: {{ evalinfo.courseDescription }} 
+                Role: {{ evalinfo.roles }} 
               </div>
                    <div>
               </div>
@@ -67,7 +68,7 @@
                 <div>
                   Role: {{ profdata.userTypeDescription }}
                 </div>
-                <div> Professor Name;{{ profdata.firstname }} {{ profdata.lastname }}</div>
+                <div> Professor Name: {{ profdata.firstname }} {{ profdata.lastname }}</div>
               </v-col>
               <v-col>
 
@@ -124,7 +125,7 @@ export default {
 
       // var snum = JSON.stringify({ snum :  "PH20080105"});
      
-      let config = {
+      let config = {  
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };
       
@@ -152,7 +153,7 @@ export default {
 
     getstudrecordbyid: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});
-      debugger;
+        
 
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -177,7 +178,7 @@ export default {
 
     getprofevaluate: function () {
       // var snum = JSON.stringify({ snum :  "PH20080105"});
-  debugger;
+    
       let config = {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       };

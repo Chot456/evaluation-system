@@ -15,6 +15,8 @@ class student extends Model
         'studId',
         'firstName', 
         'lastName', 
+        'user_id',
+        'semesterDescription',
         'yearDescription',
         'courseDescription'
     ];
