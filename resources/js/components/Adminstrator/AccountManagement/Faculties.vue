@@ -163,7 +163,6 @@
         },
         { text: 'Name', value: 'firstname'  },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       Facultiesdata: [],
       editedIndex: -1,

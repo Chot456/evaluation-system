@@ -20,7 +20,7 @@
             </v-btn>
           <v-row class="fill-height">
             <v-col>
-              <transition name="fade">
+              <transition name="fade" id="divPrint">
                 <v-data-table
                   :headers="headers"
                   :items="evaluationData"
@@ -59,7 +59,7 @@
                             <v-text-field
                               v-model="instructorFilterValue"
                               type="text"
-                              label="Instructor"
+                              label="Instructor ID"
                             ></v-text-field>
                           </v-row>
                         </v-col>
@@ -85,6 +85,9 @@
                   <template v-slot:no-data>
                     <v-btn color="primary" @click="initialize"> Reset </v-btn>
                   </template>
+                      <template v-slot:item.instrucname="{ item }">
+        <div>{{ item.firstname}} {{ item.lastname }} </div>
+    </template>
                 </v-data-table>
               </transition>
             </v-col>
@@ -136,7 +139,7 @@ export default {
         },
         {
           text: "Instructor",
-          value: "firstname",
+          value: "instrucname",
         },
         { text: "Publish", value: "publish" },
         { text: "Report", value: "report" },
@@ -152,8 +155,9 @@ export default {
   methods: {
 
     routeComputation(params){
+      debugger;
       this.$router.push({ name: 'ViewComputations',
-      params: { empid: params.id },
+      params: { empid: params.id, firstname: params.firstname, lastname: params.firstname },
         props: true });
     
     },
@@ -161,12 +165,25 @@ export default {
     routeComments(params){
       debugger;
          this.$router.push({ name: 'ViewComments',
-      params: { empid: params.id },
+       params: { empid: params.id, firstname: params.firstname, lastname: params.firstname },
         props: true });
     },
 
          print() {
-                window.print()
+    const modal = document.getElementById("divPrint")
+  const cloned = modal.cloneNode(true)
+  let section = document.getElementById("print")
+
+  if (!section) {
+     section  = document.createElement("div")
+     section.id = "print"
+     document.body.appendChild(section)
+  }
+
+  section.innerHTML = "";
+  section.appendChild(cloned);
+  window.print();
+  
        },
     /**
      * Filter for dessert names column.

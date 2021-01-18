@@ -22,7 +22,9 @@ Route::apiResource('department', 'App\Http\Controllers\DepartmentController');
 Route::apiResource('activityLog', 'App\Http\Controllers\ActivityLogController');
 Route::apiResource('questionaire', 'App\Http\Controllers\QuestionaireController');
 Route::apiResource('questionaireCategory', 'App\Http\Controllers\QuestionaireCategoryController');
+
 Route::get('questionaire/userType/{id}', 'App\Http\Controllers\QuestionaireController@getQuestionaireByUserType');
+Route::get('questionaire/category/{category_id}', 'App\Http\Controllers\QuestionaireController@getQuestionByCategory');
 
 
 // Evaluation Routes

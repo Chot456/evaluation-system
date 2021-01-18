@@ -135,8 +135,11 @@
           <v-data-table
             :headers="headers"
             :items="questiondata"
-            class="elevation-1"
+           :single-expand="singleExpand"
+            :expanded.sync="expanded"
             item-key="name"
+            show-expand
+            class="elevation-1"
           >
             <template v-slot:item.Answer="{ item }">
               <v-text-field
@@ -343,4 +346,3 @@ export default {
   },
 };
 </script>
-  

@@ -138,7 +138,6 @@ import axios from 'axios';
         },
         { text: 'Queston', value: 'questionDescription' },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       questiondata: [],
       editedIndex: -1,

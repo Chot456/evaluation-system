@@ -9,17 +9,33 @@
 
           <v-spacer></v-spacer>
         </v-toolbar>
-        <v-container fluid>
+        <v-container fluid id="divPrint">
 
           <v-row class="fill-height">
             <v-col>
+                                        <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+              @click="print"
+            >
+              Print
+            </v-btn>
+                  Instructor Name:    {{this.$route.params.firstname   }} 
+          {{this.$route.params.lastname}}
               <transition name="fade">
      <v-data-table
     :headers="headers"
     :items="computationData"
     :items-per-page="5"
     class="elevation-1"
-  ></v-data-table>
+  >
+                        <template v-slot:item.Average="{ item }">
+        <div> {{ item.a1 + item.a2 + item.a3 + item.a4 / 4 }} </div>
+    </template>
+  </v-data-table>
               </transition>
             </v-col>
           </v-row>
@@ -37,10 +53,31 @@ import axios from "axios";
      this.getEvaluation();
     
     },
-             print() {
-                window.print()
-       },
+   
     methods: {
+
+        calcAverage: function (e) {
+            //calculate the average of sub grades
+            //change Grade avg to show this
+        },
+
+
+                   print() {
+               const modal = document.getElementById("divPrint")
+  const cloned = modal.cloneNode(true)
+  let section = document.getElementById("print")
+
+  if (!section) {
+     section  = document.createElement("div")
+     section.id = "print"
+     document.body.appendChild(section)
+  }
+
+  section.innerHTML = "";
+  section.appendChild(cloned);
+  window.print();
+       },
+
     getEvaluation: function () {
       
       debugger;
@@ -66,6 +103,8 @@ import axios from "axios";
     data () {
       return {
         props: ["empid"],
+        props: ["firstname"],
+        props: ["lastname"],
         employid : "",
         computationData: [],
         headers: [
@@ -78,8 +117,7 @@ import axios from "axios";
           { text: 'Knowledge', value: 'a2' },
           { text: 'Teaching for independent Learning', value: 'a3' },
           { text: 'Management learning', value: 'a4' },
-          { text: 'Section', value: 'a5' },
-          { text: 'Subject', value: 'a6' },
+          { text: 'Average', value: 'Average'}
         ],
  
       }

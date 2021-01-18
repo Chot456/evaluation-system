@@ -157,8 +157,6 @@ import axios from 'axios';
         { text: 'Subject Name', value: 'subjDesc' },
 
         { text: 'Date Added', value: 'created_at' },
-
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       subjectdata: [],
       editedIndex: -1,

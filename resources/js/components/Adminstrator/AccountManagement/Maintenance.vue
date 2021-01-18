@@ -171,7 +171,6 @@
         { text: 'Name', value: 'name' },
          { text: 'Role', value: 'roles' },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       maintenancedata: [],
       editedIndex: -1,

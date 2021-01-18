@@ -121,7 +121,7 @@ export default {
         value: "questionCategoryDesc",
       },
       { text: "Date Added", value: "created_at" },
-      { text: "Actions", value: "actions", sortable: false },
+
     ],
     categoriesdata: [],
     editedIndex: -1,

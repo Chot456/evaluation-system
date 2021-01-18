@@ -63,7 +63,7 @@ class QuestionaireCategoryController extends Controller
      *
      * @param  \App\Models\questionaireCategory  $questionaireCategory
      * @return \Illuminate\Http\Response
-     */
+         */
     public function edit(questionaireCategory $questionaireCategory)
     {
         //

@@ -176,7 +176,6 @@
         },
         { text: 'Student Name', value: 'studname' },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       studentsdata: [],
       editedIndex: -1,

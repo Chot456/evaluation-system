@@ -109,4 +109,9 @@ class QuestionaireController extends Controller
 
         return questionaire::where('userTypeId', $userTypeId)->get();
     }
+
+    public function getQuestionByCategory($category_id) {
+
+        return questionaire::where('questionCategoryId', $category_id)->get();
+    }
 }

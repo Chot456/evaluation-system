@@ -98,12 +98,15 @@ class StudentController extends Controller
         //'evaluation.id as evalid',
         //'section.id'
         $res = DB::table('section')
-        ->select('section.id as evalid','section.id','employee.user_type_id','employee.id as empid'  ,'section.section_code', 'section.evaluator_id', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
+        ->select('section.id as evalid','section.dept_id','section.id','employee.user_type_id','employee.id as empid'  ,'section.section_code', 'section.evaluator_id', 'section.subjCode', 'employee.user_type_id', 'employee.firstname', 'employee.lastname', 'user_type.userTypeDescription') 
         ->join('employee', 'employee.id', '=', 'section.employee_id')
         ->leftjoin('user_type', 'user_type.id', '=', 'employee.user_type_id')
         //->leftjoin('evaluation', 'evaluation.employee_id', '=', 'section.employee_id')
+        ->leftjoin('department','department.id','=','section.dept_id')
         ->where('section.evaluator_id', $id)
         ->where('section.publish', '!=', 'yes')
+        ->where('section.dept_id','=','1')
+        
         //->where('user_type.id', '!=', $studtype)
         ->where('user_type.userTypeDescription', '=' , 'teacher')
        //->where('employee.user_type_id', '=' , 2 )

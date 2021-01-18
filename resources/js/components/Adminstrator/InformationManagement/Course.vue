@@ -128,7 +128,7 @@ export default {
       },
       { text: "Course Name", value: "courseDescription" },
       { text: "Date Added", value: "created_at" },
-      { text: "Actions", value: "actions", sortable: false },
+
     ],
     coursedata: [],
     editedIndex: -1,

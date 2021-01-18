@@ -2,7 +2,7 @@
   <v-app>
     <v-content style="background-color: #eef1f6">
       <v-card class="mx-auto mt-10" max-width="1300">
-        <v-toolbar color="main" dark>
+        <v-toolbar color="main" dark id="divPrint">
       
 
           <v-toolbar-title>View Comments</v-toolbar-title>
@@ -12,6 +12,7 @@
         <v-container fluid>
 
           <v-row class="fill-height">
+               
             <v-col>
                             <v-btn
               color="primary"
@@ -23,6 +24,8 @@
             >
               Print
             </v-btn>
+              Instructor Name:    {{this.$route.params.firstname   }} 
+          {{this.$route.params.lastname}}
               <transition name="fade">
      <v-data-table
     :headers="headers"
@@ -70,12 +73,26 @@ import axios from "axios";
 
 
              print() {
-                window.print()
+                        const modal = document.getElementById("divPrint")
+  const cloned = modal.cloneNode(true)
+  let section = document.getElementById("print")
+
+  if (!section) {
+     section  = document.createElement("div")
+     section.id = "print"
+     document.body.appendChild(section)
+  }
+
+  section.innerHTML = "";
+  section.appendChild(cloned);
+  window.print();
        },
 
     data () {
       return {
         props: ["empid"],
+        props: ["firstname"],
+        props: ["lastname"],
         employid : "",
         commentsData: [],
         headers: [

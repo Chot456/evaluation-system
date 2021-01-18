@@ -154,7 +154,6 @@ import axios from 'axios';
         },
         { text: 'Department Name', value: 'dept_description' },
         { text: 'Date Added', value: 'created_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       Departmentdata: [],
       editedIndex: -1,
