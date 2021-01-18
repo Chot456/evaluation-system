@@ -14,13 +14,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-       'trustHost' => \App\Http\Middleware\TrustHosts::class,
+       // 'isLogged' => \App\Http\Middleware\authCheck::class,
+        'trustHost' => \App\Http\Middleware\TrustHosts::class,
         'trustProxies' => \App\Http\Middleware\TrustProxies::class,
         'handleCors' =>\Fruitcake\Cors\HandleCors::class,
         'helmet' => \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         'maintenance' => \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         'gulog' => \App\Http\Middleware\TrimStrings::class,
         'yom' => \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        
     ];
 
     /**

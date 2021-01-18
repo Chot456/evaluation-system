@@ -34,8 +34,15 @@ Route::post('check', [UserAuthController::class, 'check'])->name('auth.check');
 
 
 // Auth::routes();
+// Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('isLogged');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home')->middleware('isLogged');
+Route::get('/home', function(){
+    if (!session()->has('LoggedUser')) {
+        return view('auth.user-login');
+    }
+    return view('spa');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('auth.home');
 Route::get('/getSession', function() {
     return session('LoggedUser');   
 });

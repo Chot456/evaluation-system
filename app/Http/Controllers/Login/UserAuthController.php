@@ -84,8 +84,8 @@ class UserAuthController extends Controller
     public function logOut() {
         if (session()->has('LoggedUser')) {
             session()->pull('LoggedUser');
-            return redirect('userLogin');
+            return view('auth.user-login');
         }
-        return redirect('userLogin');
+        return view('auth.user-login');
     }
 }

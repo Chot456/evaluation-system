@@ -53,9 +53,15 @@ export default {
     items: [{ title: "Logout", link: "/logout" }],
   }),
 
+<<<<<<< HEAD
 methods: {
     logout() {
       window.location = "http://localhost:8080/evaluation-system/public/logout";
+=======
+  methods: {
+    logout() {
+      window.location = "http://localhost/Laravue-spa-template/public/logout";
+>>>>>>> 0d347bb2a466bb72e39ce28780b444f184ccfaff
     },
   },
 };
